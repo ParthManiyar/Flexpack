@@ -3,9 +3,10 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('api/register', views.Register),
+    path('register/', views.Register),
     path('login/', views.Login),
     path('signup/', views.Signup),
     path('home/',views.home),
-
+    path('verify/',views.LoginAPI.as_view()),
+    path('google/callback/login/',views.google_authentication)
 ]

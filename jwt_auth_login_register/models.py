@@ -1,38 +1,26 @@
 from django.db import models
-from django.contrib.auth.models import User
 import uuid
 
-def get_uuid():
-    return str(uuid.uuid4())
-
 class Role(models.Model):
-
-    id = models.CharField(max_length=100,default = "", editable=False, primary_key=True)
+    id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False) 
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.uuid
-        
+        return self.name
     
+class User(models.Model):
+    id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False)
+    username = models.CharField(max_length=50)
+    first_name = models.CharField(max_length = 50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=254,unique=True) 
+    password = models.CharField( max_length=128,null = True)
+    provider = models.CharField(max_length=50,null=True)
+    role = models.ForeignKey(Role,on_delete=models.CASCADE, null = True)
 
 
-class CustomUser(User):
 
-    class Meta:
-        verbose_name = "CustomUser"
-        verbose_name_plural = "CustomUsers"
 
-    
-    uuid = models.CharField(max_length=100,default = "", editable=False)
-    role = models.ForeignKey(Role,on_delete=models.CASCADE,blank=True,null=True)
-
-    def __str__(self):
-        return self.username
-
-    def save(self, *args, **kwargs):
-        if self.pk==None:
-            self.uuid = get_uuid()
-        super(CustomUser, self).save(*args, **kwargs)
 
 
 

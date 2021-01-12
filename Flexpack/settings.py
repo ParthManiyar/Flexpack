@@ -39,11 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'rest_framework',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
     'jwt_auth_login_register',
 ]
 
@@ -138,9 +133,10 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/images/')
-
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = "/account/home"
+GOOGLE_CLIENT_ID = "970097091394-05oh9uoks4cgg40kvl1n0o8c8hhl5mec.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET = "GcO4jHt_7W8LYJ-zmE9itiZN"
+REDIRECT_URL = "http://127.0.0.1:8000/app/google/callback/login/"
+
