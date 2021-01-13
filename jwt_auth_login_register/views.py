@@ -8,6 +8,22 @@ from passlib.hash import pbkdf2_sha256
 import datetime
 import requests
 from Flexpack import settings
+from random import choice
+from string import ascii_lowercase, digits
+
+
+def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, delimiter='-'):
+    
+    username = ''.join([choice(chars) for i in range(length)])
+    
+    if split:
+        username = delimiter.join([username[start:start+split] for start in range(0, len(username), split)])
+    
+    try:
+        User.objects.get(username=username)
+        return generate_random_username(length=length, chars=chars, split=split, delimiter=delimiter)
+    except User.DoesNotExist:
+        return username;
 
 def get_google_access_token(auth_code):
     url = 'https://oauth2.googleapis.com/token'
@@ -30,6 +46,19 @@ def fetch_user_details_google(access_token):
     response = json.loads(response.text)
     return response
 
+
+def refersh_google_access_token(refersh_token):
+    url = 'https://oauth2.googleapis.com/token'
+    payload={}
+    payload['client_id'] = settings.GOOGLE_CLIENT_ID
+    payload['client_secret'] = settings.GOOGLE_CLIENT_SECRET
+    payload['grant_type']='refresh_token'
+    payload['refresh_token'] = refersh_token
+    headers = {'content-type': 'application/x-www-form-urlencoded'}
+    response = requests.post(url, data = payload,headers = headers)
+    oauth_details = json.loads(response.text)
+    return oauth_details
+
 def get_access_token_for_first_time(payload):
     payload["exp"]= datetime.datetime.utcnow() + datetime.timedelta(seconds=3600)
     oauth_details={}
@@ -50,18 +79,6 @@ def check_expiry(token):
         return True
     else:
         return False
-
-def refersh_google_access_token(refersh_token):
-    url = 'https://oauth2.googleapis.com/token'
-    payload={}
-    payload['client_id'] = settings.GOOGLE_CLIENT_ID
-    payload['client_secret'] = settings.GOOGLE_CLIENT_SECRET
-    payload['grant_type']='refresh_token'
-    payload['refresh_token'] = refersh_token
-    headers = {'content-type': 'application/x-www-form-urlencoded'}
-    response = requests.post(url, data = payload,headers = headers)
-    oauth_details = json.loads(response.text)
-    return oauth_details
 
 
 def Login(request):
@@ -84,8 +101,8 @@ def google_authentication(request):
         user['email'] = response['email']
         user['provider'] = 'google'
         user['role'] = Role.objects.get(name = "End user").id
-        user['password']=""
-        user['username']=response['email'].split('@')[0]
+        user['password']=None
+        user['username']=response['email'].split('@')[0]+"_"+generate_random_username()
         serializer = RegisterSerializer(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
