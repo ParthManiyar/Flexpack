@@ -1,13 +1,13 @@
 # Flexpack
-Sign-up 
+Sign-up \
 Sign up will contain your: 
-Username
-First Name
-Last Name
-Email-id
-Password 
+Username\
+First Name\
+Last Name\
+Email-id\
+Password
 
-Login  
+Login 
 Login will contain: 
-Username
+Username\
 Password
