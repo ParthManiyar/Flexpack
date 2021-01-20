@@ -129,7 +129,8 @@
     			"last_name":$("#lastName").val(),
     			"email":$("#email").val(),
     			"username":$("#username").val(),
-    			"password":$("#password").val(),
+				"password":$("#password").val(),
+				"csrfmiddlewaretoken" : "{{ csrf_token }}"
 			  },
 			  success: function(response) {
 				  $("#message").html("Account created successfully!!");
@@ -162,7 +163,7 @@
 <!--===============================================================================================-->
 	<script src="{%static 'vendor/countdowntime/countdowntime.js'%}"></script>
 <!--===============================================================================================-->
-	<script src="{%static 'js/main.js'%}"></script>
+	<script src="{%static 'js/main.js' %}"></script>
 
 </body>
 </html>

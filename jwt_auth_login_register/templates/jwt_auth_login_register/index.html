@@ -7,12 +7,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="{%static 'images/icons/favicon.ico'%}"/>
+	<link rel="shortcut icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
 	<!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{%static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{%static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{%static 'fonts/iconic/css/material-design-iconic-font.min.css'%}">
 <!--===============================================================================================-->
@@ -84,9 +84,6 @@
 						</a>
 					</div>
 					
-						
-					
-
 					<div class="txt1 text-center p-t-35 p-b-20">
 						<span>
 							Or Sign Up Using
@@ -104,11 +101,7 @@
 		</div>
 	</div>
 	
-
-
 	<div id="dropDownSelect1"></div>
-
-	
 	
 <!--===============================================================================================-->
 	<script src="{%static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
@@ -143,9 +136,10 @@
 			  data: {
 				"username" : $("#username_login_id").val() ,
 				"password" : $("#password_login_id").val() ,
+				"csrfmiddlewaretoken" : "{{ csrf_token }}",
 			  },
 			  success: function(response) {
-				  window.location.pathname = '/app/home';
+				   window.location.pathname = '/app/home';
 			  },
 			  error: function(xhr, a, b)
 			  {
@@ -159,8 +153,6 @@
 		}
 	
 	  </script>
-
-	
 
 </body>
 </html>

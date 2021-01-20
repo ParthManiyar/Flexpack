@@ -1,85 +1,13 @@
 from django.shortcuts import redirect, render
+from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
-import jwt,json
 from .models import User,Role
 from .serializer import RegisterSerializer
 from passlib.hash import pbkdf2_sha256
-import datetime
-import requests
-from Flexpack import settings
-from random import choice
-from string import ascii_lowercase, digits
-
-
-def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, delimiter='-'):
-    
-    username = ''.join([choice(chars) for i in range(length)])
-    
-    if split:
-        username = delimiter.join([username[start:start+split] for start in range(0, len(username), split)])
-    
-    try:
-        User.objects.get(username=username)
-        return generate_random_username(length=length, chars=chars, split=split, delimiter=delimiter)
-    except User.DoesNotExist:
-        return username;
-
-def get_google_access_token(auth_code):
-    url = 'https://oauth2.googleapis.com/token'
-    payload={}
-    payload['code'] = auth_code
-    payload['redirect_uri'] = settings.REDIRECT_URL
-    payload['client_id'] = settings.GOOGLE_CLIENT_ID
-    payload['client_secret'] = settings.GOOGLE_CLIENT_SECRET
-    payload['scope']=''
-    payload['grant_type']='authorization_code'
-    headers = {'content-type': 'application/x-www-form-urlencoded'}
-    response = requests.post(url, data = payload,headers = headers)
-    oauth_details = json.loads(response.text)
-    return oauth_details
-
-def fetch_user_details_google(access_token):
-    user_url = "https://www.googleapis.com/userinfo/v2/me"
-    headers = {"Authorization": "Bearer "+access_token }
-    response = requests.get(user_url,headers=headers)
-    response = json.loads(response.text)
-    return response
-
-
-def refersh_google_access_token(refersh_token):
-    url = 'https://oauth2.googleapis.com/token'
-    payload={}
-    payload['client_id'] = settings.GOOGLE_CLIENT_ID
-    payload['client_secret'] = settings.GOOGLE_CLIENT_SECRET
-    payload['grant_type']='refresh_token'
-    payload['refresh_token'] = refersh_token
-    headers = {'content-type': 'application/x-www-form-urlencoded'}
-    response = requests.post(url, data = payload,headers = headers)
-    oauth_details = json.loads(response.text)
-    return oauth_details
-
-def get_access_token_for_first_time(payload):
-    payload["exp"]= datetime.datetime.utcnow() + datetime.timedelta(seconds=3600)
-    oauth_details={}
-    oauth_details['access_token']= jwt.encode(payload, "SECRET_KEY",algorithm="HS256")
-    payload['exp'] = datetime.datetime.utcnow() + datetime.timedelta(days=7)
-    oauth_details['refersh_token'] = jwt.encode(payload, "SECRET_KEY",algorithm="HS256")
-    return oauth_details
-
-def get_access_token_from_refersh_token(refersh_token):
-    payload  = jwt.decode(refersh_token,"SECRET_KEY",algorithm="HS256")
-    payload['exp'] = datetime.datetime.utcnow() + datetime.timedelta(seconds=3600)
-    access_token = jwt.encode(payload,"SECRET_KEY",algorithm="HS256")
-    return access_token
-
-def check_expiry(token):
-    payload  = jwt.decode(token,"SECRET_KEY",algorithm="HS256")
-    if(payload['exp'] < datetime.datetime.utcnow()):
-        return True
-    else:
-        return False
-
+from .utils import generate_random_username
+from .google_authentication import Google_Authentication
+from .token import Token
 
 def Login(request):
     return render(request,'jwt_auth_login_register/index.html')
@@ -89,12 +17,14 @@ def Signup(request):
 
 def home(request):
     return render(request,'jwt_auth_login_register/home.html')
+   
 
 def google_authentication(request):
     auth_code = request.GET.get('code')
-    oauth_details = get_google_access_token(auth_code)
-    response = fetch_user_details_google(oauth_details['access_token'])
-    try:
+    google = Google_Authentication()
+    oauth_details = google.get_google_access_token(auth_code)
+    response = google.fetch_user_details_google(oauth_details['access_token'])
+    if(not User.objects.filter(email = response['email']).exists()):
         user={}
         user['first_name'] = response['given_name']
         user['last_name'] = response['family_name']
@@ -106,9 +36,13 @@ def google_authentication(request):
         serializer = RegisterSerializer(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-    except Exception as e:
-        print(e)
-    return redirect('/app/home/')
+
+    payload={"email":response['email']}   
+    tok  = Token()
+    token = tok.get_access_token_for_first_time(payload)
+    return redirect("/app/home/")
+   
+    
 class CreateUserAPIView(APIView):
     def post(self, request):
         user = request.data
@@ -158,7 +92,7 @@ class LoginAPI(APIView):
 
         if user:
             payload={"email":user.email}
-            oauth_details = get_access_token_for_first_time(payload)
+            oauth_details = Token.get_access_token_for_first_time(self,payload)
             return Response(
               oauth_details,
               status=200,
@@ -167,7 +101,7 @@ class LoginAPI(APIView):
 
         else:
             return Response(
-              json.dumps({'Error': "Invalid credentials"}),
+              {'Error': "Invalid credentials"},
               status=400,
               content_type="application/json"
             )

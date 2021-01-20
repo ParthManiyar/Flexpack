@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i!%+ec)n)k2*us2d16p1wgq5s8@&7!3lbwy_3=#)ajn+4on@l3'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -37,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'rest_framework',
     'jwt_auth_login_register',
 ]
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'jwt_auth_login_register.middleware.LoginRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'Flexpack.urls'
@@ -78,20 +82,15 @@ WSGI_APPLICATION = 'Flexpack.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'flexpack',
-        'USER': 'postgres',
-        'PASSWORD': 'Phm@1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': config('ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT': config('PORT'),
     }
 }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-     ],
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -130,13 +129,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/images/'
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-MEDIA_ROOT=os.path.join(BASE_DIR,'static/images/')
-SITE_ID = 1
 
-GOOGLE_CLIENT_ID = "970097091394-05oh9uoks4cgg40kvl1n0o8c8hhl5mec.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = "GcO4jHt_7W8LYJ-zmE9itiZN"
-REDIRECT_URL = "http://127.0.0.1:8000/app/google/callback/login/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
+
+GOOGLE_CLIENT_ID = config("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = config("GOOGLE_CLIENT_SECRET")
+REDIRECT_URL = config("REDIRECT_URL")
+
+LOGIN_EXEMPT_URLS=(
+    r'^app/login/',
+    r'^app/signup/',
+    r'^app/verify/',
+    r'^app/register/',
+    r'^app/google/callback/login/',
+    r'^admin/',
+    r'^app/home/'
+)
