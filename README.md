@@ -8,6 +8,6 @@ Email-id\
 Password
 
 Login \
-Login will contain: 
+Login will contain: \
 Username\
 Password
