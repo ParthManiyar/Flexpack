@@ -2,7 +2,7 @@
 
 ## Sign-up
 
-Sign up will contain your:
+Sign up contains:
 
 - Username
 - First Name
@@ -12,7 +12,7 @@ Sign up will contain your:
 
 ## Login
 
-Login will contain:
+Login contains:
 
 - Username
 - Password
