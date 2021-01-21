@@ -8,5 +8,6 @@ urlpatterns = [
     path('signup/', views.Signup),
     path('home/',views.home),
     path('verify/',views.LoginAPI.as_view()),
-    path('google/callback/login/',views.google_authentication)
+    path('google/callback/login/',views.google_authentication),
+    path('validateToken/',views.ValidateTokenAPI.as_view())
 ]

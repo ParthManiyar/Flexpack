@@ -95,8 +95,6 @@
 							Sign Up
 						</a>
 					</div>
-
-					
 			</div>
 		</div>
 	</div>
@@ -128,8 +126,6 @@
 	
 		function login_submit()
 		{
-			
-	
 		 $.ajax({
 			  url: "/app/verify/",
 			  type: "POST",
@@ -139,6 +135,8 @@
 				"csrfmiddlewaretoken" : "{{ csrf_token }}",
 			  },
 			  success: function(response) {
+				   window.localStorage.setItem("access_token", response['access_token']);
+				   window.localStorage.setItem("refresh_token", response['refersh_token']);
 				   window.location.pathname = '/app/home';
 			  },
 			  error: function(xhr, a, b)

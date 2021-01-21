@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'jwt_auth_login_register.middleware.LoginRequiredMiddleware'
+    #'jwt_auth_login_register.middleware.LoginRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'Flexpack.urls'

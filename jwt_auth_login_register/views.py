@@ -39,8 +39,8 @@ def google_authentication(request):
 
     payload={"email":response['email']}   
     tok  = Token()
-    token = tok.get_access_token_for_first_time(payload)
-    return redirect("/app/home/")
+    token = tok.get_access_token_for_first_time(payload,3600,7)
+    return render(request,'jwt_auth_login_register/callback.html',token)
    
     
 class CreateUserAPIView(APIView):
@@ -92,7 +92,7 @@ class LoginAPI(APIView):
 
         if user:
             payload={"email":user.email}
-            oauth_details = Token.get_access_token_for_first_time(self,payload)
+            oauth_details = Token.get_access_token_for_first_time(self,payload,3600,7)
             return Response(
               oauth_details,
               status=200,
@@ -105,4 +105,22 @@ class LoginAPI(APIView):
               status=400,
               content_type="application/json"
             )
+
+class ValidateTokenAPI(APIView):
+    def post(self, request, *args, **kwargs):
+        val  = Token()
+        access_token = request.data['access_token']
+        response = {}
+        status = 200
+        content_type="application/json"
+        try:
+            val.validate_access_token(access_token)
+            response['Validation'] = "Success"
+        except Exception as e:
+            status = 401
+            response['Validation '] = "Failed"
+            response['message'] = str(e)
+
+        return Response(response,status = status,content_type = content_type)
+
 

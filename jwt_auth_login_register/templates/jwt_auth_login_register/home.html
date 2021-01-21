@@ -2,11 +2,40 @@
 
 <html>
     <head>
-
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
 
     <body>
         <h1>Welcome</h1>
     </body>
+
+    <script type="text/javascript">
+        function validateToken()
+        {
+            access_token = window.localStorage.getItem("access_token");
+            if(access_token==null)
+                window.location.pathname = '/app/login';
+            else{
+                $.ajax({
+                    url: "/app/validateToken/",
+                    type: "POST",
+                    data: {
+                        "csrfmiddlewaretoken" : "{{ csrf_token }}",
+                        "access_token":access_token,
+                    },
+                    success: function(response) {
+                        
+                    },
+                    error: function(xhr, a, b)
+                    {
+                        window.location.pathname = '/app/login';
+                    }
+                });
+            }
+                
+        }
+        window.onpaint = validateToken();
+    </script>
 
 </html>
