@@ -1,0 +1,74 @@
+/* misc body stuff */
+body
+{
+	overflow-x: hidden;
+	padding: 1em 1em 1em 1em;
+}
+
+/* make every link under navbar have the pointer cursor */
+.navbar a
+{
+	cursor: pointer;
+}
+
+/* to center a bootstrap column */
+.col-centered
+{
+	float: none;
+	margin: 0 auto;
+}
+
+/* to center text and other elements */
+.text-center
+{
+	text-align: center;
+}
+
+/* our main rendering canvas */
+/*.render-canvas  > canvas
+{ 
+}*/
+
+/* div that wraps the main rendering canvas */
+.canvas-container
+{
+    height: 30vw;
+    width : 30vw;
+}
+
+/* show those cubes that symbolize transparent background */
+.transparent-background 
+{
+    background-image: url("transparent_back.png");
+    background-repeat: repeat;
+	/*background-scale: 2 2;*/
+}
+
+/* control panel option tab */
+.option-tab 
+{
+	min-height: 220px;
+}
+
+/* for horizontal scrolling div */
+.cover-container {
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.cover-item {
+    position: relative;
+    display: inline-block;
+    margin: 8px 8px;
+    box-shadow: 2px 2px 4px #bbb;
+    border-top-right-radius: 4px;
+    width: 300px;
+}
+
+/* changed tabs style - blue-ish background for active tab */
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus
+{
+    background-color: #2fa4e7;
+    color: white;
+}

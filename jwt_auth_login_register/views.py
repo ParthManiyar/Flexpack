@@ -17,6 +17,7 @@ def Signup(request):
 
 def home(request):
     return render(request,'jwt_auth_login_register/home.html')
+
    
 
 def google_authentication(request):

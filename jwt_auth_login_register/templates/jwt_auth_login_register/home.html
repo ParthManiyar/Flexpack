@@ -1,13 +1,220 @@
 <!DOCTYPE html>
-
-<html>
+{% load static %}
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{%static 'images/icons/favicon.ico'%}"/>
+        <!-- Bootstrap -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{%static 'css/bootstrap.cerulean.css' %}" rel="stylesheet">
+        
+        <!-- our customized stylesheet -->
+        <link href="{%static 'css/style.css' %}" rel="stylesheet">
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <title>FlexPack</title>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
+
     </head>
 
     <body>
-        <h1>Welcome</h1>
+        <div class="row">
+            <div class="col-md-10 col-xs-12 .col-sm-12 col-centered">
+                    <div class="text-center">
+                        <h1>Design Your Box</h1>
+                    </div>
+                    
+
+                     <!-- Box settings menu -->
+					<div id="sectionBox" class="tab-pane option-tab ">
+						
+						<div class="row">
+                            <div class="col-md-4 col-xs-12">
+                                <!-- Textures menu -->
+                                <div id="sectionTextures" class="tab-pane option-tab in active">
+                                    <h3>Textures</h3>
+                                    <p>Select textures for your box.</p>
+        
+                                    <div class="row-fluid">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="cover-container" id="product-textures">
+                                    
+                                                <!-- front cover -->
+                                                <div class="cover-item">
+                                                    <label class="control-label">Front cover</label>
+                                                    <input id="texture-front" name="texture-front[]" type="file" class="box-texture file file-loading" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]'>
+                                                </div>
+                                                <br>
+                                                <!-- back cover -->
+                                                <div class="cover-item">
+                                                    <label class="control-label">Back cover</label>
+                                                    <input id="texture-back" name="texture-side[]" type="file" class="box-texture file file-loading" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]'>
+                                                </div>
+                                                <br>
+                                                <!-- top cover -->
+                                                <div class="cover-item">
+                                                    <label class="control-label">Top</label>
+                                                    <input id="texture-top" name="texture-top[]" type="file" class="box-texture file file-loading" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]'>
+                                                </div>
+                                                <br>
+                                                <!-- left side cover -->
+                                                <div class="cover-item">
+                                                    <label class="control-label">Left side</label>
+                                                    <input id="texture-left" name="texture-side[]" type="file" class="box-texture file file-loading" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]'>
+                                                </div>
+                                                <br>
+                                                <!-- right side cover -->
+                                                <div class="cover-item">
+                                                    <label class="control-label">Right side</label>
+                                                    <input id="texture-right" name="texture-side[]" type="file" class="box-texture file file-loading" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]'>
+                                                </div>
+                                                <br>
+                                                <!-- top cover -->
+                                                <div class="cover-item">
+                                                    <label class="control-label">Bottom</label>
+                                                    <input id="texture-bottom" name="texture-top[]" type="file" class="box-texture file file-loading" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]'>
+                                                </div>
+                                                
+                                                <script>
+                                                    // when texture is loaded re-render product box
+                                                    var product_texture_images = {};
+                                                    $('.box-texture').change(function (e) {
+
+                                                    e.preventDefault();
+                                                    var f = e.target.files[0];
+
+                                                    if (f)
+                                                    {
+                                                        var reader = new FileReader();
+                                                        reader.scope = this;
+                                                        reader.onload = function(evt) {
+                                                                var image = document.createElement( 'img' );
+                                                                image.src = evt.target.result;
+                                                                product_texture_images[this.scope.id] = image;
+                                                                renderProductBox();
+                                                        }
+                                                        reader.readAsDataURL(f);
+                                                    }
+                                                });
+                                                </script>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+                            </div>
+							
+							<div class="col-md-5 col-xs-12">
+                                <h3>Box Preview</h3>
+                                <!-- the rendering canvas container -->
+                                <div id="canvas-container" class="canvas-container transparent-background"></div>
+							</div>
+                            
+							<!-- size -->
+							<div class="col-md-3 col-xs-12">
+								<h4>Size</h4>
+								<p>Set box size and propotions.</p>
+								<p>Box width:
+									<input style="width:30%; display:inline;" id="size-x" type="number" class="form-control" value="500" min="50" max="800" step="10" onchange="renderProductBox();" >
+								</p>
+								<p>Box height:
+									<input style="width:30%; display:inline;" id="size-y" type="number" class="form-control" value="500" min="50" max="800" step="10" onchange="renderProductBox();" >
+								</p>
+								<p>Box depth:
+									<input style="width:30%; display:inline;" id="size-z" type="number" class="form-control" value="500" min="50" max="800" step="10" onchange="renderProductBox();" >
+								</p>
+							</div>
+							
+						</div>
+                    </div>
+
+                   
+                  
+                    
+                   
+                    
+                   
+			        
+            </div>
+        </div>
+
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <!-- file-input plugin -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.4/css/fileinput.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.4/js/fileinput.min.js"></script>
+        
+        <!-- Include three.js and orbit controller -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r111/three.min.js"></script>
+        <script src="https://unpkg.com/three@0.85.0/examples/js/modifiers/SubdivisionModifier.js"></script>
+
+        <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
+        
+        <!-- color picker -->
+        <!-- NOTE: this lib included from js and not bower_components because the lib have a bug! once fixed, update this! -->
+        <!-- info here: https://github.com/callumacrae/JSColor/issues/1#issuecomment-195410059 -->
+        <script src="{%static 'js/jscolor.min.js' %}"></script>
+        
+        <!-- our rendering code -->
+        <script src="{%static 'js/renderer.js' %}"></script>
+        
+        <!-- set file upload defaults -->
+        <script>
+            // set default bootstrap-fileinput
+            $.fn.fileinput.defaults.showUpload = false;
+            $.fn.fileinput.defaults.showCancel = false;
+            $.fn.fileinput.defaults.showRemove = false;
+            $.fn.fileinput.defaults.showRemove = false;
+
+            // init default covers
+            product_texture_images = {
+                "texture-front": "<img style='height:200px' class='file-preview-image' src='{%static 'images/red.jpg' %}'>",
+                "texture-left": "<img style='height:200px' class='file-preview-image' src='{%static 'images/blue.png' %}'>",
+                "texture-right": "<img style='height:200px' class='file-preview-image' src='{%static 'images/yellow.png' %}'>",
+                "texture-back": "<img style='height:200px' class='file-preview-image' src='{%static 'images/green.png' %}'>",
+                "texture-top": "<img style='height:200px; width:160px;' class='file-preview-image' src='{%static 'images/pink.png' %}'>",
+                "texture-bottom": "<img style='height:200px' class='file-preview-image' src='{%static 'images/white.jpg' %}'>",
+            }
+            
+            // set previews
+            $("#texture-front").fileinput({initialPreview: [product_texture_images["texture-front"]],});
+            $("#texture-left").fileinput({initialPreview: [product_texture_images["texture-left"]],});
+            $("#texture-right").fileinput({initialPreview: [product_texture_images["texture-right"]],});
+            $("#texture-back").fileinput({initialPreview: [product_texture_images["texture-back"]],});
+            $("#texture-top").fileinput({initialPreview: [product_texture_images["texture-top"]],});
+            $("#texture-bottom").fileinput({initialPreview: [product_texture_images["texture-bottom"]],});
+            // convert covers to image instances
+            for (var key in product_texture_images)
+            {
+                product_texture_images[key] = $(product_texture_images[key])[0];
+            }
+            
+        </script>
+        <style>
+            .close.fileinput-remove
+            {
+                display: none;
+            }
+            .file-preview-image
+            {
+                max-width: 100%;
+            }
+            .file-caption-name
+            {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100px;
+            }
+        </style>
+
     </body>
 
     <script type="text/javascript">
@@ -37,5 +244,6 @@
         }
         window.onpaint = validateToken();
     </script>
+
 
 </html>
