@@ -43,3 +43,10 @@ class Token:
             raise Exception("Token Expired")
         
         return True
+    
+    def get_user_from_token(self,token):
+        payload  = jwt.decode(token,settings.SECRET_KEY,algorithms="HS256")
+        if(not User.objects.filter(email = payload['email']).exists or payload['type']!="access"):
+            raise Exception("Invalid Access Token")
+        user = User.objects.get(email = payload['email'])
+        return user

@@ -1,13 +1,12 @@
 from rest_framework import  serializers
 from rest_framework.permissions import IsAuthenticated
 from django.db import models
-from .models import User
+from .models import User,Box
 from passlib.hash import pbkdf2_sha256
 
 
 # Register serializer
 class RegisterSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = ('username','password','first_name', 'last_name','email','role','provider')
@@ -31,3 +30,9 @@ class RegisterSerializer(serializers.ModelSerializer):
                                     role=validated_data['role'],
                                     provider = validated_data['provider'])
         return user
+
+class BoxSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Box
+        fields = ('name','width','height','depth','front_texture','top_texture','bottom_texture','back_texture','right_texture','left_texture','preview_image','user')
+        

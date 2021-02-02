@@ -19,7 +19,6 @@
 
         <title>FlexPack</title>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
 
     </head>
 
@@ -129,20 +128,20 @@
 								</p>
 								<p>Box depth:
 									<input style="width:30%; display:inline;" id="size-z" type="number" class="form-control" value="500" min="50" max="800" step="10" onchange="renderProductBox();" >
-								</p>
+                                </p>
+                                <p>Box Name:
+									<input style="width:30%; display:inline;" id="name" type="text" class="form-control" >
+                                </p>
+                                <button onClick="saveModelToDatabase();">Save</button>
 							</div>
 							
 						</div>
-                    </div>
-
-                   
-                  
-                    
-                   
-                    
-                   
-			        
+                    </div>          
             </div>
+        </div>
+
+        <div>
+
         </div>
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -153,11 +152,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.4/js/fileinput.min.js"></script>
         
         <!-- Include three.js and orbit controller -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r111/three.min.js"></script>
-        <script src="https://unpkg.com/three@0.85.0/examples/js/modifiers/SubdivisionModifier.js"></script>
-
-        <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
-        
+        <script src="https://threejs.org/build/three.js"></script>
+        <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+		<script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
+        <script src="https://threejs.org/examples/js/modifiers/SubdivisionModifier.js"></script>
         <!-- color picker -->
         <!-- NOTE: this lib included from js and not bower_components because the lib have a bug! once fixed, update this! -->
         <!-- info here: https://github.com/callumacrae/JSColor/issues/1#issuecomment-195410059 -->

@@ -2,8 +2,8 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import User,Role
-from .serializer import RegisterSerializer
+from .models import User,Role,Box
+from .serializer import RegisterSerializer, BoxSerializer
 from passlib.hash import pbkdf2_sha256
 from .utils import generate_random_username
 from .google_authentication import Google_Authentication
@@ -18,6 +18,9 @@ def Signup(request):
 def home(request):
     return render(request,'jwt_auth_login_register/home.html')
 
+def test(request):
+    return render(request,'jwt_auth_login_register/index (1).html')
+
    
 
 def google_authentication(request):
@@ -31,6 +34,10 @@ def google_authentication(request):
         user['last_name'] = response['family_name']
         user['email'] = response['email']
         user['provider'] = 'google'
+        if(not Role.objects.filter(name = "End user").exists()):
+            role = Role.objects.create()
+            role.name = "End user"
+            role.save()
         user['role'] = Role.objects.get(name = "End user").id
         user['password']=None
         user['username']=response['email'].split('@')[0]+"_"+generate_random_username()
@@ -48,6 +55,10 @@ class CreateUserAPIView(APIView):
     def post(self, request):
         user = request.data
         user._mutable = True
+        if(not Role.objects.filter(name = "End user").exists()):
+            role = Role.objects.create()
+            role.name = "End user"
+            role.save()
         user['role'] = Role.objects.get(name = "End user").id
         user['provider']=""
         user._mutable = False
@@ -110,6 +121,8 @@ class LoginAPI(APIView):
 class ValidateTokenAPI(APIView):
     def post(self, request, *args, **kwargs):
         val  = Token()
+        if "access_token" not in request.data  :
+            return Response({'Error': "Please provide acccess_token"}, status=400)
         access_token = request.data['access_token']
         response = {}
         status = 200
@@ -123,5 +136,32 @@ class ValidateTokenAPI(APIView):
             response['message'] = str(e)
 
         return Response(response,status = status,content_type = content_type)
+
+class BoxCreateAPI(APIView):
+    def post(self, request, *args, **kwargs):
+        box = request.data
+        #sprint(box['preview_image'])
+        access_token = request.META['HTTP_AUTHORIZATION']
+        token = Token()
+        box._mutable = True
+        box['user'] = token.get_user_from_token(access_token).id
+        box._mutable = False
+        serializer = BoxSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=201)
+
+class GetBoxesAPI(APIView):
+    def get(self,request,*args, **kwargs):
+        token = Token()
+        access_token = request.META['HTTP_AUTHORIZATION']
+        boxes  = Box.objects.all().filter(user = token.get_user_from_token(access_token))
+        serializer = BoxSerializer(boxes,many=True)
+        return Response(serializer.data,status=200)
+
+    
+
+
+        
 
 

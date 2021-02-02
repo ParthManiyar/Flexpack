@@ -31,7 +31,7 @@ controls.enableZoom = true;
 var loader = new THREE.TextureLoader();
 
 // add ambient light
-var ambient_light = new THREE.AmbientLight( 0xD6D6D6 );
+var ambient_light = new THREE.AmbientLight( 0xE5E5E5 );
 scene.add( ambient_light );
 
 // set ambient light
@@ -41,9 +41,9 @@ scene.add( ambient_light );
 }*/
 
 // directional light
-var directional_light = new THREE.DirectionalLight( 0xffffff, 0.5 );
-directional_light.position.set( 0.5, 0, 1 );
-scene.add( directional_light );
+//var directional_light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+//directional_light.position.set( 0.5, 0, 1 );
+//scene.add( directional_light );
 
 // set directional color
 /*function setDirectionalLight(val)
@@ -52,7 +52,7 @@ scene.add( directional_light );
 }*/
 
 // set point light
-var point_light;
+/*var point_light;
 function setPointLight(position, color, intensity)
 {
 	if (point_light) {camera.remove(point_light);}
@@ -61,7 +61,7 @@ function setPointLight(position, color, intensity)
 	camera.add( point_light );
 }
 setPointLight({x: 100, y: 100, z: 100}, 0x0, 1);
-
+*/
 // will contain the box mesh
 var box_mesh;
 
@@ -98,8 +98,8 @@ function getMaterial(type)
 	
 	var ret = new THREE.MeshPhongMaterial({
            map: getTexture(type),
-		   specular: "white", 
-		   shininess: 2,
+		   //specular: "white", 
+		   //shininess: 2,
        });
 	resources.push(ret);
 	return ret;
@@ -117,10 +117,10 @@ function renderProductBox()
 	var d = parseInt($("#size-z").val());
 	var geometry = new THREE.BoxGeometry(w, h, d, 10, 10, 10);
 	resources.push(geometry);
-	var materialTransparent =  new THREE.MeshBasicMaterial( { transparent: true, opacity: 0, wireframe: true, side: THREE.DoubleSide} );
+	//var materialTransparent =  new THREE.MeshBasicMaterial( { transparent: true, opacity: 0, wireframe: true, side: THREE.DoubleSide} );
 
 	// create materials
-	var materials = [
+	materials = [
        getMaterial("right"),
        getMaterial("left"),
 	   getMaterial("top"),
@@ -129,6 +129,15 @@ function renderProductBox()
        getMaterial("front"),
        getMaterial("back")
 	];
+
+	//var loader = new THREE.GLTFLoader();
+
+	//loader.load( 'https://download1478.mediafire.com/fmytvj1yoxjg/d3fyovzlyt87hwm/Box.gltf', function ( gltf ) {
+	//	gltf.scene.scale.set(200,200,200,200);
+	//	scene.add( gltf.scene );
+
+
+	//});
 	
 	//var material = new THREE.MeshFaceMaterial( materials );
 	//resources.push(material);
@@ -136,9 +145,68 @@ function renderProductBox()
 	
 	// create the mesh and add to scene
 	box_mesh = new THREE.Mesh(geometry, materials);
-	
+	//console.log(box_mesh);
 	resources.push(box_mesh);
 	scene.add(box_mesh);
+	//console.log(scene);
+	
+}
+
+function saveModelToDatabase(){
+	
+	camera.rotation.set(-0.6055446444344589, -0.8117261390954865, -0.46544821952100746);
+	camera.position.set(-1000,540,780);
+	controls.update();
+	render();
+	var canvas = renderer.domElement;
+
+	const imgData = canvas.toBlob( ( blob ) => {
+		var form = new FormData();
+		var w = parseInt($("#size-x").val());
+		var h = parseInt($("#size-y").val());
+		var d = parseInt($("#size-z").val());
+		var name = $("#name").val();
+		var access_token = window.localStorage.getItem("access_token");
+		form.append("preview_image", blob,"preview.png");
+		if(name)
+			form.append("name", name);
+		form.append("width", w);
+		form.append("height", h);
+		form.append("depth", d);
+		if($('#texture-front')[0].files[0])
+			form.append("front_texture", $('#texture-front')[0].files[0]);
+		if($('#texture-top')[0].files[0])
+			form.append("top_texture", $('#texture-top')[0].files[0]);
+		if($('#texture-bottom')[0].files[0])
+			form.append("bottom_texture", $('#texture-bottom')[0].files[0]);
+		if($('#texture-back')[0].files[0])
+			form.append("back_texture", $('#texture-back')[0].files[0]);
+		if($('#texture-right')[0].files[0])
+			form.append("right_texture", $('#texture-right')[0].files[0]);
+		if($('#texture-left')[0].files[0])
+			form.append("left_texture", $('#texture-left')[0].files[0]);
+
+		$.ajax({
+			"url": "/app/boxcreate/",
+			"method": "POST",
+			"timeout": 0,
+			"headers": {
+				"Authorization": access_token,
+				//"Cookie": "csrftoken=ViT92rCwnB8PeodFwfQ07saoZ5tVG4hf797L52uwl0H4CTdEqrjywVYyVa7P4bgB"
+			},
+			"processData": false,
+			"mimeType": "multipart/form-data",
+			"contentType": false,
+			"data": form,
+			success: function(response) {
+				console.log(response);
+			},
+			error: function(xhr, a, b)
+			{
+				console.log(xhr);
+			}
+		});
+	});
 	
 }
 
@@ -170,9 +238,7 @@ function clearProductBox()
 		var curr = resources[i];
 		if (curr.dispose) {curr.dispose();}
 	}
-	resources = [];
-	
-	
+	resources = [];	
 }
 
 // set rendering background

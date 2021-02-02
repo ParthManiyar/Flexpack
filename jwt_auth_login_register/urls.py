@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.urls import path, include
 from . import views
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path('register/', views.Register),
@@ -9,5 +10,8 @@ urlpatterns = [
     path('home/',views.home),
     path('verify/',views.LoginAPI.as_view()),
     path('google/callback/login/',views.google_authentication),
-    path('validateToken/',views.ValidateTokenAPI.as_view())
+    path('validateToken/',views.ValidateTokenAPI.as_view()),
+    path('test/',views.test),
+    path('boxcreate/',csrf_exempt(views.BoxCreateAPI.as_view())),
+    path('getboxes/',views.GetBoxesAPI.as_view()),
 ]
