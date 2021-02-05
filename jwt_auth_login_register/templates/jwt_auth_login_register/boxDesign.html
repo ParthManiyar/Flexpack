@@ -213,6 +213,13 @@
                     >
                       12" x 9" x 2"</button
                     >
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(1200,800,400);"
+                    >
+                      12" x 8" x 4"</button
+                    >
                   </div>
                   <div
                     class="tab-pane fade"
@@ -630,6 +637,7 @@
         {
           product_texture_images[key] = $(product_texture_images[key])[0];
         }
+        console.log(box.front_texture);
         $("#size-x").val(box.width);
 	      $("#size-y").val(box.height);
         $("#size-z").val(box.depth);
