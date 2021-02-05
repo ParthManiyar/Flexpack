@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      function validateToken()
+      {
+          access_token = window.localStorage.getItem("access_token");
+          if(access_token==null)
+              window.location.pathname = '/app/login';
+          else{
+              $.ajax({
+                  url: "/app/validateToken/",
+                  type: "POST",
+                  data: {
+                      "csrfmiddlewaretoken" : "{{ csrf_token }}",
+                      "access_token":access_token,
+                  },
+                  success: function(response) {
+                      
+                  },
+                  error: function(xhr, a, b)
+                  {
+                      window.location.pathname = '/app/login';
+                  }
+              });
+          }
+              
+      }
+      window.onpaint = validateToken();
+    </script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="{%static 'images/icons/favicon.ico'%}"/>
+
+    <!-- Bootstrap CSS -->
+    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+     
+
+    <title>FlexPack | Home Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src ="{% static 'images/logo.png' %}"></img></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="me-auto"></div>
+          <div class="d-flex">
+            <button type="button" class="btn m-2 btn-light">Change</button>
+            <button type="button" class="btn m-2 btn-light">Change</button>
+            <button type="button" class="btn m-2 btn-light">Change</button>
+            <a href='/app/login/'><button type="button" class="btn m-2 btn-light">Login</button></a>
+            <a href='/app/signup/'><button type="button" class="btn m-2 btn-secondary">Sign up</button></a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div
+      class="container-fluid"
+      style="background-color: white; min-height: 100vh"
+    >
+      <div class="container pt-5">
+        <div class="row pt-5">
+          <div class="col-3">
+            <div class="row rounded shadow-lg bg-light">
+              <div class="col-4 mx-2 mt-3 mb-3">
+                <div class="row border-end border-1">
+                  <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item w-100" role="presentation">
+                      <a
+                        class="nav-link active"
+                        id="pills-size-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-size"
+                        role="tab"
+                        aria-controls="pills-size"
+                        aria-selected="true"
+                        >Size</a
+                      >
+                    </li>
+                    <li class="nav-item w-100" role="presentation">
+                      <a
+                        class="nav-link"
+                        id="pills-material-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-material"
+                        role="tab"
+                        aria-controls="pills-material"
+                        aria-selected="false"
+                        >Material</a
+                      >
+                    </li>
+                    <li class="nav-item w-100" role="presentation">
+                      <a
+                        class="nav-link"
+                        id="pills-addimage-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-addimage"
+                        role="tab"
+                        aria-controls="pills-addimage"
+                        aria-selected="false"
+                        >Add Image</a
+                      >
+                    </li>
+                    <li class="nav-item w-100" role="presentation">
+                      <a
+                        class="nav-link"
+                        id="pills-addtext-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-addtext"
+                        role="tab"
+                        aria-controls="pills-addtext"
+                        aria-selected="false"
+                        >Add Text</a
+                      >
+                    </li>
+                    <li class="nav-item w-100" role="presentation">
+                      <a
+                        class="nav-link"
+                        id="pills-quantity-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-quantity"
+                        role="tab"
+                        aria-controls="pills-quantity"
+                        aria-selected="false"
+                        >Quantity</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col mt-3 mb-3">
+                <div class="tab-content w-100" id="pills-tabContent">
+                  <div
+                    class="tab-pane fade show active"
+                    id="pills-size"
+                    role="tabpanel"
+                    aria-labelledby="pills-size-tab"
+                  >
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(400,400,200);"
+                    >
+                      4" x 4" x 2"</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(600,600,200);"
+                    >
+                      6" x 6" x 2"</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(700,600,100);"
+                    >
+                      7" x 6" x 1"</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(800,500,300);"
+                    >
+                      8" x 5" x 3"</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(900,600,400);"
+                    >
+                      9" x 6" x 4"</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(900,800,200);"
+                    >
+                      9" x 8" x 2"</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(1000,800,400);"
+                    >
+                      10" x 8" x 4"</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(1000,800,400);"
+                    >
+                      10 x 8" x 4"</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeSize(1200,900,200);"
+                    >
+                      12" x 9" x 2"</button
+                    >
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="pills-material"
+                    role="tabpanel"
+                    aria-labelledby="pills-material-tab"
+                  >
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeBoxTexture('white');"
+                    >
+                      White</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeBoxTexture('dreamcoat');"
+                    >
+                      Dreamcoat</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      onclick="changeBoxTexture('kraft');"
+                    >
+                      Kraft
+                    </button>
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="pills-addimage"
+                    role="tabpanel"
+                    aria-labelledby="pills-addimage-tab"
+                  >
+                    <select class="form-control" id="textures">
+                      <option>Top</option>
+                      <option>Left</option>
+                      <option>Right</option>
+                      <option>Front</option>
+                      <option>Back</option>
+                      <option>Bottom</option>
+                    </select>
+                    <div id="Front" style="display: none;">
+                      <input 
+                             id="texture-front" 
+                             name="texture-front[]" 
+                             type="file" 
+                             class="box-texture file file-loading form-control" 
+                             data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
+                             onchange="readURL(this,'front')">
+                        <div class="w-100 h-auto">
+                              <img
+                                href="none"
+                                class="form-control hidden"
+                                id="image-preview-front"
+                              />
+                        </div>
+                    </div>  
+                    <div id="Back" style="display: none;">
+
+                      <input id="texture-back" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'back')">
+                      <div class="w-100 h-auto">
+                        <img
+                          href="none"
+                          class="form-control hidden"
+                          id="image-preview-back"
+                        />
+                      </div>  
+                    </div>
+                    <div id="Top" >
+
+                      <input id="texture-top" name="texture-top[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'top')">
+                      <div class="w-100 h-auto">
+                        <img
+                          href="none"
+                          class="form-control hidden"
+                          id="image-preview-top"
+                        />
+                      </div>
+                    </div>
+                    <div id="Left" style="display: none;">
+                        <input id="texture-left" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'left')">
+                        <div class="w-100 h-auto">
+                          <img
+                            href="none"
+                            class="form-control hidden"
+                            id="image-preview-left"
+                          />
+                        </div>
+                    </div>
+                    <div id="Right" style="display: none;">
+                        <input id="texture-right" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'right')">
+                        <div class="w-100 h-auto">
+                          <img
+                            href="none"
+                            class="form-control hidden"
+                            id="image-preview-right"
+                          />
+                        </div>
+                    </div>
+                    <div id="Bottom" style="display: none;">
+                        <input id="texture-bottom" name="texture-top[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'bottom')">
+                        <div class="w-100 h-auto">
+                          <img
+                            href="none"
+                            class="form-control hidden"
+                            id="image-preview-bottom"
+                          />
+                        </div>
+                    </div>
+                    <script>
+                        var product_texture_images = {};
+                        $('.box-texture').change(function (e) {
+
+                            e.preventDefault();
+                            var f = e.target.files[0];
+
+                            if (f)
+                            {
+                                var reader = new FileReader();
+                                reader.scope = this;
+                                reader.onload = function(evt) {
+                                    var image = document.createElement( 'img' );
+                                    image.src = evt.target.result;
+                                    product_texture_images[this.scope.id] = image;
+                                    renderProductBox();
+                                }
+                                reader.readAsDataURL(f);
+                            }
+                        });
+                  </script>         
+                    
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="pills-addtext"
+                    role="tabpanel"
+                    aria-labelledby="pills-addtext-tab"
+                  >
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      style="font-family: 'Courier New', Courier, monospace"
+                    >
+                      PACKLANE
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      style="
+                        font-family: 'Franklin Gothic Medium', 'Arial Narrow',
+                          Arial, sans-serif;
+                      "
+                    >
+                      PACKLANE
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      style="font-family: 'Times New Roman', Times, serif"
+                    >
+                      PACKLANE
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      style="font-family: Verdana, Geneva, Tahoma, sans-serif"
+                    >
+                      PACKLANE
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      style="
+                        font-family: Cambria, Cochin, Georgia, Times,
+                          'Times New Roman', serif;
+                      "
+                    >
+                      PACKLANE
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      style="font-family: 'Times New Roman', Times, serif"
+                    >
+                      PACKLANE
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                      style="
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
+                          sans-serif;
+                      "
+                    >
+                      PACKLANE
+                    </button>
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="pills-quantity"
+                    role="tabpanel"
+                    aria-labelledby="pills-quantity-tab"
+                  >
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      >1000</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      >2000</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      2000
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      1000
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      500
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      250</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      100</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      50</button
+                    ><button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      10
+                    </button>
+                    <button
+                      class="btn mb-1 btn-light btn-outline-secondary w-100"
+                      type="button"
+                    >
+                      1
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 
+              EDIT - THE BOX VIEW STARTING FROM HERE
+           -->
+           <div id="canvas-container" style="border:1px solid #000000; height: 30vw; width : 30vw;" class="canvas-contianer transparent-background"></div>
+           <!-- 
+              EDIT - ADD YOUR CONTROLS STARTING FROM HERE
+           -->
+          <div class="col-3 bg-light rounded shadow-lg">
+            <p>Box width:
+              <input style="width:30%; display:inline;" id="size-x" type="number" class="form-control" value="500" min="50" max="1500" step="10" onchange="renderProductBox();" >
+            </p>
+            <p>Box height:
+                <input style="width:30%; display:inline;" id="size-y" type="number" class="form-control" value="500" min="50" max="1500" step="10" onchange="renderProductBox();" >
+            </p>
+            <p>Box depth:
+                <input style="width:30%; display:inline;" id="size-z" type="number" class="form-control" value="500" min="50" max="1500" step="10" onchange="renderProductBox();" >
+            </p>
+            <p>Box Name:
+                <input style="width:30%; display:inline;" id="name" type="text" value="default" class="form-control" >
+            </p>
+             
+            <button  id="save">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+    <script>
+      function changeBoxTexture(texture){
+        if(texture=='kraft'){
+          product_texture_images = {
+            "texture-front": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+            "texture-left": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+            "texture-right": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+            "texture-back": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+            "texture-top": "<img style='height:200px; width:160px;' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+            "texture-bottom": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+          }
+        }
+        else{
+          product_texture_images = {
+            "texture-front": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
+            "texture-left": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
+            "texture-right": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
+            "texture-back": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
+            "texture-top": "<img style='height:200px; width:160px;' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
+            "texture-bottom": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
+          }
+        }
+        for (var key in product_texture_images)
+        {
+            product_texture_images[key] = $(product_texture_images[key])[0];
+        }
+        renderProductBox();
+      }
+      function readURL(input,side) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            document
+            .querySelector("#image-preview-"+side)
+            .setAttribute("src", e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      function changeSize(x,y,z){
+        $("#size-x").val(x)
+        $("#size-y").val(y)
+        $("#size-z").val(z)
+        renderProductBox();
+      }
+      var sides = ['Front','Back','Left','Right','Bottom','Top'];
+      $("#textures").change(function(){
+          for(side of sides){
+            
+            if(side== $("#textures").val())
+              $("#"+side).css('display','block');
+            else
+              $("#"+side).css('display','none')
+          }
+      });
+
+    </script>
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <script src="{%static 'js/renderer.js' %}"></script>
+    <script>
+      
+      if(window.location.pathname=='/app/boxdesign/'){
+        product_texture_images = {
+          "texture-front": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+          "texture-left": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+          "texture-right": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+          "texture-back": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+          "texture-top": "<img style='height:200px; width:160px;' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+          "texture-bottom": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+        }
+          
+        for (var key in product_texture_images)
+        {
+          product_texture_images[key] = $(product_texture_images[key])[0];
+        }
+        $("#save").click(function(e){saveModelToDatabase();});
+      }
+      else{
+        function get_uuid(){
+          uuid = window.location.pathname;
+          uuid = uuid.split("/")[3];
+          return uuid;
+        }
+        var box;
+        $.ajax({
+          url: "/app/getbox/",
+          type: "POST",
+          data:{
+            "csrfmiddlewaretoken" : "{{ csrf_token }}",
+            "uuid":get_uuid()
+          },
+          async: false,
+          success: function(response) {
+            box = response;              
+          },
+          error: function(xhr, a, b)
+          {
+            console.log(xhr);
+          }
+        });
+
+
+        product_texture_images = {
+          "texture-front": "<img style='height:200px' class='file-preview-image' src='"+box.front_texture+"'>",
+          "texture-left": "<img style='height:200px' class='file-preview-image' src='"+box.left_texture+"'>",
+          "texture-right": "<img style='height:200px' class='file-preview-image' src='"+box.right_texture+"'>",
+          "texture-back": "<img style='height:200px' class='file-preview-image' src='"+box.back_texture+"'>",
+          "texture-top": "<img style='height:200px; width:160px;' class='file-preview-image' src='"+box.top_texture+"'>",
+          "texture-bottom": "<img style='height:200px' class='file-preview-image' src='"+box.bottom_texture+"'>",
+        }
+        for (var key in product_texture_images)
+        {
+          product_texture_images[key] = $(product_texture_images[key])[0];
+        }
+        $("#size-x").val(box.width);
+	      $("#size-y").val(box.height);
+        $("#size-z").val(box.depth);
+        $("#name").val(box.name);
+        $("#save").click(function(e){editModelToDatabase();});
+      }
+        
+    </script>
+    <style>
+        .close.fileinput-remove
+        {
+            display: none;
+        }
+        .file-preview-image
+        {
+            max-width: 100%;
+        }
+        .file-caption-name
+        {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100px;
+        }
+    </style>
+  </body>
+</html>

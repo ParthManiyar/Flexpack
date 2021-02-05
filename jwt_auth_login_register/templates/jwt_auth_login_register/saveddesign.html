@@ -1,4 +1,143 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-    
+    <head>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            function validateToken()
+            {
+                access_token = window.localStorage.getItem("access_token");
+                if(access_token==null)
+                    window.location.pathname = '/app/login';
+                else{
+                    $.ajax({
+                        url: "/app/validateToken/",
+                        type: "POST",
+                        data: {
+                            "csrfmiddlewaretoken" : "{{ csrf_token }}",
+                            "access_token":access_token,
+                        },
+                        success: function(response) {
+                            
+                        },
+                        error: function(xhr, a, b)
+                        {
+                            window.location.pathname = '/app/login';
+                        }
+                    });
+                }
+                    
+            }
+            window.onpaint = validateToken();
+        </script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{%static 'images/icons/favicon.ico'%}"/>
+        
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+        crossorigin="anonymous"
+      />        <!--<link href="{%static 'css/bootstrap.cerulean.css' %}" rel="stylesheet">-->
+        
+        <link href="{%static 'css/style.css' %}" rel="stylesheet">
+        <title>FlexPack</title>
+        <script type="text/javascript">
+            var access_token = window.localStorage.getItem("access_token");
+            $.ajax({
+                url: "/app/getboxes/",
+                type: "GET",
+                "headers": {
+                    "Authorization": access_token,
+                },
+                success: function(response) {
+                    var boxes = response;
+                    for(box of boxes)
+                        $(".col-sm").append("<div class='box-display'> <span class='close'>&times;</span> <label class='control-label'>"+box.name +"</label>"+"<a href = '/app/editbox/"+box.id+"/'><img style='height:200px' src="+box.preview_image+"></img></a></div>");
+                    var closebtns = document.getElementsByClassName("close");
+                    var link = document.getElementsByTagName("a");
+                    var i;
+                    function get_uuid(s){
+                        console.log(s);
+                        uuid = s.split("/")[5];
+                        return uuid;
+                    }
+                    for (i = 0; i < closebtns.length; i++) {
+                        closebtns[i].addEventListener("click", function() {
+                            this.parentElement.style.display = 'none';
+                            uuid = get_uuid(this.parentElement.children[2].href);
+                            $.ajax({
+                                url: "/app/deletebox/",
+                                type: "DELETE",
+                                "headers": {
+                                    "Authorization": access_token,
+                                },
+                                data:{
+                                    
+                                    "csrfmiddlewaretoken" : "{{ csrf_token }}",
+                                    "uuid":uuid,
+                                },
+                                success: function(response) {
+                                },
+                                error: function(xhr, a, b)
+                                {
+                                    console.log(xhr);
+                                }
+                            });
+                        });
+                        
+                    }
+                },
+                error: function(xhr, a, b)
+                {
+                    console.log(xhr);
+                }
+            });
+        </script>
+
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img src ="{% static 'images/logo.png' %}"></img></a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+              <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="me-auto"></div>
+                <div class="d-flex">
+                  <button type="button" class="btn m-2 btn-light">Change</button>
+                  <button type="button" class="btn m-2 btn-light">Change</button>
+                  <button type="button" class="btn m-2 btn-light">Change</button>
+                  <a href='/app/login/'><button type="button" class="btn m-2 btn-light">Login</button></a>
+                  <a href='/app/signup/'><button type="button" class="btn m-2 btn-secondary">Sign up</button></a>
+                </div>
+              </div>
+            </div>
+          </nav>
+            <div style="float: right;">
+                <a href="/app/boxdesign/" ><img src="{% static 'images/Button.png' %}"></img></a>
+            </div>
+            <div> 
+                <h3>Saved Design</h3>
+            </div>
+            
+            <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                </div>
+            </div>
+
+    </body>
 </html>

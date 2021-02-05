@@ -34,5 +34,5 @@ class RegisterSerializer(serializers.ModelSerializer):
 class BoxSerializer(serializers.ModelSerializer):
     class Meta:
         model = Box
-        fields = ('name','width','height','depth','front_texture','top_texture','bottom_texture','back_texture','right_texture','left_texture','preview_image','user')
+        fields = ('id','name','width','height','depth','front_texture','top_texture','bottom_texture','back_texture','right_texture','left_texture','preview_image','user')
         

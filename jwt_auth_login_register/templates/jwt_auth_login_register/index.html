@@ -8,7 +8,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
 	<link rel="shortcut icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
-	<!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
 <!--===============================================================================================-->
@@ -31,7 +30,6 @@
 	
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
 <!--===============================================================================================-->
 </head>
 <body>
@@ -57,13 +55,7 @@
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 					</div>
 					<br>
-					<!--
-					<div class="text-right p-t-8 p-b-31">
-						<a href="#">
-							Forgot password?
-						</a>
-					</div>
-				-->
+				
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
@@ -137,7 +129,7 @@
 			  success: function(response) {
 				   window.localStorage.setItem("access_token", response['access_token']);
 				   window.localStorage.setItem("refresh_token", response['refersh_token']);
-				   window.location.pathname = '/app/home';
+				   window.location.pathname = '/app/saveddesign/';
 			  },
 			  error: function(xhr, a, b)
 			  {

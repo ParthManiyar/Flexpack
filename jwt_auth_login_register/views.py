@@ -8,22 +8,26 @@ from passlib.hash import pbkdf2_sha256
 from .utils import generate_random_username
 from .google_authentication import Google_Authentication
 from .token import Token
+from rest_framework import status
 
-def Login(request):
+def login(request):
     return render(request,'jwt_auth_login_register/index.html')
 
-def Signup(request):
+def signup(request):
     return render(request,'jwt_auth_login_register/register.html')
 
-def home(request):
-    return render(request,'jwt_auth_login_register/home.html')
+def boxDesign(request):
+    return render(request,'jwt_auth_login_register/boxDesign.html')
 
-def test(request):
-    return render(request,'jwt_auth_login_register/index (1).html')
+def savedDesign(request):
+    return render(request,'jwt_auth_login_register/savedDesign.html')
 
-   
+def editBox(request,uuid):
+    return render(request,'jwt_auth_login_register/boxDesign.html')
 
-def google_authentication(request):
+
+
+def googleAuthentication(request):
     auth_code = request.GET.get('code')
     google = Google_Authentication()
     oauth_details = google.get_google_access_token(auth_code)
@@ -34,11 +38,11 @@ def google_authentication(request):
         user['last_name'] = response['family_name']
         user['email'] = response['email']
         user['provider'] = 'google'
-        if(not Role.objects.filter(name = "End user").exists()):
+        if(not Role.objects.filter(name = "end_user").exists()):
             role = Role.objects.create()
-            role.name = "End user"
+            role.name = "end_user"
             role.save()
-        user['role'] = Role.objects.get(name = "End user").id
+        user['role'] = Role.objects.get(name = "end_user").id
         user['password']=None
         user['username']=response['email'].split('@')[0]+"_"+generate_random_username()
         serializer = RegisterSerializer(data=user)
@@ -55,11 +59,11 @@ class CreateUserAPIView(APIView):
     def post(self, request):
         user = request.data
         user._mutable = True
-        if(not Role.objects.filter(name = "End user").exists()):
+        if(not Role.objects.filter(name = "end_user").exists()):
             role = Role.objects.create()
-            role.name = "End user"
+            role.name = "end_user"
             role.save()
-        user['role'] = Role.objects.get(name = "End user").id
+        user['role'] = Role.objects.get(name = "end_user").id
         user['provider']=""
         user._mutable = False
         serializer = RegisterSerializer(data=user)
@@ -140,24 +144,61 @@ class ValidateTokenAPI(APIView):
 class BoxCreateAPI(APIView):
     def post(self, request, *args, **kwargs):
         box = request.data
-        #sprint(box['preview_image'])
         access_token = request.META['HTTP_AUTHORIZATION']
         token = Token()
         box._mutable = True
         box['user'] = token.get_user_from_token(access_token).id
         box._mutable = False
         serializer = BoxSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=201)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GetBoxesAPI(APIView):
-    def get(self,request,*args, **kwargs):
+    def get(self,request, *args, **kwargs):
         token = Token()
         access_token = request.META['HTTP_AUTHORIZATION']
         boxes  = Box.objects.all().filter(user = token.get_user_from_token(access_token))
         serializer = BoxSerializer(boxes,many=True)
-        return Response(serializer.data,status=200)
+        return Response(serializer.data)
+
+class GetBoxAPI(APIView):
+    def post(self,request, *args, **kwargs):
+        uuid = request.data['uuid']
+        try:
+            box = Box.objects.get(id=uuid)
+        except Box.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = BoxSerializer(box)
+        return Response(serializer.data)
+
+class EditBoxAPI(APIView):
+    def put(self,request, *args, **kwargs):
+        uuid = request.data['uuid']
+        try:
+            box = Box.objects.get(id=uuid)
+        except Box.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = BoxSerializer(data = request.data,instance=box)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteBoxAPI(APIView):
+    def delete(self,request, *args, **kwargs):
+        uuid = request.data['uuid']
+        try:
+            box = Box.objects.get(id=uuid)
+        except Box.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        box.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
     
 
