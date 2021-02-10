@@ -269,11 +269,12 @@
                              class="box-texture file file-loading form-control" 
                              data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
                              onchange="readURL(this,'front')">
-                        <div class="w-100 h-auto">
+                        <div class="w-100 h-auto" >
                               <img
                                 href="none"
                                 class="form-control hidden"
                                 id="image-preview-front"
+                                style="height: 150px; width: 180px;"
                               />
                         </div>
                     </div>  
@@ -285,6 +286,7 @@
                           href="none"
                           class="form-control hidden"
                           id="image-preview-back"
+                          style="height: 150px; width: 180px;"
                         />
                       </div>  
                     </div>
@@ -296,6 +298,7 @@
                           href="none"
                           class="form-control hidden"
                           id="image-preview-top"
+                          style="height: 150px; width: 180px;"
                         />
                       </div>
                     </div>
@@ -306,6 +309,7 @@
                             href="none"
                             class="form-control hidden"
                             id="image-preview-left"
+                            style="height: 150px; width: 180px;"
                           />
                         </div>
                     </div>
@@ -316,6 +320,7 @@
                             href="none"
                             class="form-control hidden"
                             id="image-preview-right"
+                            style="height: 150px; width: 180px;"
                           />
                         </div>
                     </div>
@@ -326,6 +331,7 @@
                             href="none"
                             class="form-control hidden"
                             id="image-preview-bottom"
+                            style="height: 150px; width: 180px;"
                           />
                         </div>
                     </div>
@@ -487,11 +493,20 @@
           <!-- 
               EDIT - THE BOX VIEW STARTING FROM HERE
            -->
-           <div id="canvas-container" style="border:1px solid #000000; height: 30vw; width : 30vw;" class="canvas-contianer transparent-background"></div>
+           <div style="position:absolute; top:200px; left:490px; z-index:3 " ><select class="form-control" id="textures" style="width:30vw">
+            <option>Top</option>
+            <option>Left</option>
+            <option>Right</option>
+            <option>Front</option>
+            <option>Back</option>
+            <option>Bottom</option>
+          </select>
+           </div> 
+           <div id="canvas-container" style="border:1px solid;position:absolute; top:250px; left:500px; z-index:3 #000000; height: 30vw; width : 30vw;" class="canvas-contianer transparent-background"></div>
            <!-- 
               EDIT - ADD YOUR CONTROLS STARTING FROM HERE
            -->
-          <div class="col-3 bg-light rounded shadow-lg">
+          <div class="col-3 bg-light rounded shadow-lg" style="position:absolute; top:200px; left:1000px; z-index:3">
             <p>Box width:
               <input style="width:30%; display:inline;" id="size-x" type="number" class="form-control" value="500" min="50" max="1500" step="10" onchange="renderProductBox();" >
             </p>
