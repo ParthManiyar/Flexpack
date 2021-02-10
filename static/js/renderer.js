@@ -23,7 +23,7 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.enableZoom = true;
 
-var loader = new THREE.TextureLoader();
+//var loader = new THREE.TextureLoader();
 
 var ambient_light = new THREE.AmbientLight( 0xE5E5E5 );
 scene.add( ambient_light );
@@ -33,33 +33,48 @@ var box_mesh;
 
 var resources = [];
 				
-var textures = {};
+//var textures = {};
 				
 
 function getTexture(type)
 {	
-	var img = product_texture_images["texture-" + type];
+	/*var img = product_texture_images["texture-" + type];
 	texture = loader.load(img.src);
-	console.log(img);
 	texture.generateMipmaps = false;
 	texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 	texture.magFilter = THREE.LinearFilter;
-	texture.minFilter = THREE.LinearFilter;
+	texture.minFilter = THREE.LinearFilter;*/
+
+	const _canvDom = $("#canvas-"+type)[0];
+    const outsideCanv = new THREE.CanvasTexture(_canvDom);
+	outsideCanv.minFilter = THREE.LinearFilter;
+    outsideCanv.wrapS = THREE.ClampToEdgeWrapping;
+    outsideCanv.wrapT = THREE.ClampToEdgeWrapping;
+
 	
-	resources.push(texture);
-	return texture;
+	
+	resources.push(outsideCanv);
+	return outsideCanv;
 }
 
 
 function getMaterial(type)
 {
 	
-	var ret = new THREE.MeshPhongMaterial({
+	/*var ret = new THREE.MeshPhongMaterial({
 		map: getTexture(type),
-    });
-	resources.push(ret);
-	return ret;
+		side: THREE.DoubleSide,
+    });*/
+	const outsideMat = new THREE.MeshStandardMaterial({
+		map: getTexture(type),
+		side: THREE.DoubleSide,
+	 });
+	 outsideMat.skinning = true;
+
+	resources.push(outsideMat);
+	return outsideMat;
 }
+
 
 function renderProductBox()
 {
@@ -72,11 +87,14 @@ function renderProductBox()
 	var d = parseInt($("#size-z").val());
 	
 	var geometry = new THREE.BoxGeometry(w, h, d, 10, 10, 10);
+	var materialTransparent =  new THREE.MeshBasicMaterial( { transparent: true, opacity: 0, wireframe: true, side: THREE.DoubleSide} );
+
 	resources.push(geometry);
-	
 	materials = [
-       getMaterial("right"),
+		//outsideMat,
+	   getMaterial("right"),
        getMaterial("left"),
+	   //materialTransparent,
 	   getMaterial("top"),
        getMaterial("bottom"),
        getMaterial("front"),
@@ -88,6 +106,14 @@ function renderProductBox()
 	resources.push(box_mesh);
 	scene.add(box_mesh);
 }
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
 
 function saveModelToDatabase(){
 	
@@ -96,7 +122,7 @@ function saveModelToDatabase(){
 	controls.update();
 	render();
 	var canvas = renderer.domElement;
-
+	console.log(JSON.stringify(canvases['front'].toJSON()));
 	const imgData = canvas.toBlob( ( blob ) => {
 		var form = new FormData();
 		var w = parseInt($("#size-x").val());
@@ -110,18 +136,12 @@ function saveModelToDatabase(){
 		form.append("width", w);
 		form.append("height", h);
 		form.append("depth", d);
-		if($('#texture-front')[0].files[0])
-			form.append("front_texture", $('#texture-front')[0].files[0]);
-		if($('#texture-top')[0].files[0])
-			form.append("top_texture", $('#texture-top')[0].files[0]);
-		if($('#texture-bottom')[0].files[0])
-			form.append("bottom_texture", $('#texture-bottom')[0].files[0]);
-		if($('#texture-back')[0].files[0])
-			form.append("back_texture", $('#texture-back')[0].files[0]);
-		if($('#texture-right')[0].files[0])
-			form.append("right_texture", $('#texture-right')[0].files[0]);
-		if($('#texture-left')[0].files[0])
-			form.append("left_texture", $('#texture-left')[0].files[0]);
+		form.append("front_texture",JSON.stringify(canvases['front'].toJSON()));
+		form.append("top_texture", JSON.stringify(canvases['top'].toJSON()));
+		form.append("bottom_texture", JSON.stringify(canvases['bottom'].toJSON()));
+		form.append("back_texture", JSON.stringify(canvases['back'].toJSON()));
+		form.append("right_texture", JSON.stringify(canvases['right'].toJSON()));
+		form.append("left_texture", JSON.stringify(canvases['left'].toJSON()));
 
 		$.ajax({
 			"url": "/app/boxcreate/",
@@ -170,18 +190,16 @@ function editModelToDatabase(){
 		form.append("width", w);
 		form.append("height", h);
 		form.append("depth", d);
-		if($('#texture-front')[0].files[0])
-			form.append("front_texture", $('#texture-front')[0].files[0]);
-		if($('#texture-top')[0].files[0])
-			form.append("top_texture", $('#texture-top')[0].files[0]);
-		if($('#texture-bottom')[0].files[0])
-			form.append("bottom_texture", $('#texture-bottom')[0].files[0]);
-		if($('#texture-back')[0].files[0])
-			form.append("back_texture", $('#texture-back')[0].files[0]);
-		if($('#texture-right')[0].files[0])
-			form.append("right_texture", $('#texture-right')[0].files[0]);
-		if($('#texture-left')[0].files[0])
-			form.append("left_texture", $('#texture-left')[0].files[0]);
+		form.append("width", w);
+		form.append("height", h);
+		form.append("depth", d);
+		form.append("front_texture",JSON.stringify(canvases['front'].toJSON()));
+		form.append("top_texture", JSON.stringify(canvases['top'].toJSON()));
+		form.append("bottom_texture", JSON.stringify(canvases['bottom'].toJSON()));
+		form.append("back_texture", JSON.stringify(canvases['back'].toJSON()));
+		form.append("right_texture", JSON.stringify(canvases['right'].toJSON()));
+		form.append("left_texture", JSON.stringify(canvases['left'].toJSON()));
+
 
 		$.ajax({
 			"url": "/app/editbox/",

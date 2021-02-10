@@ -38,7 +38,7 @@
     <link rel="shortcut icon" href="{%static 'images/icons/favicon.ico'%}"/>
 
     <!-- Bootstrap CSS -->
-    
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -46,7 +46,7 @@
       crossorigin="anonymous"
     />
      
-
+    
     <title>FlexPack | Home Page</title>
   </head>
   <body>
@@ -253,15 +253,8 @@
                     role="tabpanel"
                     aria-labelledby="pills-addimage-tab"
                   >
-                    <select class="form-control" id="textures">
-                      <option>Top</option>
-                      <option>Left</option>
-                      <option>Right</option>
-                      <option>Front</option>
-                      <option>Back</option>
-                      <option>Bottom</option>
-                    </select>
-                    <div id="Front" style="display: none;">
+                    
+                    <div id="front" style="display: none;">
                       <input 
                              id="texture-front" 
                              name="texture-front[]" 
@@ -278,7 +271,7 @@
                               />
                         </div>
                     </div>  
-                    <div id="Back" style="display: none;">
+                    <div id="back" style="display: none;">
 
                       <input id="texture-back" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'back')">
                       <div class="w-100 h-auto">
@@ -290,7 +283,7 @@
                         />
                       </div>  
                     </div>
-                    <div id="Top" >
+                    <div id="top" >
 
                       <input id="texture-top" name="texture-top[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'top')">
                       <div class="w-100 h-auto">
@@ -335,7 +328,7 @@
                           />
                         </div>
                     </div>
-                    <script>
+                   <!-- <script>
                         var product_texture_images = {};
                         $('.box-texture').change(function (e) {
 
@@ -355,7 +348,7 @@
                                 reader.readAsDataURL(f);
                             }
                         });
-                  </script>         
+                  </script> -->        
                     
                   </div>
                   <div
@@ -368,6 +361,7 @@
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
                       style="font-family: 'Courier New', Courier, monospace"
+                      onclick="setText('PACKLANE','Courier');"
                     >
                       PACKLANE
                     </button>
@@ -378,6 +372,7 @@
                         font-family: 'Franklin Gothic Medium', 'Arial Narrow',
                           Arial, sans-serif;
                       "
+                      onclick="setText('PACKLANE','Franklin Gothic Medium');"
                     >
                       PACKLANE
                     </button>
@@ -385,6 +380,7 @@
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
                       style="font-family: 'Times New Roman', Times, serif"
+                      onclick="setText('PACKLANE','Times New Roman');"
                     >
                       PACKLANE
                     </button>
@@ -392,6 +388,7 @@
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
                       style="font-family: Verdana, Geneva, Tahoma, sans-serif"
+                      onclick="setText('PACKLANE','Verdana');"
                     >
                       PACKLANE
                     </button>
@@ -402,6 +399,8 @@
                         font-family: Cambria, Cochin, Georgia, Times,
                           'Times New Roman', serif;
                       "
+                      onclick="setText('PACKLANE','Cambria');"
+
                     >
                       PACKLANE
                     </button>
@@ -409,6 +408,7 @@
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
                       style="font-family: 'Times New Roman', Times, serif"
+                      onclick="setText('PACKLANE','Times New Roman');"
                     >
                       PACKLANE
                     </button>
@@ -419,6 +419,8 @@
                         font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
                           sans-serif;
                       "
+                      onclick="setText('PACKLANE','Segoe UI');"
+
                     >
                       PACKLANE
                     </button>
@@ -489,11 +491,47 @@
               </div>
             </div>
           </div>
+          <div id='c-front' style="display: none;">
+            <canvas id="canvas-front"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+          </div>
+          <div id='c-left' style="display: none;">
+            <canvas id="canvas-left"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas> 
+          </div>
+          <div id='c-bottom' style="display: none;">
+            <canvas id="canvas-bottom"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+          </div>
+          <div id='c-right' style="display: none;">
+            <canvas id="canvas-right"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+          </div>
+          <div id='c-top' style="display: block;">
+            <canvas id="canvas-top"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+          </div>
+          <div id='c-back' style="display: none;">
+            <canvas id="canvas-back"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+        </div>
           
           <!-- 
               EDIT - THE BOX VIEW STARTING FROM HERE
            -->
-           <div style="position:absolute; top:200px; left:490px; z-index:3 " ><select class="form-control" id="textures" style="width:30vw">
+           <div style="position:absolute; top:200px; left:490px; z-index:3 " ><select class="form-control"  style="width:30vw" id="textures"> 
             <option>Top</option>
             <option>Left</option>
             <option>Right</option>
@@ -521,57 +559,39 @@
             </p>
              
             <button  id="save">Save</button>
-          </div>
+            <button  onClick="deleteObject()">Remove</button>
+            
         </div>
       </div>
     </div>
-    <!-- Optional JavaScript; choose one of the two! -->
-    <!-- Option 1: Bootstrap Bundle with Popper -->
+    
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
       crossorigin="anonymous"
     ></script>
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
-    -->
+   
     <script>
-      function changeBoxTexture(texture){
-        if(texture=='kraft'){
-          product_texture_images = {
-            "texture-front": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-            "texture-left": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-            "texture-right": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-            "texture-back": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-            "texture-top": "<img style='height:200px; width:160px;' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-            "texture-bottom": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-          }
-        }
-        else{
-          product_texture_images = {
-            "texture-front": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
-            "texture-left": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
-            "texture-right": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
-            "texture-back": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
-            "texture-top": "<img style='height:200px; width:160px;' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
-            "texture-bottom": "<img style='height:200px' class='file-preview-image' src='{%static 'images/gray.jpg' %}'>",
-          }
-        }
-        for (var key in product_texture_images)
-        {
-            product_texture_images[key] = $(product_texture_images[key])[0];
-        }
-        renderProductBox();
-      }
+      
       function readURL(input,side) {
         if (input.files && input.files[0]) {
           var reader = new FileReader();
           reader.onload = function (e) {
-            document
-            .querySelector("#image-preview-"+side)
-            .setAttribute("src", e.target.result);
+
+            canvas = canvases[side];
+            fabric.Image.fromURL(e.target.result, function(img) {
+              var oImg = img.set({
+                left: 0,
+                top: 0,
+                angle: 0,
+              }).scale(0.2);
+              canvas.add(oImg).renderAll();
+
+              var dataURL = canvas.toDataURL({
+                format: 'png',
+                quality: 1
+              });
+            });
           };
           reader.readAsDataURL(input.files[0]);
         }
@@ -582,15 +602,41 @@
         $("#size-z").val(z)
         renderProductBox();
       }
-      var sides = ['Front','Back','Left','Right','Bottom','Top'];
+      function setCamera(x, y, z)
+			{
+				camera.rotation.set(-0.6055446444344589, -0.8117261390954865, -0.46544821952100746);
+				camera.position.set(x,y,z);
+				controls.update();
+			}
+      
+      var sides = ['front','back','left','right','bottom','top'];
+      var face = {
+        'front':[672, 519, 1281],
+        'back':[-679, 644, -1220],
+        'left':[-1323, 615, 703],
+        'right':[1293, 583, -592],
+        'bottom':[-54, -1532, 125],
+        'top':[-250, 1498, 241],
+      }
+      var canvases={};
+      function changeBoxTexture(texture){
+        for(side of sides){
+          canvases[side]=setBackgroundCanvas(side,texture);
+        }
+      }
       $("#textures").change(function(){
           for(side of sides){
-            
-            if(side== $("#textures").val())
+            var value =  ($("#textures").val()).toLowerCase(); 
+            if(side == value){
               $("#"+side).css('display','block');
-            else
-              $("#"+side).css('display','none')
-          }
+              $("#c-"+side).css('display','block');
+              setCamera(face[side][0], face[side][1], face[side][2]);
+            }
+            else{
+              $("#"+side).css('display','none');
+              $("#c-"+side).css('display','none');
+            } 
+          } 
       });
 
     </script>
@@ -598,21 +644,74 @@
     <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
     <script src="{%static 'js/renderer.js' %}"></script>
     <script>
+      function setBackgroundCanvas(side,texture){
+        var canvas;
+        if(!canvases[side])
+          canvas = new fabric.Canvas("canvas-"+side);
+        else  
+          canvas = canvases[side];
+        if(texture=='kraft'){ 
+          fabric.Image.fromURL("{%static 'images/kraft.jpg' %}", function(img) {
+            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+                scaleX: canvas.width / img.width,
+                scaleY: canvas.height / img.height
+            });
+          });
+        }
+        else{
+          fabric.Image.fromURL("{%static 'images/gray.jpg' %}", function(img) {
+            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+                scaleX: canvas.width / img.width,
+                scaleY: canvas.height / img.height
+            });
+          });
+        }
+        canvas.on("after:render", function () {
+          if (box_mesh) {
+            for (const material of box_mesh.material) {
+              if (material.map) {
+                material.map.needsUpdate = true;
+              }
+            }
+          }
+        });
+        return canvas;
+      }
+
+      function setText(text,font_family){
+        var value =  ($("#textures").val()).toLowerCase(); 
+        canvas = canvases[value]
+        var text = new fabric.Textbox(text,  
+        { 
+          fontFamily: font_family,
+          width: 300
+        });
+        canvas.add(text);
+      }
+
+      function setTextTest(text,font_family,value){
+        //var value =  ($("#textures").val()).toLowerCase(); 
+        canvas = canvases[value]
+        var text = new fabric.Textbox(text,  
+        { 
+          fontFamily: font_family,
+          width: 300
+        });
+        canvas.add(text);
+      }
       
+      window.deleteObject = function() {
+        var value =  ($("#textures").val()).toLowerCase(); 
+        canvas = canvases[value]
+        canvas.remove(canvas.getActiveObject());
+        canvas.renderAll(); 
+      }
+    
       if(window.location.pathname=='/app/boxdesign/'){
-        product_texture_images = {
-          "texture-front": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-          "texture-left": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-          "texture-right": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-          "texture-back": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-          "texture-top": "<img style='height:200px; width:160px;' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
-          "texture-bottom": "<img style='height:200px' class='file-preview-image' src='{%static 'images/kraft.jpg' %}'>",
+        for(side of sides){
+          canvases[side]=setBackgroundCanvas(side,"kraft");
         }
-          
-        for (var key in product_texture_images)
-        {
-          product_texture_images[key] = $(product_texture_images[key])[0];
-        }
+        renderProductBox();
         $("#save").click(function(e){saveModelToDatabase();});
       }
       else{
@@ -639,20 +738,24 @@
           }
         });
 
-
-        product_texture_images = {
-          "texture-front": "<img style='height:200px' class='file-preview-image' src='"+box.front_texture+"'>",
-          "texture-left": "<img style='height:200px' class='file-preview-image' src='"+box.left_texture+"'>",
-          "texture-right": "<img style='height:200px' class='file-preview-image' src='"+box.right_texture+"'>",
-          "texture-back": "<img style='height:200px' class='file-preview-image' src='"+box.back_texture+"'>",
-          "texture-top": "<img style='height:200px; width:160px;' class='file-preview-image' src='"+box.top_texture+"'>",
-          "texture-bottom": "<img style='height:200px' class='file-preview-image' src='"+box.bottom_texture+"'>",
+        
+        for(side of sides){
+          canvases[side]=new fabric.Canvas("canvas-"+side);
+          canvases[side].loadFromJSON(box[side+"_texture"], canvases[side].renderAll.bind(canvases[side]), function(o, object) {
+          });
+          canvases[side].on("after:render", function () {
+            if (box_mesh) {
+              for (const material of box_mesh.material) {
+                if (material.map) {
+                  material.map.needsUpdate = true;
+                }
+              }
+            }
+          });
         }
-        for (var key in product_texture_images)
-        {
-          product_texture_images[key] = $(product_texture_images[key])[0];
-        }
-        console.log(box.front_texture);
+        renderProductBox();
+        
+        
         $("#size-x").val(box.width);
 	      $("#size-y").val(box.height);
         $("#size-z").val(box.depth);
