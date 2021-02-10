@@ -266,7 +266,7 @@
                              id="texture-front" 
                              name="texture-front[]" 
                              type="file" 
-                             class="box-texture file file-loading form-control" 
+                             class="file file-loading form-control" 
                              data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
                              onchange="readURL(this,'front')">
                       
@@ -276,7 +276,7 @@
                       <input id="texture-back" 
                             name="texture-side[]" 
                             type="file" 
-                            class="box-texture file file-loading form-control" 
+                            class="file file-loading form-control" 
                             data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
                             onchange="readURL(this,'back')">
                       
@@ -306,7 +306,7 @@
                               id="texture-right" 
                               name="texture-side[]" 
                               type="file" 
-                              class="box-texture file file-loading form-control" 
+                              class="file file-loading form-control" 
                               data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
                               onchange="readURL(this,'right')">
                         
@@ -320,27 +320,7 @@
                           data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
                           onchange="readURL(this,'bottom')">
                     </div>
-                   <!-- <script>
-                        var product_texture_images = {};
-                        $('.box-texture').change(function (e) {
-
-                            e.preventDefault();
-                            var f = e.target.files[0];
-
-                            if (f)
-                            {
-                                var reader = new FileReader();
-                                reader.scope = this;
-                                reader.onload = function(evt) {
-                                    var image = document.createElement( 'img' );
-                                    image.src = evt.target.result;
-                                    product_texture_images[this.scope.id] = image;
-                                    renderProductBox();
-                                }
-                                reader.readAsDataURL(f);
-                            }
-                        });
-                  </script> -->        
+                  
                     
                   </div>
                   <div
@@ -662,17 +642,6 @@
 
       function setText(text,font_family){
         var value =  ($("#textures").val()).toLowerCase(); 
-        canvas = canvases[value]
-        var text = new fabric.Textbox(text,  
-        { 
-          fontFamily: font_family,
-          width: 300
-        });
-        canvas.add(text);
-      }
-
-      function setTextTest(text,font_family,value){
-        //var value =  ($("#textures").val()).toLowerCase(); 
         canvas = canvases[value]
         var text = new fabric.Textbox(text,  
         { 

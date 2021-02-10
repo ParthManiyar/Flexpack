@@ -146,5 +146,9 @@ LOGIN_EXEMPT_URLS=(
     r'^app/register/',
     r'^app/google/callback/login/',
     r'^admin/',
-    r'^app/home/'
+    r'^app/home/',
+    r'^app/boxdesign/',
+    r'^app/validateToken/',
+    r'^app/saveddesign/',
+    r'^app/editbox/[a-z][0-9]',
 )

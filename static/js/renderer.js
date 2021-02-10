@@ -23,7 +23,6 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.enableZoom = true;
 
-//var loader = new THREE.TextureLoader();
 
 var ambient_light = new THREE.AmbientLight( 0xE5E5E5 );
 scene.add( ambient_light );
@@ -33,17 +32,11 @@ var box_mesh;
 
 var resources = [];
 				
-//var textures = {};
 				
 
 function getTexture(type)
 {	
-	/*var img = product_texture_images["texture-" + type];
-	texture = loader.load(img.src);
-	texture.generateMipmaps = false;
-	texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-	texture.magFilter = THREE.LinearFilter;
-	texture.minFilter = THREE.LinearFilter;*/
+	
 
 	const _canvDom = $("#canvas-"+type)[0];
     const outsideCanv = new THREE.CanvasTexture(_canvDom);
@@ -60,11 +53,6 @@ function getTexture(type)
 
 function getMaterial(type)
 {
-	
-	/*var ret = new THREE.MeshPhongMaterial({
-		map: getTexture(type),
-		side: THREE.DoubleSide,
-    });*/
 	const outsideMat = new THREE.MeshStandardMaterial({
 		map: getTexture(type),
 		side: THREE.DoubleSide,
