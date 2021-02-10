@@ -25,8 +25,6 @@ def savedDesign(request):
 def editBox(request,uuid):
     return render(request,'jwt_auth_login_register/boxDesign.html')
 
-
-
 def googleAuthentication(request):
     auth_code = request.GET.get('code')
     google = Google_Authentication()
@@ -53,8 +51,8 @@ def googleAuthentication(request):
     tok  = Token()
     token = tok.get_access_token_for_first_time(payload,3600,7)
     return render(request,'jwt_auth_login_register/callback.html',token)
+
    
-    
 class CreateUserAPIView(APIView):
     def post(self, request):
         user = request.data
