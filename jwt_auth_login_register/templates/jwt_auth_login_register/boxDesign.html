@@ -253,14 +253,7 @@
                     role="tabpanel"
                     aria-labelledby="pills-addimage-tab"
                   >
-                    <select class="form-control" id="textures">
-                      <option>Top</option>
-                      <option>Left</option>
-                      <option>Right</option>
-                      <option>Front</option>
-                      <option>Back</option>
-                      <option>Bottom</option>
-                    </select>
+                    
                     <div id="front" style="display: none;">
                       <input 
                              id="texture-front" 
@@ -269,56 +262,71 @@
                              class="file file-loading form-control" 
                              data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
                              onchange="readURL(this,'front')">
-                      
+                        <div class="w-100 h-auto" >
+                              <img
+                                href="none"
+                                class="form-control hidden"
+                                id="image-preview-front"
+                                style="height: 150px; width: 180px;"
+                              />
+                        </div>
                     </div>  
                     <div id="back" style="display: none;">
 
-                      <input id="texture-back" 
-                            name="texture-side[]" 
-                            type="file" 
-                            class="file file-loading form-control" 
-                            data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
-                            onchange="readURL(this,'back')">
-                      
+                      <input id="texture-back" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'back')">
+                      <div class="w-100 h-auto">
+                        <img
+                          href="none"
+                          class="form-control hidden"
+                          id="image-preview-back"
+                          style="height: 150px; width: 180px;"
+                        />
+                      </div>  
                     </div>
                     <div id="top" >
 
-                      <input id="texture-top" 
-                            name="texture-top[]" 
-                            type="file" 
-                            class="box-texture file file-loading form-control" 
-                            data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
-                            onchange="readURL(this,'top')">
-                        
+                      <input id="texture-top" name="texture-top[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'top')">
+                      <div class="w-100 h-auto">
+                        <img
+                          href="none"
+                          class="form-control hidden"
+                          id="image-preview-top"
+                          style="height: 150px; width: 180px;"
+                        />
+                      </div>
                     </div>
-                    <div id="left" style="display: none;">
-                        <input 
-                              id="texture-left" 
-                              name="texture-side[]" 
-                              type="file" 
-                              class="box-texture file file-loading form-control" 
-                              data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
-                              onchange="readURL(this,'left')">
-                       
+                    <div id="Left" style="display: none;">
+                        <input id="texture-left" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'left')">
+                        <div class="w-100 h-auto">
+                          <img
+                            href="none"
+                            class="form-control hidden"
+                            id="image-preview-left"
+                            style="height: 150px; width: 180px;"
+                          />
+                        </div>
                     </div>
-                    <div id="right" style="display: none;">
-                        <input 
-                              id="texture-right" 
-                              name="texture-side[]" 
-                              type="file" 
-                              class="file file-loading form-control" 
-                              data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
-                              onchange="readURL(this,'right')">
-                        
+                    <div id="Right" style="display: none;">
+                        <input id="texture-right" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'right')">
+                        <div class="w-100 h-auto">
+                          <img
+                            href="none"
+                            class="form-control hidden"
+                            id="image-preview-right"
+                            style="height: 150px; width: 180px;"
+                          />
+                        </div>
                     </div>
-                    <div id="bottom" style="display: none;">
-                        <input 
-                          id="texture-bottom"
-                          name="texture-top[]" 
-                          type="file" 
-                          class="box-texture file file-loading form-control" 
-                          data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
-                          onchange="readURL(this,'bottom')">
+                    <div id="Bottom" style="display: none;">
+                        <input id="texture-bottom" name="texture-top[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'bottom')">
+                        <div class="w-100 h-auto">
+                          <img
+                            href="none"
+                            class="form-control hidden"
+                            id="image-preview-bottom"
+                            style="height: 150px; width: 180px;"
+                          />
+                        </div>
                     </div>
                   
                     
@@ -463,15 +471,60 @@
               </div>
             </div>
           </div>
+          <div id='c-front' style="display: none;">
+            <canvas id="canvas-front"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+          </div>
+          <div id='c-left' style="display: none;">
+            <canvas id="canvas-left"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas> 
+          </div>
+          <div id='c-bottom' style="display: none;">
+            <canvas id="canvas-bottom"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+          </div>
+          <div id='c-right' style="display: none;">
+            <canvas id="canvas-right"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+          </div>
+          <div id='c-top' style="display: block;">
+            <canvas id="canvas-top"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+          </div>
+          <div id='c-back' style="display: none;">
+            <canvas id="canvas-back"
+                width="300"
+                height="200" style="border: 2px solid green;"> 
+            </canvas>
+        </div>
           
           <!-- 
               EDIT - THE BOX VIEW STARTING FROM HERE
            -->
-           <div id="canvas-container" style="border:1px solid #000000; height: 30vw; width : 30vw;"></div>
+           <div style="position:absolute; top:200px; left:490px; z-index:3 " ><select class="form-control"  style="width:30vw" id="textures"> 
+            <option>Top</option>
+            <option>Left</option>
+            <option>Right</option>
+            <option>Front</option>
+            <option>Back</option>
+            <option>Bottom</option>
+          </select>
+           </div> 
+           <div id="canvas-container" style="border:1px solid;position:absolute; top:250px; left:500px; z-index:3 #000000; height: 30vw; width : 30vw;" class="canvas-contianer transparent-background"></div>
            <!-- 
               EDIT - ADD YOUR CONTROLS STARTING FROM HERE
            -->
-          <div class="col-3 bg-light rounded shadow-lg">
+          <div class="col-3 bg-light rounded shadow-lg" style="position:absolute; top:200px; left:1000px; z-index:3">
             <p>Box width:
               <input style="width:30%; display:inline;" id="size-x" type="number" class="form-control" value="500" min="50" max="1500" step="10" onchange="renderProductBox();" >
             </p>
@@ -487,42 +540,7 @@
              
             <button  id="save">Save</button>
             <button  onClick="deleteObject()">Remove</button>
-            <div id='c-front' style="display: none;">
-              <canvas id="canvas-front"
-                  width="300"
-                  height="200" style="border: 2px solid green;"> 
-              </canvas>
-            </div>
-            <div id='c-left' style="display: none;">
-              <canvas id="canvas-left"
-                  width="300"
-                  height="200" style="border: 2px solid green;"> 
-              </canvas> 
-            </div>
-            <div id='c-bottom' style="display: none;">
-              <canvas id="canvas-bottom"
-                  width="300"
-                  height="200" style="border: 2px solid green;"> 
-              </canvas>
-            </div>
-            <div id='c-right' style="display: none;">
-              <canvas id="canvas-right"
-                  width="300"
-                  height="200" style="border: 2px solid green;"> 
-              </canvas>
-            </div>
-            <div id='c-top' style="display: block;">
-              <canvas id="canvas-top"
-                  width="300"
-                  height="200" style="border: 2px solid green;"> 
-              </canvas>
-            </div>
-            <div id='c-back' style="display: none;">
-              <canvas id="canvas-back"
-                  width="300"
-                  height="200" style="border: 2px solid green;"> 
-              </canvas>
-          </div>
+            
         </div>
       </div>
     </div>
