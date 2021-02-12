@@ -1,2 +1,4 @@
 .env
-__pycache__/
+Flexpack/__pycache__/
+jwt_auth_login_register/__pycache__/
+media/uploads/

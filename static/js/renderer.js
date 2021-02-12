@@ -23,29 +23,22 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.enableZoom = true;
 
-
 var ambient_light = new THREE.AmbientLight( 0xE5E5E5 );
 scene.add( ambient_light );
-
 
 var box_mesh;
 
 var resources = [];
-				
-				
 
+var matrials = [];
+				
 function getTexture(type)
 {	
-	
-
 	const _canvDom = $("#canvas-"+type)[0];
     const outsideCanv = new THREE.CanvasTexture(_canvDom);
 	outsideCanv.minFilter = THREE.LinearFilter;
     outsideCanv.wrapS = THREE.ClampToEdgeWrapping;
     outsideCanv.wrapT = THREE.ClampToEdgeWrapping;
-
-	
-	
 	resources.push(outsideCanv);
 	return outsideCanv;
 }
@@ -79,7 +72,6 @@ function renderProductBox()
 
 	resources.push(geometry);
 	materials = [
-		//outsideMat,
 	   getMaterial("right"),
        getMaterial("left"),
 	   //materialTransparent,
@@ -89,7 +81,6 @@ function renderProductBox()
        getMaterial("back")
 	];
 	
-
 	box_mesh = new THREE.Mesh(geometry, materials);
 	resources.push(box_mesh);
 	scene.add(box_mesh);
@@ -104,7 +95,6 @@ function IsJsonString(str) {
 }
 
 function saveModelToDatabase(){
-	
 	camera.rotation.set(-0.6055446444344589, -0.8117261390954865, -0.46544821952100746);
 	camera.position.set(-1000,540,780);
 	controls.update();
@@ -188,7 +178,6 @@ function editModelToDatabase(){
 		form.append("right_texture", JSON.stringify(canvases['right'].toJSON()));
 		form.append("left_texture", JSON.stringify(canvases['left'].toJSON()));
 
-
 		$.ajax({
 			"url": "/app/editbox/",
 			"method": "PUT",
@@ -210,7 +199,6 @@ function editModelToDatabase(){
 			}
 		});
 	});
-	
 }
 
 function tryRenderProduct()

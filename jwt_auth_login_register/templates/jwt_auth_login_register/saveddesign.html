@@ -3,34 +3,8 @@
 <html lang="en">
     <head>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="{%static 'js/validate.js' %}"></script>
 
-        <script type="text/javascript">
-            function validateToken()
-            {
-                access_token = window.localStorage.getItem("access_token");
-                if(access_token==null)
-                    window.location.pathname = '/app/login';
-                else{
-                    $.ajax({
-                        url: "/app/validateToken/",
-                        type: "POST",
-                        data: {
-                            "csrfmiddlewaretoken" : "{{ csrf_token }}",
-                            "access_token":access_token,
-                        },
-                        success: function(response) {
-                            
-                        },
-                        error: function(xhr, a, b)
-                        {
-                            window.location.pathname = '/app/login';
-                        }
-                    });
-                }
-                    
-            }
-            window.onpaint = validateToken();
-        </script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">

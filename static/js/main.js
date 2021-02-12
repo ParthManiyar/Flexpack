@@ -7,10 +7,11 @@
     [ Focus input ]*/
     $('.input100').each(function(){
         $(this).on('blur', function(){
-            if($(this).val().trim() != "") {
+            if($(this).val().trim() == "") {
                 $(this).addClass('has-val');
             }
             else {
+                
                 $(this).removeClass('has-val');
             }
         })    
@@ -21,13 +22,32 @@
     [ Validate ]*/
     var input = $('.validate-input .input100');
 
-    $('#login_btn_id','#signup_btn_id').on('submit',function(){
+    $('#login_btn_id').click(function(){
         var check = true;
-
+        
         for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
                 showValidate(input[i]);
                 check=false;
+            }
+            else{
+                hideValidate(input[i]);
+            }
+        }
+
+        return check;
+    });
+
+    $('#signup_btn_id').click(function(){
+        var check = true;
+        
+        for(var i=0; i<input.length; i++) {
+            if(validate(input[i]) == false){
+                showValidate(input[i]);
+                check=false;
+            }
+            else{
+                hideValidate(input[i]);
             }
         }
 
@@ -35,7 +55,7 @@
     });
 
 
-    $('.validate-form .input100').each(function(){
+    $('.input100').each(function(){
         $(this).focus(function(){
            hideValidate(this);
         });

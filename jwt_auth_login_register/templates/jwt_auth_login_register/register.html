@@ -29,7 +29,6 @@
 	<link rel="stylesheet" type="text/css" href="{%static 'css/main.css'%}">
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
 <!--===============================================================================================-->
 </head>
 <body>
@@ -63,7 +62,7 @@
 
 					<div class="wrap-input100 validate-input" data-validate="Email is required">
 						<span class="label-input100">Email</span>
-						<input class="input100" type="text"  placeholder="Type your Email" id="email">
+						<input class="input100" type="email"  placeholder="Type your Email" id="email">
 						<span class="focus-input100" data-symbol="&#9993"></span>
 					</div>
 
@@ -113,40 +112,7 @@
 	
 
 	<div id="dropDownSelect1"></div>
-	<script type="text/javascript">
-
-		$("#signup_btn_id" ).click(function() {
-			signup_submit()
-		});
 	
-		function signup_submit()
-		{
-		 $.ajax({
-			  url: "/app/register/",
-			  type: "POST",
-			  data: {
-				"first_name":$("#firstName").val(),
-    			"last_name":$("#lastName").val(),
-    			"email":$("#email").val(),
-    			"username":$("#username").val(),
-				"password":$("#password").val(),
-				"csrfmiddlewaretoken" : "{{ csrf_token }}"
-			  },
-			  success: function(response) {
-				  $("#message").html("Account created successfully!!");
-				  window.location.pathname = '/app/saveddesign/';
-			  },
-			  error: function(xhr, a, b)
-			  {
-				  let x = ""
-				  let m = JSON.parse(xhr.responseText)
-				  for (key in m)
-				  	x+= key+": "+m[key]+"<br>"
-				 $("#message").html(x)
-			  }
-			});	
-		}
-	  </script>
 	
 <!--===============================================================================================-->
 	<script src="{%static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
@@ -164,6 +130,44 @@
 	<script src="{%static 'vendor/countdowntime/countdowntime.js'%}"></script>
 <!--===============================================================================================-->
 	<script src="{%static 'js/main.js' %}"></script>
+
+	<script type="text/javascript">
+
+		$("#signup_btn_id" ).click(function() {
+			signup_submit()
+		});
+	
+		function signup_submit()
+		{
+		 	$.ajax({
+			  url: "/app/register/",
+			  type: "POST",
+			  data: {
+				"first_name":$("#firstName").val(),
+    			"last_name":$("#lastName").val(),
+    			"email":$("#email").val(),
+    			"username":$("#username").val(),
+				"password":$("#password").val(),
+				"csrfmiddlewaretoken" : "{{ csrf_token }}"
+			  },
+			  success: function(response) {
+				  $("#message").html("Account created successfully!!");
+				  window.location.pathname = '/app/saveddesign/';
+			  },
+			  error: function(xhr, a, b)
+			  {
+				if($("#username").val().trim() != "" && $("#firstName").val().trim() != "" && $("#lastName").val().trim() != "" && $("#email").val().trim() != "" && $("#password").val().trim() != ""){
+				  let x = ""
+				  let m = JSON.parse(xhr.responseText)
+				  for (key in m)
+				  	x+= m[key]+"<br>"
+				
+				 $("#message").html(x)
+				}
+			  }
+			});	
+		}
+	  </script>
 
 </body>
 </html>

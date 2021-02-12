@@ -66,8 +66,6 @@ class CreateUserAPIView(APIView):
         user._mutable = False
         serializer = RegisterSerializer(data=user)
         serializer.is_valid(raise_exception=True)
-        if(user['password'] is None or user['password']==""):
-            return Response({'Password':"This Field is required"},status=400)
         serializer.save()
         return Response(serializer.data, status=201)
 

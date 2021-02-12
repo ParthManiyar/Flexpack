@@ -16,5 +16,6 @@ urlpatterns = [
     path('getbox/',views.GetBoxAPI.as_view()),
     path('editbox/',views.EditBoxAPI.as_view()),
     path('deletebox/',views.DeleteBoxAPI.as_view()),
-    path('editbox/<str:uuid>/',views.editBox)
+    path('editbox/<str:uuid>/',views.editBox),
+    path('register/',views.Register),
 ]

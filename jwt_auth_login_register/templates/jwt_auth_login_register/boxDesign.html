@@ -3,33 +3,67 @@
 <html lang="en">
   <head>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript">
-      function validateToken()
-      {
-          access_token = window.localStorage.getItem("access_token");
-          if(access_token==null)
-              window.location.pathname = '/app/login';
-          else{
-              $.ajax({
-                  url: "/app/validateToken/",
-                  type: "POST",
-                  data: {
-                      "csrfmiddlewaretoken" : "{{ csrf_token }}",
-                      "access_token":access_token,
-                  },
-                  success: function(response) {
-                      
-                  },
-                  error: function(xhr, a, b)
-                  {
-                      window.location.pathname = '/app/login';
-                  }
-              });
-          }
-              
+    <script src="{%static 'js/validate.js' %}"></script>
+    <style>
+      body1 {
+        font-family: 'Open Sans', San-Serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin:0px;
+        padding:0px;
       }
-      window.onpaint = validateToken();
-    </script>
+      
+      .contain{
+        display:inline-block;
+        font-size:0;
+      }
+      
+      .bt {
+        margin:0px;
+        padding:0px;
+      }
+      /* Boostrap Buttons Styling */
+      
+      .btn-fit {
+        font-family: Raleway-SemiBold;
+        font-size: 15px;
+        color: black;
+        letter-spacing: 1px;
+        line-height: 30px;
+        border: 2px solid black;
+        border-radius: 25px 0px 0px 25px;
+        background: transparent;
+        transition: all 0.3s ease 0s;
+      }
+      .btn-center {
+        font-family: Raleway-SemiBold;
+        font-size: 15px;
+        color:black;
+        letter-spacing: 1px;
+        line-height: 30px;
+        border: 2px solid black;
+        background: transparent;
+        border-radius:0px;
+        transition: all 0.3s ease 0s;
+      }
+      .btn-cover {
+        font-family: Raleway-SemiBold;
+        font-size: 15px;
+        color: black;
+        letter-spacing: 1px;
+        line-height: 30px;
+        border: 2px solid black;
+        border-radius: 0px 50px 50px 0px;
+        background: transparent;
+        transition: all 0.3s ease 0s;
+      }
+      
+      .btn-fit:hover .btn-center:hover .btn-cover:hover{
+        color: #FFF;
+        background: black;
+        border: 2px solid black;
+      }
+    </style>
 
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -39,14 +73,13 @@
 
     <!-- Bootstrap CSS -->
     <script src= "https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js"></script>
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
       crossorigin="anonymous"
     />
-     
-    
     <title>FlexPack | Home Page</title>
   </head>
   <body>
@@ -145,6 +178,18 @@
                         aria-controls="pills-quantity"
                         aria-selected="false"
                         >Quantity</a
+                      >
+                    </li>
+                    <li class="nav-item w-100" role="presentation">
+                      <a
+                        class="nav-link"
+                        id="pills-background-tab"
+                        data-bs-toggle="pill"
+                        href="#pills-background"
+                        role="tab"
+                        aria-controls="pills-background"
+                        aria-selected="false"
+                        >Add Background Color</a
                       >
                     </li>
                   </ul>
@@ -253,83 +298,56 @@
                     role="tabpanel"
                     aria-labelledby="pills-addimage-tab"
                   >
-                    
                     <div id="front" style="display: none;">
                       <input 
-                             id="texture-front" 
-                             name="texture-front[]" 
-                             type="file" 
-                             class="file file-loading form-control" 
-                             data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
-                             onchange="readURL(this,'front')">
-                        <div class="w-100 h-auto" >
-                              <img
-                                href="none"
-                                class="form-control hidden"
-                                id="image-preview-front"
-                                style="height: 150px; width: 180px;"
-                              />
-                        </div>
+                        type="file" 
+                        class="form-control" 
+                        data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
+                        onchange="readURL(this,'front')">
                     </div>  
                     <div id="back" style="display: none;">
-
-                      <input id="texture-back" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'back')">
-                      <div class="w-100 h-auto">
-                        <img
-                          href="none"
-                          class="form-control hidden"
-                          id="image-preview-back"
-                          style="height: 150px; width: 180px;"
-                        />
-                      </div>  
+                      <input 
+                        type="file" 
+                        class="form-control" 
+                        data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
+                        onchange="readURL(this,'back')">
                     </div>
                     <div id="top" >
-
-                      <input id="texture-top" name="texture-top[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'top')">
-                      <div class="w-100 h-auto">
-                        <img
-                          href="none"
-                          class="form-control hidden"
-                          id="image-preview-top"
-                          style="height: 150px; width: 180px;"
-                        />
-                      </div>
+                      <input  
+                        type="file" 
+                        class="form-control" 
+                        data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
+                        onchange="readURL(this,'top')">
                     </div>
-                    <div id="Left" style="display: none;">
-                        <input id="texture-left" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'left')">
-                        <div class="w-100 h-auto">
-                          <img
-                            href="none"
-                            class="form-control hidden"
-                            id="image-preview-left"
-                            style="height: 150px; width: 180px;"
-                          />
-                        </div>
+                    <div id="left" style="display: none;">
+                        <input 
+                          type="file" 
+                          class="form-control" 
+                          data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
+                          onchange="readURL(this,'left')">
                     </div>
-                    <div id="Right" style="display: none;">
-                        <input id="texture-right" name="texture-side[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'right')">
-                        <div class="w-100 h-auto">
-                          <img
-                            href="none"
-                            class="form-control hidden"
-                            id="image-preview-right"
-                            style="height: 150px; width: 180px;"
-                          />
-                        </div>
+                    <div id="right" style="display: none;">
+                        <input
+                          type="file" 
+                          class="form-control" 
+                          data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
+                          onchange="readURL(this,'right')">
                     </div>
-                    <div id="Bottom" style="display: none;">
-                        <input id="texture-bottom" name="texture-top[]" type="file" class="box-texture file file-loading form-control" data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' onchange="readURL(this,'bottom')">
-                        <div class="w-100 h-auto">
-                          <img
-                            href="none"
-                            class="form-control hidden"
-                            id="image-preview-bottom"
-                            style="height: 150px; width: 180px;"
-                          />
-                        </div>
+                    <div id="bottom" style="display: none;">
+                        <input  
+                          type="file" 
+                          class="form-control" 
+                          data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
+                          onchange="readURL(this,'bottom')">
                     </div>
-                  
-                    
+                    <p></p>
+                    <div class="contain text-center" >
+                      <button type="button" class="bt btn-fit">Fit</button>
+                      <button type="button" class="bt btn-center" id="center">Center</button>
+                      <button type="button" class="bt btn-cover">Cover</button>
+                   </div>
+                   <p></p>
+                   <button type="button" class="bt btn-center" onClick="deleteObject()">Remove Image</button>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -337,79 +355,65 @@
                     role="tabpanel"
                     aria-labelledby="pills-addtext-tab"
                   >
-                    <button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      style="font-family: 'Courier New', Courier, monospace"
-                      onclick="setText('PACKLANE','Courier');"
-                    >
-                      PACKLANE
-                    </button>
-                    <button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      style="
-                        font-family: 'Franklin Gothic Medium', 'Arial Narrow',
-                          Arial, sans-serif;
-                      "
-                      onclick="setText('PACKLANE','Franklin Gothic Medium');"
-                    >
-                      PACKLANE
-                    </button>
-                    <button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      style="font-family: 'Times New Roman', Times, serif"
-                      onclick="setText('PACKLANE','Times New Roman');"
-                    >
-                      PACKLANE
-                    </button>
-                    <button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      style="font-family: Verdana, Geneva, Tahoma, sans-serif"
-                      onclick="setText('PACKLANE','Verdana');"
-                    >
-                      PACKLANE
-                    </button>
-                    <button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      style="
-                        font-family: Cambria, Cochin, Georgia, Times,
-                          'Times New Roman', serif;
-                      "
-                      onclick="setText('PACKLANE','Cambria');"
-
-                    >
-                      PACKLANE
-                    </button>
-                    <button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      style="font-family: 'Times New Roman', Times, serif"
-                      onclick="setText('PACKLANE','Times New Roman');"
-                    >
-                      PACKLANE
-                    </button>
-                    <button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      style="
-                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
-                          sans-serif;
-                      "
-                      onclick="setText('PACKLANE','Segoe UI');"
-
-                    >
-                      PACKLANE
-                    </button>
+                    <button onclick="Addtext()" title="Add text"><span class="mdi mdi-format-text"> Add Text</span></button>&emsp;
+                    <p></p>
+                    <div id="text-controls">
+                        <select id="font-family">
+                          <option value="arial">Arial</option>
+                          <option value="HelveticaNeue" selected>Helvetica Neue</option>
+                          <option value="myriad pro">Myriad Pro</option>
+                          <option value="delicious">Delicious</option>
+                          <option value="verdana">Verdana</option>
+                          <option value="georgia">Georgia</option>
+                          <option value="courier">Courier</option>
+                          <option value="comic sans ms">Comic Sans MS</option>
+                          <option value="impact">Impact</option>
+                          <option value="monaco">Monaco</option>
+                          <option value="optima">Optima</option>
+                          <option value="hoefler text">Hoefler Text</option>
+                          <option value="plaster">Plaster</option>
+                          <option value="engagement">Engagement</option>
+                        </select>
+                        <br>
+                        <label for="text-color">Text Color:</label>
+                        <input type="color" id="text-color" size="10">
+                        <br>
+                        <select id="text-align">
+                          <option value="left">Align Left</option>
+                          <option value="center">Align Center</option>
+                          <option value="right">Align Right</option>
+                          <option value="justify">Align Justify</option>
+                        </select>
+                        <br>
+                        <label for="text-stroke-color">Stroke Color:</label>
+                        <input type="color" id="text-stroke-color">
+                        <br>
+                        <label for="text-stroke-width">Stroke Width:</label>
+                        <input type="number" value="1" min="1" max="5" id="text-stroke-width">
+                        <br>
+                        <label for="text-font-size">Font Size:</label>
+                        <input type="number" min="12" max="120" step="1" id="text-font-size">
+                        <br>
+                        <label for="text-bg-color">Background Color:</label>
+                        <input type="color" id="text-bg-color" size="10">
+                        <br>
+                        <input type='checkbox' name='fonttype' id="text-cmd-bold"> <b>B</b>
+                        <input type='checkbox' name='fonttype' id="text-cmd-italic"> <em>I</em>
+                        <br>
+                        <input type='checkbox' name='fonttype' id="text-cmd-underline"> Underline
+                        <br>
+                        <input type='checkbox' name='fonttype' id="text-cmd-linethrough"> Linethrough
+                        <br>
+                        <input type='checkbox' name='fonttype' id="text-cmd-overline"> Overline
+                    </div>
+                    <button  onClick="deleteObject()">Remove Text</button>
                   </div>
+                  
                   <div
-                    class="tab-pane fade"
-                    id="pills-quantity"
-                    role="tabpanel"
-                    aria-labelledby="pills-quantity-tab"
+                  class="tab-pane fade"
+                  id="pills-quantity"
+                  role="tabpanel"
+                  aria-labelledby="pills-quantity-tab"
                   >
                     <button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
@@ -466,6 +470,15 @@
                     >
                       1
                     </button>
+                </div>
+                <div
+                    class="tab-pane fade"
+                    id="pills-background"
+                    role="tabpanel"
+                    aria-labelledby="pills-background-tab"
+                  >
+                    <input type="color" id="background-color" size="10">
+                    <button  id="reset-background">Reset Background</button>
                   </div>
                 </div>
               </div>
@@ -511,14 +524,15 @@
           <!-- 
               EDIT - THE BOX VIEW STARTING FROM HERE
            -->
-           <div style="position:absolute; top:200px; left:490px; z-index:3 " ><select class="form-control"  style="width:30vw" id="textures"> 
-            <option>Top</option>
-            <option>Left</option>
-            <option>Right</option>
-            <option>Front</option>
-            <option>Back</option>
-            <option>Bottom</option>
-          </select>
+           <div style="position:absolute; top:200px; left:490px; z-index:3 ">
+            <select class="form-control"  style="width:30vw" id="textures"> 
+              <option>Top</option>
+              <option>Left</option>
+              <option>Right</option>
+              <option>Front</option>
+              <option>Back</option>
+              <option>Bottom</option>
+            </select>
            </div> 
            <div id="canvas-container" style="border:1px solid;position:absolute; top:250px; left:500px; z-index:3 #000000; height: 30vw; width : 30vw;" class="canvas-contianer transparent-background"></div>
            <!-- 
@@ -539,7 +553,6 @@
             </p>
              
             <button  id="save">Save</button>
-            <button  onClick="deleteObject()">Remove</button>
             
         </div>
       </div>
@@ -550,14 +563,129 @@
       integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
       crossorigin="anonymous"
     ></script>
+
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <script src="{%static 'js/renderer.js' %}"></script>
    
     <script>
+      var texture = "kraft";
+      document.getElementById('background-color').onchange = function() {
+        var value =  (document.getElementById("textures").value).toLowerCase(); 
+        canvases[value].backgroundImage = 0;
+        canvases[value].backgroundColor= this.value ;
+        canvases[value].renderAll();
+
+      };
+      document.getElementById('center').onclick = function(){
+        var value =  (document.getElementById("textures").value).toLowerCase(); 
+        (canvases[value].getActiveObject()).center();
+        canvases[value].renderAll();
+      };
+      document.getElementById('reset-background').onclick = function() {
+        var value =  (document.getElementById("textures").value).toLowerCase(); 
+        canvases[value].backgroundColor= 0;
+        setBackgroundCanvas(value,texture);
+
+      };
+      // Add text
+      function Addtext() {
+        var value =  ($("#textures").val()).toLowerCase(); 
+        canvases[value].add(new fabric.IText('Tap and Type', {
+            left: 50,
+            top: 100,
+            fontFamily: 'helvetica neue',
+            fill: '#000',
+            stroke: '#fff',
+            strokeWidth: .1,
+            fontSize: 45
+        }));
+      }
+      // Edit Text
+      
+      document.getElementById('text-color').onchange = function() {
+        var value =  (document.getElementById("textures").value).toLowerCase(); 
+        canvases[value].getActiveObject().setColor(this.value);
+        canvases[value].renderAll();
+      };
+      document.getElementById('text-bg-color').onchange = function() {
+        var value =  (document.getElementById("textures").value).toLowerCase();
+        canvases[value].getActiveObject().set('backgroundColor',this.value);
+        canvases[value].renderAll();
+      };
+      
+      document.getElementById('text-stroke-color').onchange = function() {
+        var value =  (document.getElementById("textures").value).toLowerCase();
+        canvases[value].getActiveObject().set('stroke',this.value);
+        canvases[value].renderAll();
+      };
+      document.getElementById('text-stroke-width').onchange = function() {
+        var value =  (document.getElementById("textures").value).toLowerCase();
+        canvases[value].getActiveObject().set('strokeWidth',this.value);
+        canvases[value].renderAll();
+      };
+      document.getElementById('font-family').onchange = function() {
+        var value =  (document.getElementById("textures").value).toLowerCase();
+        canvases[value].getActiveObject().set('fontFamily',this.value);
+        canvases[value].renderAll();
+      };
+      document.getElementById('text-font-size').onchange = function() {
+        var value =  (document.getElementById("textures").value).toLowerCase();
+        canvases[value].getActiveObject().set('fontSize',this.value);
+        canvases[value].renderAll();
+      };
+      
+      document.getElementById('text-align').onchange = function() {
+        var value =  (document.getElementById("textures").value).toLowerCase(); 
+        canvases[value].getActiveObject().set('textAlign',this.value);
+        canvases[value].renderAll();
+      };
+      
+      radios5 = document.getElementsByName("fonttype"); // wijzig naar button
+      for (var i = 0, max = radios5.length; i < max; i++) {
+        radios5[i].onclick = function() {
+            var value =  (document.getElementById("textures").value).toLowerCase(); 
+            if (document.getElementById(this.id).checked == true) {
+              if (this.id == "text-cmd-bold") {
+                canvases[value].getActiveObject().set("fontWeight", "bold");
+              }
+              if (this.id == "text-cmd-italic") {
+                canvases[value].getActiveObject().set("fontStyle", "italic");
+              }
+              if (this.id == "text-cmd-underline") {
+                canvases[value].getActiveObject().set("underline", true );
+              }
+              if (this.id == "text-cmd-linethrough") {
+                canvases[value].getActiveObject().set("linethrough",true);
+              }
+              if (this.id == "text-cmd-overline") {
+                canvases[value].getActiveObject().set("overline",true);
+              }
+            } else {
+              if (this.id == "text-cmd-bold") {
+                canvases[value].getActiveObject().set("fontWeight", "");
+              }
+              if (this.id == "text-cmd-italic") {
+                canvases[value].getActiveObject().set("fontStyle", "");
+              }
+              if (this.id == "text-cmd-underline") {
+                canvases[value].getActiveObject().set("underline", false);
+              }
+              if (this.id == "text-cmd-linethrough") {
+                canvases[value].getActiveObject().set("linethrough", false);
+              }
+              if (this.id == "text-cmd-overline") {
+                canvases[value].getActiveObject().set("overline", false);
+              }
+            }
+            canvases[value].renderAll();
+        }
+      }
       
       function readURL(input,side) {
         if (input.files && input.files[0]) {
           var reader = new FileReader();
           reader.onload = function (e) {
-
             canvas = canvases[side];
             fabric.Image.fromURL(e.target.result, function(img) {
               var oImg = img.set({
@@ -619,13 +747,9 @@
           } 
       });
 
-    </script>
-    <script src="https://threejs.org/build/three.js"></script>
-    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-    <script src="{%static 'js/renderer.js' %}"></script>
-    <script>
-      function setBackgroundCanvas(side,texture){
+      function setBackgroundCanvas(side,image){
         var canvas;
+        texture = image;
         if(!canvases[side])
           canvas = new fabric.Canvas("canvas-"+side);
         else  
@@ -633,17 +757,25 @@
         if(texture=='kraft'){ 
           fabric.Image.fromURL("{%static 'images/kraft.jpg' %}", function(img) {
             canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-                scaleX: canvas.width / img.width,
-                scaleY: canvas.height / img.height
+              scaleX: canvas.width / img.width,
+              scaleY: canvas.height / img.height
             });
+          });
+        }
+        else if(texture=='white'){
+          fabric.Image.fromURL("{%static 'images/white.jpg' %}", function(img) {
+            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+              scaleX: canvas.width / img.width,
+              scaleY: canvas.height / img.height
+           });
           });
         }
         else{
           fabric.Image.fromURL("{%static 'images/gray.jpg' %}", function(img) {
             canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-                scaleX: canvas.width / img.width,
-                scaleY: canvas.height / img.height
-            });
+              scaleX: canvas.width / img.width,
+              scaleY: canvas.height / img.height
+           });
           });
         }
         canvas.on("after:render", function () {
@@ -653,20 +785,9 @@
                 material.map.needsUpdate = true;
               }
             }
-          }
-        });
-        return canvas;
-      }
-
-      function setText(text,font_family){
-        var value =  ($("#textures").val()).toLowerCase(); 
-        canvas = canvases[value]
-        var text = new fabric.Textbox(text,  
-        { 
-          fontFamily: font_family,
-          width: 300
-        });
-        canvas.add(text);
+	        }
+	      });
+	      return canvas;
       }
       
       window.deleteObject = function() {
@@ -707,7 +828,6 @@
           }
         });
 
-        
         for(side of sides){
           canvases[side]=new fabric.Canvas("canvas-"+side);
           canvases[side].loadFromJSON(box[side+"_texture"], canvases[side].renderAll.bind(canvases[side]), function(o, object) {
@@ -722,33 +842,13 @@
             }
           });
         }
-        renderProductBox();
-        
-        
         $("#size-x").val(box.width);
 	      $("#size-y").val(box.height);
         $("#size-z").val(box.depth);
         $("#name").val(box.name);
+        renderProductBox();
         $("#save").click(function(e){editModelToDatabase();});
-      }
-        
+      }  
     </script>
-    <style>
-        .close.fileinput-remove
-        {
-            display: none;
-        }
-        .file-preview-image
-        {
-            max-width: 100%;
-        }
-        .file-caption-name
-        {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 100px;
-        }
-    </style>
   </body>
 </html>
