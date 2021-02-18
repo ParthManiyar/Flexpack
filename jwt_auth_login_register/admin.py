@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User,Role,Box
+from .models import User,Role,Box,BoxPrice
 
 # Register your models here.
 @admin.register(User)
@@ -14,3 +14,6 @@ class RoleAdmin(admin.ModelAdmin):
 class BoxAdmin(admin.ModelAdmin):
     list_display = ('name','user')
 
+@admin.register(BoxPrice)
+class BoxPriceAdmin(admin.ModelAdmin):
+    list_display = ('material','material_price','decoration_price')

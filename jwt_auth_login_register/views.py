@@ -2,8 +2,8 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import User,Role,Box
-from .serializer import RegisterSerializer, BoxSerializer
+from .models import User,Role,Box,BoxPrice
+from .serializer import RegisterSerializer, BoxSerializer, BoxPriceSerializer
 from passlib.hash import pbkdf2_sha256
 from .utils import generate_random_username
 from .google_authentication import Google_Authentication
@@ -193,6 +193,18 @@ class DeleteBoxAPI(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         box.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class GetMaterialPrice(APIView):
+     def post(self,request, *args, **kwargs):
+         material  = request.data['material']
+         try:
+             box_price = BoxPrice.objects.get(material = material)
+         except BoxPrice.DoesNotExist:
+             return Response(status=status.HTTP_404_NOT_FOUND)
+         serializer = BoxPriceSerializer(box_price)
+         return Response(serializer.data)
+         
+
 
 
 

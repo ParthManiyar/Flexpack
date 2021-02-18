@@ -2,3 +2,4 @@
 Flexpack/__pycache__/
 jwt_auth_login_register/__pycache__/
 media/uploads/
+jwt_auth_login_register/migrations/__pycache__/

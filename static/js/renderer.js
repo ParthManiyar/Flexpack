@@ -1,6 +1,6 @@
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(60, 1, 1,10000);
-camera.position.set(-1000, 540, 780);
+camera.position.set(-1300, 540, 780);
 scene.add(camera);
 
 if (!window.WebGLRenderingContext) {
@@ -49,9 +49,8 @@ function getMaterial(type)
 	const outsideMat = new THREE.MeshStandardMaterial({
 		map: getTexture(type),
 		side: THREE.DoubleSide,
-	 });
-	 outsideMat.skinning = true;
-
+	});
+	outsideMat.skinning = true;
 	resources.push(outsideMat);
 	return outsideMat;
 }
@@ -59,48 +58,39 @@ function getMaterial(type)
 
 function renderProductBox()
 {
-	if (box_mesh) {clearProductBox();}
-	
 	var w = parseInt($("#size-x").val());
 	
 	var h = parseInt($("#size-y").val());
 	
 	var d = parseInt($("#size-z").val());
-	
+	if (box_mesh) {clearProductBox();}
 	var geometry = new THREE.BoxGeometry(w, h, d, 10, 10, 10);
-	var materialTransparent =  new THREE.MeshBasicMaterial( { transparent: true, opacity: 0, wireframe: true, side: THREE.DoubleSide} );
-
+	//var materialTransparent =  new THREE.MeshBasicMaterial( { transparent: true, opacity: 0, wireframe: true, side: THREE.DoubleSide} );
 	resources.push(geometry);
 	materials = [
-	   getMaterial("right"),
-       getMaterial("left"),
-	   //materialTransparent,
-	   getMaterial("top"),
-       getMaterial("bottom"),
-       getMaterial("front"),
-       getMaterial("back")
+		getMaterial("right"),
+		getMaterial("left"),
+		getMaterial("top"),
+		getMaterial("bottom"),
+		getMaterial("front"),
+		getMaterial("back")
 	];
-	
 	box_mesh = new THREE.Mesh(geometry, materials);
 	resources.push(box_mesh);
 	scene.add(box_mesh);
+	for (side of sides)
+		changeCanvasSize(side);
+	
+
 }
-function IsJsonString(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
-}
+
 
 function saveModelToDatabase(){
 	camera.rotation.set(-0.6055446444344589, -0.8117261390954865, -0.46544821952100746);
-	camera.position.set(-1000,540,780);
+	camera.position.set(-1300,540,780);
 	controls.update();
 	render();
 	var canvas = renderer.domElement;
-	console.log(JSON.stringify(canvases['front'].toJSON()));
 	const imgData = canvas.toBlob( ( blob ) => {
 		var form = new FormData();
 		var w = parseInt($("#size-x").val());
@@ -120,6 +110,7 @@ function saveModelToDatabase(){
 		form.append("back_texture", JSON.stringify(canvases['back'].toJSON()));
 		form.append("right_texture", JSON.stringify(canvases['right'].toJSON()));
 		form.append("left_texture", JSON.stringify(canvases['left'].toJSON()));
+		form.append("material", material);
 
 		$.ajax({
 			"url": "/app/boxcreate/",
@@ -177,7 +168,7 @@ function editModelToDatabase(){
 		form.append("back_texture", JSON.stringify(canvases['back'].toJSON()));
 		form.append("right_texture", JSON.stringify(canvases['right'].toJSON()));
 		form.append("left_texture", JSON.stringify(canvases['left'].toJSON()));
-
+		form.append("material", material);
 		$.ajax({
 			"url": "/app/editbox/",
 			"method": "PUT",

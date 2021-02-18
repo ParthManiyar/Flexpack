@@ -25,9 +25,9 @@ class User(models.Model):
 class Box(models.Model):
     id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False)
     name = models.CharField(max_length=50, default = "default")
-    width = models.PositiveIntegerField(validators = [MaxValueValidator(1500),MinValueValidator(50)], default = 500)
-    height =  models.PositiveIntegerField(validators = [MaxValueValidator(1500),MinValueValidator(50)],default=500)
-    depth = models.PositiveIntegerField(validators = [MaxValueValidator(1500),MinValueValidator(50)],default=500)
+    width = models.PositiveIntegerField(validators = [MaxValueValidator(900),MinValueValidator(400)], default = 500)
+    height =  models.PositiveIntegerField(validators = [MaxValueValidator(900),MinValueValidator(400)],default=500)
+    depth = models.PositiveIntegerField(validators = [MaxValueValidator(900),MinValueValidator(400)],default=500)
     front_texture = models.JSONField()
     top_texture = models.JSONField()
     bottom_texture = models.JSONField()
@@ -35,7 +35,17 @@ class Box(models.Model):
     right_texture = models.JSONField()
     left_texture = models.JSONField()
     preview_image = models.ImageField(upload_to ='uploads/',default = 'uploads/kraft.jpg')
+    material = models.CharField(max_length=50, default = "kraft")
     user = models.ForeignKey(User,on_delete=models.CASCADE,null = True)
+
+class BoxPrice(models.Model):
+    id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False)
+    material = models.CharField(max_length=50)
+    material_price = models.FloatField("Material Price per kg in INR")
+    decoration_price = models.FloatField("decoration price per m^2 in INR")
+    
+
+
 
 
 

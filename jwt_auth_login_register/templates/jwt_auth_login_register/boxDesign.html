@@ -100,9 +100,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <div class="me-auto"></div>
           <div class="d-flex">
-            <button type="button" class="btn m-2 btn-light">Change</button>
-            <button type="button" class="btn m-2 btn-light">Change</button>
-            <button type="button" class="btn m-2 btn-light">Change</button>
+            <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
+            <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
+            <a href='/app/saveddesign/'><button type="button" class="btn m-2 btn-light">Saved Design</button></a>
             <a href='/app/login/'><button type="button" class="btn m-2 btn-light">Login</button></a>
             <a href='/app/signup/'><button type="button" class="btn m-2 btn-secondary">Sign up</button></a>
           </div>
@@ -206,27 +206,27 @@
                     <button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
-                      onclick="changeSize(400,400,200);"
+                      onclick="changeSize(400,400,400);"
                     >
-                      4" x 4" x 2"</button
+                      4" x 4" x 4"</button
                     ><button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
-                      onclick="changeSize(600,600,200);"
+                      onclick="changeSize(600,600,400);"
                     >
-                      6" x 6" x 2"</button
+                      6" x 6" x 4"</button
                     ><button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
-                      onclick="changeSize(700,600,100);"
+                      onclick="changeSize(700,600,400);"
                     >
-                      7" x 6" x 1"</button
+                      7" x 6" x 4"</button
                     ><button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
-                      onclick="changeSize(800,500,300);"
+                      onclick="changeSize(800,500,400);"
                     >
-                      8" x 5" x 3"</button
+                      8" x 5" x 4"</button
                     ><button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
@@ -236,34 +236,9 @@
                     ><button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
-                      onclick="changeSize(900,800,200);"
+                      onclick="changeSize(900,800,400);"
                     >
-                      9" x 8" x 2"</button
-                    ><button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      onclick="changeSize(1000,800,400);"
-                    >
-                      10" x 8" x 4"</button
-                    ><button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      onclick="changeSize(1000,800,400);"
-                    >
-                      10 x 8" x 4"</button
-                    ><button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      onclick="changeSize(1200,900,200);"
-                    >
-                      12" x 9" x 2"</button
-                    >
-                    <button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                      onclick="changeSize(1200,800,400);"
-                    >
-                      12" x 8" x 4"</button
+                      9" x 8" x 4"</button
                     >
                   </div>
                   <div
@@ -342,9 +317,12 @@
                     </div>
                     <p></p>
                     <div class="contain text-center" >
-                      <button type="button" class="bt btn-fit">Fit</button>
+                      <button type="button" class="bt btn-fit" id="fit">Fit</button>
                       <button type="button" class="bt btn-center" id="center">Center</button>
-                      <button type="button" class="bt btn-cover">Cover</button>
+                      <button type="button" class="bt btn-cover" id="cover">Cover</button>
+                   </div>
+                   <div id = "file_message">
+
                    </div>
                    <p></p>
                    <button type="button" class="bt btn-center" onClick="deleteObject()">Remove Image</button>
@@ -406,7 +384,7 @@
                         <br>
                         <input type='checkbox' name='fonttype' id="text-cmd-overline"> Overline
                     </div>
-                    <button  onClick="deleteObject()">Remove Text</button>
+                    <button  onclick="deleteObject();">Remove Text</button>
                   </div>
                   
                   <div
@@ -418,55 +396,54 @@
                     <button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
-                    >
-                      >1000</button
-                    ><button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
-                    >
-                      >2000</button
-                    ><button
-                      class="btn mb-1 btn-light btn-outline-secondary w-100"
-                      type="button"
+                      onclick="setQuantity(2000);"
                     >
                       2000
                     </button>
                     <button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
+                      onclick="setQuantity(1000);"
                     >
                       1000
                     </button>
                     <button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
+                      onclick="setQuantity(500);"
+
                     >
                       500
                     </button>
                     <button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
+                      onclick="setQuantity(250);"
                     >
                       250</button
                     ><button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
+                      onclick="setQuantity(100);"
                     >
                       100</button
                     ><button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
+                      onclick="setQuantity(50);"
                     >
                       50</button
                     ><button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
+                      onclick="setQuantity(10);"
                     >
                       10
                     </button>
                     <button
                       class="btn mb-1 btn-light btn-outline-secondary w-100"
                       type="button"
+                      onclick="setQuantity(1);"
                     >
                       1
                     </button>
@@ -491,9 +468,7 @@
             </canvas>
           </div>
           <div id='c-left' style="display: none;">
-            <canvas id="canvas-left"
-                width="300"
-                height="200" style="border: 2px solid green;"> 
+            <canvas id="canvas-left" style="border: 2px solid green;"> 
             </canvas> 
           </div>
           <div id='c-bottom' style="display: none;">
@@ -540,20 +515,56 @@
            -->
           <div class="col-3 bg-light rounded shadow-lg" style="position:absolute; top:200px; left:1000px; z-index:3">
             <p>Box width:
-              <input style="width:30%; display:inline;" id="size-x" type="number" class="form-control" value="500" min="50" max="1500" step="10" onchange="renderProductBox();" >
+              <input 
+                style="width:30%; display:inline;" 
+                id="size-x" 
+                type="number" 
+                class="form-control" 
+                value="500" 
+                min="400" 
+                max="900" 
+                step="10" >
             </p>
             <p>Box height:
-                <input style="width:30%; display:inline;" id="size-y" type="number" class="form-control" value="500" min="50" max="1500" step="10" onchange="renderProductBox();" >
+                <input 
+                  style="width:30%; display:inline;" 
+                  id="size-y" 
+                  type="number" 
+                  class="form-control" 
+                  value="500" 
+                  min="400" 
+                  max="900" 
+                  step="10" >
             </p>
             <p>Box depth:
-                <input style="width:30%; display:inline;" id="size-z" type="number" class="form-control" value="500" min="50" max="1500" step="10" onchange="renderProductBox();" >
+                <input 
+                  style="width:30%; display:inline;" 
+                  id="size-z" 
+                  type="number" 
+                  class="form-control" 
+                  value="500" 
+                  min="400" 
+                  max="900" 
+                  step="10" >
             </p>
             <p>Box Name:
-                <input style="width:30%; display:inline;" id="name" type="text" value="default" class="form-control" >
+                <input style="width:30%; display:inline;" id="name" type="text" value="default" class="form-control">
             </p>
-             
-            <button  id="save">Save</button>
-            
+            <p>
+              <div id="message"></div>
+              <button  id="update_size">Update Size</button> 
+              <button  id="save">Save</button>
+            </p>
+            <p>Quantity:
+              <input style="width:30%; display:inline;" id="quantity" type="number" value="250" class="form-control" >
+            </p>
+            <p>Unit Price:
+              <span id="unit_price"></span>
+            </p>
+            <p>Subtotal:
+              <span id="subtotal"></span>
+            </p>
+            <button  id="checkout">Checkout</button>
         </div>
       </div>
     </div>
@@ -567,288 +578,6 @@
     <script src="https://threejs.org/build/three.js"></script>
     <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
     <script src="{%static 'js/renderer.js' %}"></script>
-   
-    <script>
-      var texture = "kraft";
-      document.getElementById('background-color').onchange = function() {
-        var value =  (document.getElementById("textures").value).toLowerCase(); 
-        canvases[value].backgroundImage = 0;
-        canvases[value].backgroundColor= this.value ;
-        canvases[value].renderAll();
-
-      };
-      document.getElementById('center').onclick = function(){
-        var value =  (document.getElementById("textures").value).toLowerCase(); 
-        (canvases[value].getActiveObject()).center();
-        canvases[value].renderAll();
-      };
-      document.getElementById('reset-background').onclick = function() {
-        var value =  (document.getElementById("textures").value).toLowerCase(); 
-        canvases[value].backgroundColor= 0;
-        setBackgroundCanvas(value,texture);
-
-      };
-      // Add text
-      function Addtext() {
-        var value =  ($("#textures").val()).toLowerCase(); 
-        canvases[value].add(new fabric.IText('Tap and Type', {
-            left: 50,
-            top: 100,
-            fontFamily: 'helvetica neue',
-            fill: '#000',
-            stroke: '#fff',
-            strokeWidth: .1,
-            fontSize: 45
-        }));
-      }
-      // Edit Text
-      
-      document.getElementById('text-color').onchange = function() {
-        var value =  (document.getElementById("textures").value).toLowerCase(); 
-        canvases[value].getActiveObject().setColor(this.value);
-        canvases[value].renderAll();
-      };
-      document.getElementById('text-bg-color').onchange = function() {
-        var value =  (document.getElementById("textures").value).toLowerCase();
-        canvases[value].getActiveObject().set('backgroundColor',this.value);
-        canvases[value].renderAll();
-      };
-      
-      document.getElementById('text-stroke-color').onchange = function() {
-        var value =  (document.getElementById("textures").value).toLowerCase();
-        canvases[value].getActiveObject().set('stroke',this.value);
-        canvases[value].renderAll();
-      };
-      document.getElementById('text-stroke-width').onchange = function() {
-        var value =  (document.getElementById("textures").value).toLowerCase();
-        canvases[value].getActiveObject().set('strokeWidth',this.value);
-        canvases[value].renderAll();
-      };
-      document.getElementById('font-family').onchange = function() {
-        var value =  (document.getElementById("textures").value).toLowerCase();
-        canvases[value].getActiveObject().set('fontFamily',this.value);
-        canvases[value].renderAll();
-      };
-      document.getElementById('text-font-size').onchange = function() {
-        var value =  (document.getElementById("textures").value).toLowerCase();
-        canvases[value].getActiveObject().set('fontSize',this.value);
-        canvases[value].renderAll();
-      };
-      
-      document.getElementById('text-align').onchange = function() {
-        var value =  (document.getElementById("textures").value).toLowerCase(); 
-        canvases[value].getActiveObject().set('textAlign',this.value);
-        canvases[value].renderAll();
-      };
-      
-      radios5 = document.getElementsByName("fonttype"); // wijzig naar button
-      for (var i = 0, max = radios5.length; i < max; i++) {
-        radios5[i].onclick = function() {
-            var value =  (document.getElementById("textures").value).toLowerCase(); 
-            if (document.getElementById(this.id).checked == true) {
-              if (this.id == "text-cmd-bold") {
-                canvases[value].getActiveObject().set("fontWeight", "bold");
-              }
-              if (this.id == "text-cmd-italic") {
-                canvases[value].getActiveObject().set("fontStyle", "italic");
-              }
-              if (this.id == "text-cmd-underline") {
-                canvases[value].getActiveObject().set("underline", true );
-              }
-              if (this.id == "text-cmd-linethrough") {
-                canvases[value].getActiveObject().set("linethrough",true);
-              }
-              if (this.id == "text-cmd-overline") {
-                canvases[value].getActiveObject().set("overline",true);
-              }
-            } else {
-              if (this.id == "text-cmd-bold") {
-                canvases[value].getActiveObject().set("fontWeight", "");
-              }
-              if (this.id == "text-cmd-italic") {
-                canvases[value].getActiveObject().set("fontStyle", "");
-              }
-              if (this.id == "text-cmd-underline") {
-                canvases[value].getActiveObject().set("underline", false);
-              }
-              if (this.id == "text-cmd-linethrough") {
-                canvases[value].getActiveObject().set("linethrough", false);
-              }
-              if (this.id == "text-cmd-overline") {
-                canvases[value].getActiveObject().set("overline", false);
-              }
-            }
-            canvases[value].renderAll();
-        }
-      }
-      
-      function readURL(input,side) {
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            canvas = canvases[side];
-            fabric.Image.fromURL(e.target.result, function(img) {
-              var oImg = img.set({
-                left: 0,
-                top: 0,
-                angle: 0,
-              }).scale(0.2);
-              canvas.add(oImg).renderAll();
-
-              var dataURL = canvas.toDataURL({
-                format: 'png',
-                quality: 1
-              });
-            });
-          };
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
-      function changeSize(x,y,z){
-        $("#size-x").val(x)
-        $("#size-y").val(y)
-        $("#size-z").val(z)
-        renderProductBox();
-      }
-      function setCamera(x, y, z)
-			{
-				camera.rotation.set(-0.6055446444344589, -0.8117261390954865, -0.46544821952100746);
-				camera.position.set(x,y,z);
-				controls.update();
-			}
-      
-      var sides = ['front','back','left','right','bottom','top'];
-      var face = {
-        'front':[672, 519, 1281],
-        'back':[-679, 644, -1220],
-        'left':[-1323, 615, 703],
-        'right':[1293, 583, -592],
-        'bottom':[-54, -1532, 125],
-        'top':[-250, 1498, 241],
-      }
-      var canvases={};
-      function changeBoxTexture(texture){
-        for(side of sides){
-          canvases[side]=setBackgroundCanvas(side,texture);
-        }
-      }
-      $("#textures").change(function(){
-          for(side of sides){
-            var value =  ($("#textures").val()).toLowerCase(); 
-            if(side == value){
-              $("#"+side).css('display','block');
-              $("#c-"+side).css('display','block');
-              setCamera(face[side][0], face[side][1], face[side][2]);
-            }
-            else{
-              $("#"+side).css('display','none');
-              $("#c-"+side).css('display','none');
-            } 
-          } 
-      });
-
-      function setBackgroundCanvas(side,image){
-        var canvas;
-        texture = image;
-        if(!canvases[side])
-          canvas = new fabric.Canvas("canvas-"+side);
-        else  
-          canvas = canvases[side];
-        if(texture=='kraft'){ 
-          fabric.Image.fromURL("{%static 'images/kraft.jpg' %}", function(img) {
-            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-              scaleX: canvas.width / img.width,
-              scaleY: canvas.height / img.height
-            });
-          });
-        }
-        else if(texture=='white'){
-          fabric.Image.fromURL("{%static 'images/white.jpg' %}", function(img) {
-            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-              scaleX: canvas.width / img.width,
-              scaleY: canvas.height / img.height
-           });
-          });
-        }
-        else{
-          fabric.Image.fromURL("{%static 'images/gray.jpg' %}", function(img) {
-            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-              scaleX: canvas.width / img.width,
-              scaleY: canvas.height / img.height
-           });
-          });
-        }
-        canvas.on("after:render", function () {
-          if (box_mesh) {
-            for (const material of box_mesh.material) {
-              if (material.map) {
-                material.map.needsUpdate = true;
-              }
-            }
-	        }
-	      });
-	      return canvas;
-      }
-      
-      window.deleteObject = function() {
-        var value =  ($("#textures").val()).toLowerCase(); 
-        canvas = canvases[value]
-        canvas.remove(canvas.getActiveObject());
-        canvas.renderAll(); 
-      }
-    
-      if(window.location.pathname=='/app/boxdesign/'){
-        for(side of sides){
-          canvases[side]=setBackgroundCanvas(side,"kraft");
-        }
-        renderProductBox();
-        $("#save").click(function(e){saveModelToDatabase();});
-      }
-      else{
-        function get_uuid(){
-          uuid = window.location.pathname;
-          uuid = uuid.split("/")[3];
-          return uuid;
-        }
-        var box;
-        $.ajax({
-          url: "/app/getbox/",
-          type: "POST",
-          data:{
-            "csrfmiddlewaretoken" : "{{ csrf_token }}",
-            "uuid":get_uuid()
-          },
-          async: false,
-          success: function(response) {
-            box = response;              
-          },
-          error: function(xhr, a, b)
-          {
-            console.log(xhr);
-          }
-        });
-
-        for(side of sides){
-          canvases[side]=new fabric.Canvas("canvas-"+side);
-          canvases[side].loadFromJSON(box[side+"_texture"], canvases[side].renderAll.bind(canvases[side]), function(o, object) {
-          });
-          canvases[side].on("after:render", function () {
-            if (box_mesh) {
-              for (const material of box_mesh.material) {
-                if (material.map) {
-                  material.map.needsUpdate = true;
-                }
-              }
-            }
-          });
-        }
-        $("#size-x").val(box.width);
-	      $("#size-y").val(box.height);
-        $("#size-z").val(box.depth);
-        $("#name").val(box.name);
-        renderProductBox();
-        $("#save").click(function(e){editModelToDatabase();});
-      }  
-    </script>
+    <script src="{%static 'js/box.js' %}"></script>
   </body>
 </html>
