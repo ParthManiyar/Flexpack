@@ -25,6 +25,16 @@ def savedDesign(request):
 def editBox(request,uuid):
     return render(request,'jwt_auth_login_register/boxDesign.html')
 
+def cart(request):
+    return render(request,'jwt_auth_login_register/cart.html')
+
+def checkout(request):
+    return render(request,'jwt_auth_login_register/checkout.html')
+
+def main2(request):
+    return render(request,'jwt_auth_login_register/main2.html')
+        
+
 def googleAuthentication(request):
     auth_code = request.GET.get('code')
     google = Google_Authentication()
@@ -205,12 +215,5 @@ class GetMaterialPrice(APIView):
          return Response(serializer.data)
          
 
-
-
-
-    
-
-
-        
 
 

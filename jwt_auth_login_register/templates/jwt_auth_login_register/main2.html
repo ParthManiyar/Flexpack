@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<style>
+    .hello-msg{
+        font-size:18px;
+        color:#000;
+        margin-right:20px;
+    }
+    .box-element{
+	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	background-color: rgb(255, 255, 255);
+	border-radius: 4px;
+	padding: 10px;
+}
+  .profile-pic{
+        max-width:200px;
+        margin:0 auto;
+        border-radius:50%;
+        max-height: 200px;
+    }
+    
+.thumbnail{
+	width: 450px;
+	height: 350px;
+	-webkit-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+    -moz-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+    box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+}
+
+.product{
+	border-radius: 0 0 4px 4px;
+}
+
+.bg-dark{
+	background-color: #4f868c!important;
+}
+
+#cart-icon{
+	width:25px;
+	display: inline-block;
+	margin-left: 15px;
+}
+
+#cart-total{
+	display: block;
+	text-align: center;
+	color:#fff;
+	background-color: red;
+	width: 20px;
+	height: 25px;
+	border-radius: 50%;
+	font-size: 14px;
+}
+
+.col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
+	margin-top: 10px;
+}
+
+.btn{
+	border-radius: 0;
+}
+
+.row-image{
+	width: 80px;
+}
+
+.form-field{
+	width:250px;
+	display: inline-block;
+	padding: 5px;
+}
+
+.cart-row{
+	display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+
+}
+
+.quantity{
+	display: inline-block;
+	font-weight: 700;
+	padding-right:10px;
+
+
+}
+
+.chg-quantity{
+	width: 10px;
+
+	cursor: pointer;
+	display: block;
+	margin-top: 10px;
+	transition:.1s;
+}
+
+.chg-quantity:hover{
+	opacity: .6;
+}
+
+
+.hidden{
+	display: none!important;
+}
+</style>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>ClothesKart-Online Shopping Site</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{%static 'images/icons/favicon.ico'%}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="{%static 'css/core-style.css'%}">
+    <link rel="stylesheet" href="{%static 'css/styles.css'%}">
+
+    <!-- Responsive CSS -->
+    <link href="{%static 'css/responsive.css'%}" rel="stylesheet">
+
+     <script type="text/javascript">
+     var user=''
+
+     function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getToken('csrftoken');
+    </script>
+
+</head>
+
+<body>
+    <div class="catagories-side-menu">
+        <!-- Close Icon -->
+        <div id="sideMenuClose">
+            <i class="ti-close"></i>
+        </div>
+        <!--  Side Nav  -->
+        <div class="nav-side-menu">
+            <div class="menu-list">
+                <h6>Categories</h6>
+                     <ul id="menu-content" class="menu-content collapse out">
+                    <!-- Single Item -->
+                    <li data-toggle="collapse" data-target="#women" class="collapsed active">
+                        <a href="">Woman </a>
+                        <a href="">Man</a>
+                        <a href="">Child </a>
+                    </li>
+
+                </ul>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="wrapper">
+
+        <!-- ****** Header Area Start ****** -->
+        <header class="header_area">
+            <!-- Top Header Area Start -->
+             <div class="top_header_area">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center justify-content-end">
+
+                        <div class="col-12 col-lg-7">
+                            <div class="top_single_area d-flex align-items-center">
+                                <!-- Logo Area -->
+                                <div class="top_logo">
+                                    <a href="#"><img src="{%static 'images\logo.png'%}" alt=""></a>
+                                </div>
+                                <!-- Cart & Menu Area -->
+                                <div class="header-cart-menu d-flex align-items-center ml-auto">
+                                    <!-- Cart Area -->
+                                    <div class="cart">
+                                  
+                                        <span  class="hello-msg"><a href="">Hello, xyz</a></span>
+                                              
+
+                                        <!-- Cart List Area Start -->
+                                        <ul class="cart-list">
+
+                                        </ul>
+                                    </div>
+                                    <div class="header-right-side-menu ml-15">
+                                        <a href="#" id="sideMenuBtn"><i class="ti-menu" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Top Header Area End -->
+            <div class="main_header_area">
+                <div class="container h-100">
+                    <div class="row h-100">
+                        <div class="col-12 d-md-flex justify-content-between">
+                            <!-- Header Social Area -->
+                            <div class="header-social-area">
+
+
+                            </div>
+                            <!-- Menu Area -->
+                            <div class="main-menu-area">
+                                <nav class="navbar navbar-expand-lg align-items-start">
+
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i class="ti-menu"></i></span></button>
+
+                                    <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                                        <ul class="navbar-nav animated" id="nav">
+                                            <li class="nav-item active"><a class="nav-link" href="">Home</a></li>
+
+                                            <li class="nav-item"><a class="nav-link" href="">Women</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="">Man</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="">Child</a></li>
+                                             <li class="nav-item"><a class="nav-link" href="">Shoes</a></li>
+
+
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            <!-- Cart Area -->
+                                    <div class="cart">
+                                        <a href="" id="header-cart-btn" target="_blank"><span class="cart_quantity">6</span> <i class="ti-bag"></i></a>
+                                    </div>
+
+                            <!-- Help Line -->
+                            <div class="help-line">
+                                <a href="tel:+919429184811"><i class="ti-headphone-alt"></i> +919429184811</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- ****** Header Area End ****** -->
+
+            {% block content %}
+
+
+            {% endblock content %}
+
+    </div>
+     <!-- jQuery (Necessary for All JavaScript Plugins) -->
+   <script src="{%static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{%static 'assets/js/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{%static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugins js -->
+    <script src="{%static 'js/plugins.js' %}"></script>
+    <!-- Active js -->
+    <script src="{%static 'js/active.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+
+</body>
+</html>

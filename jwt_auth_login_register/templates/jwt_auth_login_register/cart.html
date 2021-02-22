@@ -1,0 +1,54 @@
+{% extends 'jwt_auth_login_register/main2.html' %}
+{% load static %}
+{% block content %}
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="box-element">
+
+				<a  class="btn btn-outline-dark" href="">&#x2190; Continue Shopping</a>
+
+				<br>
+				<br>
+				<table class="table">
+					<tr>
+						<th><h5>Items: <strong>5</strong></h5></th>
+						<th><h5>Total:<strong> Rs.500</strong></h5></th>
+						<th>
+							<a  style="float:right; margin:5px;" class="btn btn-success" href="/app/checkout">Checkout</a>
+						</th>
+					</tr>
+				</table>
+
+			</div>
+
+			<br>
+			<div class="box-element">
+				<div class="cart-row">
+					<div style="flex:2"></div>
+					<div style="flex:2"><strong>Item</strong></div>
+					<div style="flex:1"><strong>Price</strong></div>
+					<div style="flex:1"><strong>Quantity</strong></div>
+					<div style="flex:1"><strong>Total</strong></div>
+				</div>
+				
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src=""></div>
+					<div style="flex:2"><p>xyz</p></div>
+					<div style="flex:1"><p>Rs.500</p></div>
+					<div style="flex:1">
+						<p class="quantity">x6</p>
+						<div class="quantity">
+							<img data-product="6" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
+
+							<img data-product="6" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
+						</div>
+					</div>
+					<div style="flex:1"><p>Rs.7000</p></div>
+				</div>
+				
+
+			</div>
+		</div>
+	</div>
+{% endblock content %}

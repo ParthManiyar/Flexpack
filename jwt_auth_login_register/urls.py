@@ -19,4 +19,9 @@ urlpatterns = [
     path('editbox/<str:uuid>/',views.editBox),
     path('register/',views.Register),
     path('getmaterailprice/',views.GetMaterialPrice.as_view()),
+    path('cart/', views.cart),
+    path('checkout/', views.checkout),
+    path('main2/',views.main2),
+
+
 ]

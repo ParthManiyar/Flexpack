@@ -212,7 +212,7 @@ function readURL(input,side) {
     var size  = input.files[0].size;
     var max_size = 256000;
     if(size>max_size){
-      $("#file_message").html("file size excceds 250KB");
+      $("#file_message").html("file size exceeds 250KB");
     }
     else{
       $("#file_message").html("");
