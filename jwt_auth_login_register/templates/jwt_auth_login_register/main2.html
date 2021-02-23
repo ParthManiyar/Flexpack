@@ -127,7 +127,7 @@
     <!-- Responsive CSS -->
     <link href="{%static 'css/responsive.css'%}" rel="stylesheet">
 
-     <script type="text/javascript">
+    <!-- <script type="text/javascript">
      var user=''
 
      function getToken(name) {
@@ -146,22 +146,22 @@
         return cookieValue;
     }
     var csrftoken = getToken('csrftoken');
-    </script>
+    </script>-->
 
 </head>
 
 <body>
-    <div class="catagories-side-menu">
-        <!-- Close Icon -->
+   <!-- <div class="catagories-side-menu">
+        
         <div id="sideMenuClose">
             <i class="ti-close"></i>
         </div>
-        <!--  Side Nav  -->
+        
         <div class="nav-side-menu">
             <div class="menu-list">
                 <h6>Categories</h6>
                      <ul id="menu-content" class="menu-content collapse out">
-                    <!-- Single Item -->
+                    
                     <li data-toggle="collapse" data-target="#women" class="collapsed active">
                         <a href="">Woman </a>
                         <a href="">Man</a>
@@ -177,28 +177,28 @@
 
     <div id="wrapper">
 
-        <!-- ****** Header Area Start ****** -->
+        
         <header class="header_area">
-            <!-- Top Header Area Start -->
+            
              <div class="top_header_area">
                 <div class="container h-100">
                     <div class="row h-100 align-items-center justify-content-end">
 
                         <div class="col-12 col-lg-7">
                             <div class="top_single_area d-flex align-items-center">
-                                <!-- Logo Area -->
+                                <
                                 <div class="top_logo">
                                     <a href="#"><img src="{%static 'images\logo.png'%}" alt=""></a>
                                 </div>
-                                <!-- Cart & Menu Area -->
+                               
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">
-                                    <!-- Cart Area -->
+                                    
                                     <div class="cart">
                                   
                                         <span  class="hello-msg"><a href="">Hello, xyz</a></span>
                                               
 
-                                        <!-- Cart List Area Start -->
+                                        
                                         <ul class="cart-list">
 
                                         </ul>
@@ -213,17 +213,17 @@
                     </div>
                 </div>
             </div>
-            <!-- Top Header Area End -->
+           
             <div class="main_header_area">
                 <div class="container h-100">
                     <div class="row h-100">
                         <div class="col-12 d-md-flex justify-content-between">
-                            <!-- Header Social Area -->
+                            
                             <div class="header-social-area">
 
 
                             </div>
-                            <!-- Menu Area -->
+                            
                             <div class="main-menu-area">
                                 <nav class="navbar navbar-expand-lg align-items-start">
 
@@ -243,12 +243,12 @@
                                     </div>
                                 </nav>
                             </div>
-                            <!-- Cart Area -->
+                           
                                     <div class="cart">
                                         <a href="" id="header-cart-btn" target="_blank"><span class="cart_quantity">6</span> <i class="ti-bag"></i></a>
                                     </div>
 
-                            <!-- Help Line -->
+                           
                             <div class="help-line">
                                 <a href="tel:+919429184811"><i class="ti-headphone-alt"></i> +919429184811</a>
                             </div>
@@ -257,9 +257,12 @@
                     </div>
                 </div>
             </div>
-        </header>
+        </header>-->
 
-
+        <div class="top_logo">
+            <a href="#"><img src="{%static 'images\logo.png'%}" alt=""></a>
+        </div>
+        
         <!-- ****** Header Area End ****** -->
 
             {% block content %}

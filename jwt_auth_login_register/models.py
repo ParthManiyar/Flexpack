@@ -43,6 +43,13 @@ class BoxPrice(models.Model):
     material = models.CharField(max_length=50)
     material_price = models.FloatField("Material Price per kg in INR")
     decoration_price = models.FloatField("decoration price per m^2 in INR")
+
+class Purchase(models.Model):
+    id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False)
+    box = models.ForeignKey(Box,on_delete=models.CASCADE,null = True)
+    quantity = models.PositiveIntegerField(validators = [MaxValueValidator(2000)])
+    unit_price = models.DecimalField(decimal_places=2,max_digits=10)
+
     
 
 

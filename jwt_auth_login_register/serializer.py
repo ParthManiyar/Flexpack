@@ -1,7 +1,7 @@
 from rest_framework import  serializers
 from rest_framework.permissions import IsAuthenticated
 from django.db import models
-from .models import User,Box, BoxPrice
+from .models import User,Box, BoxPrice, Purchase
 from passlib.hash import pbkdf2_sha256
 
 
@@ -40,4 +40,9 @@ class BoxPriceSerializer(serializers.ModelSerializer):
     class Meta:
         model = BoxPrice
         fields = ('material','material_price','decoration_price')
-        
+
+class PurchaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Purchase
+        fields = ('id','box','quantity','unit_price')
+    

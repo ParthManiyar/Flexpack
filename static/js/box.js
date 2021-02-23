@@ -225,12 +225,7 @@ function readURL(input,side) {
                       top: 0,
                       angle: 0,
                     }).scale(0.2);
-
           canvas.add(oImg).renderAll();
-          /*var dataURL = canvas.toDataURL({
-            format: 'png',
-            quality: 1
-          });*/
         });
       };
       reader.readAsDataURL(input.files[0]);
@@ -375,6 +370,7 @@ if(window.location.pathname=='/app/boxdesign/'){
   renderProductBox();
   $("#save").click(function(e){saveModelToDatabase();});
   updatePrice(500,500,500,250);
+  $("#checkout").click(function(e){checkoutTOSave();});
 }
 else{
   function get_uuid(){
@@ -426,4 +422,5 @@ else{
   updatePrice(w,h,d,q);
   renderProductBox();
   $("#save").click(function(e){editModelToDatabase();});
+  $("#checkout").click(function(e){checkoutTOEdit();});
 } 

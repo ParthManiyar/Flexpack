@@ -126,7 +126,6 @@ function saveModelToDatabase(){
 			success: function(response) {
 				alert("Saved successfully!!!");
 				window.location.pathname = '/app/saveddesign/';
-
 			},
 			error: function(xhr, a, b)
 			{
@@ -135,6 +134,143 @@ function saveModelToDatabase(){
 		});
 	});
 	
+}
+
+function checkoutTOSave(){
+	camera.rotation.set(-0.6055446444344589, -0.8117261390954865, -0.46544821952100746);
+	camera.position.set(-1300,540,780);
+	controls.update();
+	render();
+	var canvas = renderer.domElement;
+	const imgData = canvas.toBlob( ( blob ) => {
+		var form = new FormData();
+		var w = parseInt($("#size-x").val());
+		var h = parseInt($("#size-y").val());
+		var d = parseInt($("#size-z").val());
+		var name = $("#name").val();
+		var access_token = window.localStorage.getItem("access_token");
+		form.append("preview_image", blob,"preview.png");
+		if(name)
+			form.append("name", name);
+		form.append("width", w);
+		form.append("height", h);
+		form.append("depth", d);
+		form.append("front_texture",JSON.stringify(canvases['front'].toJSON()));
+		form.append("top_texture", JSON.stringify(canvases['top'].toJSON()));
+		form.append("bottom_texture", JSON.stringify(canvases['bottom'].toJSON()));
+		form.append("back_texture", JSON.stringify(canvases['back'].toJSON()));
+		form.append("right_texture", JSON.stringify(canvases['right'].toJSON()));
+		form.append("left_texture", JSON.stringify(canvases['left'].toJSON()));
+		form.append("material", material);
+
+		$.ajax({
+			"url": "/app/boxcreate/",
+			"method": "POST",
+			"timeout": 0,
+			"headers": {
+				"Authorization": access_token,
+			},
+			"processData": false,
+			"mimeType": "multipart/form-data",
+			"contentType": false,
+			"data": form,
+			success: function(response) {
+				var str = $("#unit_price").html().split(" ");
+				$.ajax({
+					"url":"/app/purchase/",
+					"method":"POST",
+					"headers": {
+						"Authorization": access_token,
+					},
+					"data":{
+						"box":response['id'],
+						"quantity":parseInt($("#quantity").val()),
+						"unit_price":parseFloat(str[0])
+					},
+					success: function(response){
+						window.location.pathname = '/app/checkout/'+response['id'];
+					},
+					error: function(xhr, a, b)
+					{
+						console.log(xhr);
+					}
+				})
+			},
+			error: function(xhr, a, b)
+			{
+				console.log(xhr);
+			}
+		});
+	});
+}
+
+function checkoutTOEdit(){
+	camera.rotation.set(-0.6055446444344589, -0.8117261390954865, -0.46544821952100746);
+	camera.position.set(-1000,540,780);
+	controls.update();
+	render();
+	var canvas = renderer.domElement;
+
+	const imgData = canvas.toBlob( ( blob ) => {
+		var form = new FormData();
+		var w = parseInt($("#size-x").val());
+		var h = parseInt($("#size-y").val());
+		var d = parseInt($("#size-z").val());
+		var name = $("#name").val();
+		var access_token = window.localStorage.getItem("access_token");
+		form.append("preview_image", blob,"preview.png");
+		form.append("uuid",get_uuid());
+		if(name)
+			form.append("name", name);
+		form.append("width", w);
+		form.append("height", h);
+		form.append("depth", d);
+		form.append("front_texture",JSON.stringify(canvases['front'].toJSON()));
+		form.append("top_texture", JSON.stringify(canvases['top'].toJSON()));
+		form.append("bottom_texture", JSON.stringify(canvases['bottom'].toJSON()));
+		form.append("back_texture", JSON.stringify(canvases['back'].toJSON()));
+		form.append("right_texture", JSON.stringify(canvases['right'].toJSON()));
+		form.append("left_texture", JSON.stringify(canvases['left'].toJSON()));
+		form.append("material", material);
+		$.ajax({
+			"url": "/app/editbox/",
+			"method": "PUT",
+			"timeout": 0,
+			"headers": {
+				"Authorization": access_token,
+			},
+			"processData": false,
+			"mimeType": "multipart/form-data",
+			"contentType": false,
+			"data": form,
+			success: function(response) {
+				var str = $("#unit_price").html().split(" ");
+				$.ajax({
+					"url":"/app/purchase/",
+					"method":"POST",
+					"headers": {
+						"Authorization": access_token,
+					},
+					"data":{
+						"box":response['id'],
+						"quantity":parseInt($("#quantity").val()),
+						"unit_price":parseFloat(str[0])
+					},
+					success: function(response){
+						window.location.pathname = '/app/checkout/'+response['id'];
+					},
+					error: function(xhr, a, b)
+					{
+						console.log(xhr);
+					}
+				})	
+			},
+			error: function(xhr, a, b)
+			{
+				console.log(xhr);
+			}
+		});
+	});
 }
 
 function editModelToDatabase(){
@@ -156,9 +292,6 @@ function editModelToDatabase(){
 		form.append("uuid",get_uuid());
 		if(name)
 			form.append("name", name);
-		form.append("width", w);
-		form.append("height", h);
-		form.append("depth", d);
 		form.append("width", w);
 		form.append("height", h);
 		form.append("depth", d);

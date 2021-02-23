@@ -20,8 +20,7 @@ urlpatterns = [
     path('register/',views.Register),
     path('getmaterailprice/',views.GetMaterialPrice.as_view()),
     path('cart/', views.cart),
-    path('checkout/', views.checkout),
+    path('checkout/<str:uuid>/', views.checkout),
     path('main2/',views.main2),
-
-
+    path('purchase/',views.PurchaseAPI.as_view()),
 ]
