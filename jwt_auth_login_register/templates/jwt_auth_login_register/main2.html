@@ -1,25 +1,25 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-{%load static%}
-<style>
-    .hello-msg{
-        font-size:18px;
-        color:#000;
-        margin-right:20px;
-    }
-    .box-element{
+  <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{%static 'js/validate.js' %}"></script>
+    <style>
+            .box-element{
 	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
-	background-color: rgb(255, 255, 255);
+	background-color: #fff;
 	border-radius: 4px;
 	padding: 10px;
 }
   .profile-pic{
         max-width:200px;
+        max-heigth:200px;
         margin:0 auto;
         border-radius:50%;
-        max-height: 200px;
     }
-    
+    .submit{
+       margin-radius:100px;
+    }
 .thumbnail{
 	width: 450px;
 	height: 350px;
@@ -105,181 +105,124 @@
 .hidden{
 	display: none!important;
 }
-</style>
-<head>
+      body1 {
+        font-family: 'Open Sans', San-Serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin:0px;
+        padding:0px;
+      }
+      
+      .contain{
+        display:inline-block;
+        font-size:0;
+      }
+      
+      .bt {
+        margin:0px;
+        padding:0px;
+      }
+      /* Boostrap Buttons Styling */
+      
+      .btn-fit {
+        font-family: Raleway-SemiBold;
+        font-size: 15px;
+        color: black;
+        letter-spacing: 1px;
+        line-height: 30px;
+        border: 2px solid black;
+        border-radius: 25px 0px 0px 25px;
+        background: transparent;
+        transition: all 0.3s ease 0s;
+      }
+      .btn-center {
+        font-family: Raleway-SemiBold;
+        font-size: 15px;
+        color:black;
+        letter-spacing: 1px;
+        line-height: 30px;
+        border: 2px solid black;
+        background: transparent;
+        border-radius:0px;
+        transition: all 0.3s ease 0s;
+      }
+      .btn-cover {
+        font-family: Raleway-SemiBold;
+        font-size: 15px;
+        color: black;
+        letter-spacing: 1px;
+        line-height: 30px;
+        border: 2px solid black;
+        border-radius: 0px 50px 50px 0px;
+        background: transparent;
+        transition: all 0.3s ease 0s;
+      }
+      
+      .btn-fit:hover .btn-center:hover .btn-cover:hover{
+        color: #FFF;
+        background: black;
+        border: 2px solid black;
+      }
+    </style>
 
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="{%static 'images/icons/favicon.ico'%}"/>
 
-    <!-- Title  -->
-    <title>ClothesKart-Online Shopping Site</title>
+    <!-- Bootstrap CSS -->
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js"></script>
 
-    <!-- Favicon  -->
-    <link rel="icon" href="{%static 'images/icons/favicon.ico'%}">
-
-    <!-- Core Style CSS -->
-    <link rel="stylesheet" href="{%static 'css/core-style.css'%}">
-    <link rel="stylesheet" href="{%static 'css/styles.css'%}">
-
-    <!-- Responsive CSS -->
-    <link href="{%static 'css/responsive.css'%}" rel="stylesheet">
-
-     <script type="text/javascript">
-     var user=''
-
-     function getToken(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    var csrftoken = getToken('csrftoken');
-    </script>
-
-</head>
-
-<body>
-    <div class="catagories-side-menu">
-        <!-- Close Icon -->
-        <div id="sideMenuClose">
-            <i class="ti-close"></i>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <title>FlexPack | Home Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src ="{% static 'images/logo.png' %}"></img></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="me-auto"></div>
+          <div class="d-flex">
+            <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
+            <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
+            <a href='/app/saveddesign/'><button type="button" class="btn m-2 btn-light">Saved Design</button></a>
+            <a href='/app/login/'><button type="button" class="btn m-2 btn-light">Login</button></a>
+            <a href='/app/signup/'><button type="button" class="btn m-2 btn-secondary">Sign up</button></a>
+          </div>
         </div>
-        <!--  Side Nav  -->
-        <div class="nav-side-menu">
-            <div class="menu-list">
-                <h6>Categories</h6>
-                     <ul id="menu-content" class="menu-content collapse out">
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#women" class="collapsed active">
-                        <a href="">Woman </a>
-                        <a href="">Man</a>
-                        <a href="">Child </a>
-                    </li>
-
-                </ul>
-
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="wrapper">
-
-        <!-- ****** Header Area Start ****** -->
-        <header class="header_area">
-            <!-- Top Header Area Start -->
-             <div class="top_header_area">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center justify-content-end">
-
-                        <div class="col-12 col-lg-7">
-                            <div class="top_single_area d-flex align-items-center">
-                                <!-- Logo Area -->
-                                <div class="top_logo">
-                                    <a href="#"><img src="{%static 'images\logo.png'%}" alt=""></a>
-                                </div>
-                                <!-- Cart & Menu Area -->
-                                <div class="header-cart-menu d-flex align-items-center ml-auto">
-                                    <!-- Cart Area -->
-                                    <div class="cart">
-                                  
-                                        <span  class="hello-msg"><a href="">Hello, xyz</a></span>
-                                              
-
-                                        <!-- Cart List Area Start -->
-                                        <ul class="cart-list">
-
-                                        </ul>
-                                    </div>
-                                    <div class="header-right-side-menu ml-15">
-                                        <a href="#" id="sideMenuBtn"><i class="ti-menu" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Top Header Area End -->
-            <div class="main_header_area">
-                <div class="container h-100">
-                    <div class="row h-100">
-                        <div class="col-12 d-md-flex justify-content-between">
-                            <!-- Header Social Area -->
-                            <div class="header-social-area">
-
-
-                            </div>
-                            <!-- Menu Area -->
-                            <div class="main-menu-area">
-                                <nav class="navbar navbar-expand-lg align-items-start">
-
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i class="ti-menu"></i></span></button>
-
-                                    <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
-                                        <ul class="navbar-nav animated" id="nav">
-                                            <li class="nav-item active"><a class="nav-link" href="">Home</a></li>
-
-                                            <li class="nav-item"><a class="nav-link" href="">Women</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="">Man</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="">Child</a></li>
-                                             <li class="nav-item"><a class="nav-link" href="">Shoes</a></li>
-
-
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </div>
-                            <!-- Cart Area -->
-                                    <div class="cart">
-                                        <a href="" id="header-cart-btn" target="_blank"><span class="cart_quantity">6</span> <i class="ti-bag"></i></a>
-                                    </div>
-
-                            <!-- Help Line -->
-                            <div class="help-line">
-                                <a href="tel:+919429184811"><i class="ti-headphone-alt"></i> +919429184811</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-
-        <!-- ****** Header Area End ****** -->
-
+      </div>
+    </nav>
             {% block content %}
 
 
             {% endblock content %}
-
-    </div>
-     <!-- jQuery (Necessary for All JavaScript Plugins) -->
-   <script src="{%static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
-    <!-- Popper js -->
-    <script src="{%static 'assets/js/popper.min.js' %}"></script>
-    <!-- Bootstrap js -->
-    <script src="{%static 'js/bootstrap.min.js' %}"></script>
-    <!-- Plugins js -->
-    <script src="{%static 'js/plugins.js' %}"></script>
-    <!-- Active js -->
-    <script src="{%static 'js/active.js' %}"></script>
-
-    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
-
-</body>
-</html>
+            <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"
+          ></script>
+      
+          <script src="https://threejs.org/build/three.js"></script>
+          <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+          <script src="{%static 'js/renderer.js' %}"></script>
+          <script src="{%static 'js/box.js' %}"></script>
+        </body>
+      </html>
+      
