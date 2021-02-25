@@ -50,6 +50,17 @@ class Purchase(models.Model):
     quantity = models.PositiveIntegerField(validators = [MaxValueValidator(2000)])
     unit_price = models.DecimalField(decimal_places=2,max_digits=10)
 
+class Order(models.Model):
+    id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False)
+    purchase = models.ForeignKey(Purchase,on_delete=models.CASCADE)
+    address = models.CharField(max_length=500)
+    state = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    zip_code = models.PositiveIntegerField()
+
+
+
+
     
 
 

@@ -35,6 +35,7 @@ var matrials = [];
 function getTexture(type)
 {	
 	const _canvDom = $("#canvas-"+type)[0];
+	//console.log($("#canvas-"+type) );
     const outsideCanv = new THREE.CanvasTexture(_canvDom);
 	outsideCanv.minFilter = THREE.LinearFilter;
     outsideCanv.wrapS = THREE.ClampToEdgeWrapping;
@@ -42,6 +43,18 @@ function getTexture(type)
 	resources.push(outsideCanv);
 	return outsideCanv;
 }
+
+/*function getTexture(type)
+{	
+	const _canvDom = $("#canvas-"+type)[0];
+	console.log($("#canvas-"+type) );
+    const outsideCanv = new THREE.CanvasTexture(_canvDom);
+	outsideCanv.minFilter = THREE.LinearFilter;
+    outsideCanv.wrapS = THREE.ClampToEdgeWrapping;
+    outsideCanv.wrapT = THREE.ClampToEdgeWrapping;
+	resources.push(outsideCanv);
+	return outsideCanv;
+}*/
 
 
 function getMaterial(type)
@@ -78,10 +91,20 @@ function renderProductBox()
 	box_mesh = new THREE.Mesh(geometry, materials);
 	resources.push(box_mesh);
 	scene.add(box_mesh);
+	
 	for (side of sides)
 		changeCanvasSize(side);
 	
 
+}
+
+function renderProductBoxcheckout(w,h,d,materials){
+	if (box_mesh) {clearProductBox();}
+	var geometry = new THREE.BoxGeometry(w, h, d, 10, 10, 10);
+	resources.push(geometry);	
+	box_mesh = new THREE.Mesh(geometry, materials);
+	resources.push(box_mesh);
+	scene.add(box_mesh);
 }
 
 
@@ -176,6 +199,8 @@ function checkoutTOSave(){
 			"data": form,
 			success: function(response) {
 				var str = $("#unit_price").html().split(" ");
+				response = JSON.parse(response)
+				var box_id = response.id;
 				$.ajax({
 					"url":"/app/purchase/",
 					"method":"POST",
@@ -183,7 +208,7 @@ function checkoutTOSave(){
 						"Authorization": access_token,
 					},
 					"data":{
-						"box":response['id'],
+						"box":box_id,
 						"quantity":parseInt($("#quantity").val()),
 						"unit_price":parseFloat(str[0])
 					},
@@ -245,6 +270,8 @@ function checkoutTOEdit(){
 			"data": form,
 			success: function(response) {
 				var str = $("#unit_price").html().split(" ");
+				response = JSON.parse(response)
+				var box_id = response.id;
 				$.ajax({
 					"url":"/app/purchase/",
 					"method":"POST",
@@ -252,7 +279,7 @@ function checkoutTOEdit(){
 						"Authorization": access_token,
 					},
 					"data":{
-						"box":response['id'],
+						"box":box_id,
 						"quantity":parseInt($("#quantity").val()),
 						"unit_price":parseFloat(str[0])
 					},

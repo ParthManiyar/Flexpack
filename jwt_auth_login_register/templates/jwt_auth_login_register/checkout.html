@@ -8,10 +8,10 @@
 				<form id="form">
 					<div id="user-info">
 						<div class="form-field">
-							<input required class="form-control" type="text" name="name" placeholder="Name..">
+							<input required class="form-control" type="text" id="name" placeholder="Name..">
 						</div>
 						<div class="form-field">
-							<input required class="form-control" type="email" name="email" placeholder="Email..">
+							<input required class="form-control" type="email" id="email" placeholder="Email..">
 						</div>
 					</div>
 
@@ -20,33 +20,31 @@
 						<p>Shipping Information:</p>
 						<hr>
 						<div class="form-field">
-							<input class="form-control" type="text" name="address" placeholder="Address..">
+							<input class="form-control" type="text" id="address" placeholder="Address..">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="city" placeholder="City..">
+							<input class="form-control" type="text" id="city" placeholder="City..">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="state" placeholder="State..">
+							<input class="form-control" type="text" id="state" placeholder="State..">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+							<input class="form-control" type="text" id="zipcode" placeholder="Zip code..">
 						</div>
 
 					</div>
 
 					<hr>
-					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+					<div class="box-element" id="payment-info">
+						<small>Paypal Options</small>
+						<!--<button id="make-payment">Make payment</button>-->
+						<div id="paypal-button-container"></div>
+					</div>
 				</form>
 			</div>
 
 			<br>
-			<!--<div class="box-element hidden" id="payment-info">
-				<small>Paypal Options </small>
-
-				<button id="make-payment">Make payment</button>
-
-				<div id="paypal-button-container"></div>
-			</div>-->
+			
 
 		</div>
 
@@ -58,18 +56,128 @@
 				<hr>
 			
 				<div class="cart-row">
-					<div style="flex:2"><img class="row-image" src=""></div>
-					<div style="flex:2"><p>xyz</p></div>
-					<div style="flex:1"><p>RS. 780</p></div>
-					<div style="flex:1"><p>x6</p></div>
+					<div style="flex:2" id="preview_image"></div>
+					<div style="flex:2" id = "box_type"><p></p></div>
+					<div style="flex:1" id="unit_price"><p></p></div>
+					<div style="flex:1" id="quantity"><p></p></div>
 				</div>
 				
 
-				<h5>Items:8</h5>
-				<h5>Total:Rs.3</h5>
+				<h5 id="total_quantity"></h5>
+				<h5 id="total_price"></h5>
 			</div>
 		</div>
 	</div>
+	<script src="https://www.paypal.com/sdk/js?client-id=ATL1komYLnyraGKOWfgE_0yx4EW9NWUyGBo0Nji1aI-UCEAPXtf06JDfCftuMbmE0FdyokPkR1FDBO2r&currency=INR&disable-funding=card"></script>
+	
+	<script>
+		var sides = ['front','back','left','right','bottom','top'];
+		function get_uuid(){
+    		uuid = window.location.pathname;
+    		uuid = uuid.split("/")[3];
+    		return uuid;
+  		}
+		
+		$.ajax({
+			"url":'/app/getpurchasedetail/',
+			"method":"POST",
+			"data":{
+				"uuid":get_uuid()
+			},
+			success:function(response){
+				$("#unit_price").html("Rs. "+response.unit_price);
+				$("#quantity").html("x"+response.quantity);
+				$("#total_quantity").html("Items: "+response.quantity);
+				$("#total_price").html("Rs. "+response.quantity * response.unit_price);
+				var total = response.quantity * response.unit_price;
+				// Render the PayPal button into #paypal-button-container
+				paypal.Buttons({
+					style:{
+						color:'blue',
+						shape:'rect',
+					},
+					// Set up the transaction
+					createOrder: function(data, actions) {
+						return actions.order.create({
+							purchase_units: [{
+								amount: {
+									value: parseFloat(total).toFixed(2),
+								}
+							}]
+						});
+					},
 
+					// Finalize the transaction
+					onApprove: function(data, actions) {
+						return actions.order.capture().then(function(details) {
+							// Show a success message to the buyer
+							alert('Transaction completed');
+							$.ajax({
+								url:"/app/makeorder/",
+								type:"POST",
+								data:{
+									"csrfmiddlewaretoken" : "{{ csrf_token }}",
+									"purchase":get_uuid(),
+									"address":$("#address").val(),
+									"state":$("#state").val(),
+									"city":$("#city").val(),
+									"zip_code":parseInt($("#zipcode").val())
+								},
+								success: function(response){
+									window.location.pathname = "/app/saveddesign/"
+								},
+								error:function(xhr,a,b){
+									console.log(xhr);
+								}
+							});
+
+						});
+					}
+
+
+				}).render('#paypal-button-container');
+				$.ajax({
+					url: "/app/getbox/",
+					type: "POST",
+					data:{
+						"csrfmiddlewaretoken" : "{{ csrf_token }}",
+						"uuid":response.box
+					},
+					success: function(response) {
+						box = response;
+						$("#preview_image").html("<img src="+box.preview_image+" height=250vw width=250vw>")
+						$("#box_type").html("Shipping Box - "+box.width+" x "+box.height+" x "+box.depth);
+						$.ajax({
+							"url":"/app/getuserdetails/",
+							"method":"POST",
+							"data":{
+								uuid : box.user
+							},
+							success:function(response){
+								$("#name").val(response.username);
+								$("#email").val(response.email);
+							},
+							error:function(xhr,a,b){
+								console.log(xhr);
+							}
+						});              
+					},
+					error: function(xhr, a, b){
+					console.log(xhr);
+					}
+				});
+			},
+			error:function(xhr,a,b){
+				console.log(xhr);
+			}
+		});
+	</script>
+
+	<script>
+		$(function() {
+			
+		});
+	</script>
+	
 	 
 {% endblock content %}

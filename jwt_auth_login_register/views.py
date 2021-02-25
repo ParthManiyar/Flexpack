@@ -2,8 +2,8 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import User,Role,Box,BoxPrice
-from .serializer import RegisterSerializer, BoxSerializer, BoxPriceSerializer, PurchaseSerializer
+from .models import User,Role,Box,BoxPrice, Purchase
+from .serializer import RegisterSerializer, BoxSerializer, BoxPriceSerializer, PurchaseSerializer, OrderSerializer
 from passlib.hash import pbkdf2_sha256
 from .utils import generate_random_username
 from .google_authentication import Google_Authentication
@@ -222,3 +222,31 @@ class PurchaseAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class GetUserDetailAPI(APIView):
+    def post(self,request, *args, **kwargs):
+        uuid = request.data['uuid']
+        try:
+            user = User.objects.get(id=uuid)
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = RegisterSerializer(user)
+        return Response(serializer.data)
+
+class GetPurchaseDetailsAPI(APIView):
+    def post(self,request, *args, **kwargs):
+        uuid = request.data['uuid']
+        try:
+            purchase = Purchase.objects.get(id=uuid)
+        except Purchase.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        serializer = PurchaseSerializer(purchase)
+        return Response(serializer.data)
+
+class MakeOrderAPI(APIView):
+    def post(self,request,*args, **kwargs):
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

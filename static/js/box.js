@@ -107,7 +107,7 @@ document.getElementById('center').onclick = function(){
 document.getElementById('reset-background').onclick = function() {
   let value =  (document.getElementById("textures").value).toLowerCase(); 
   canvases[value].backgroundColor= 0;
-  setBackgroundCanvas(value,texture);
+  setBackgroundCanvas(value,material);
 };
 
 function Addtext() {
@@ -267,8 +267,10 @@ function changeCanvasSize(side){
     canvases[side].setHeight($("#size-x").val()/3);
     canvases[side].setWidth($("#size-z").val()/3);
   }
-  if(!canvases[side]['backgroundColor']) 
+  //console.log(canvases[side]);
+  if(canvases[side].backgroundImage!=null){
     setBackgroundCanvas(side,material);
+  }
   canvases[side].renderAll();
 }
       
@@ -306,41 +308,42 @@ function setBackgroundCanvas(side,image){
     canvas = new fabric.Canvas("canvas-"+side);
   else  
     canvas = canvases[side];
+  if(canvases[side]['backgroundColor']==""){
+    if(material=='kraft'){ 
+      fabric.Image.fromURL("http://127.0.0.1:8000/static/images/kraft.jpg", function(img) {
+        canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+          scaleX: canvas.width / img.width,
+          scaleY: canvas.height / img.height
+        });
+      });
+    }
+    else if(material=='white'){
+      fabric.Image.fromURL("http://127.0.0.1:8000/static/images/white.jpg", function(img) {
+        canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+          scaleX: canvas.width / img.width,
+          scaleY: canvas.height / img.height
+        });
+      });
+    }
+    else if(material == 'dreamcoat'){
+      fabric.Image.fromURL("http://127.0.0.1:8000/static/images/gray.jpg", function(img) {
+        canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+          scaleX: canvas.width / img.width,
+          scaleY: canvas.height / img.height
+        });
+      });
+    }
 
-  if(material=='kraft'){ 
-    fabric.Image.fromURL("http://127.0.0.1:8000/static/images/kraft.jpg", function(img) {
-      canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-        scaleX: canvas.width / img.width,
-        scaleY: canvas.height / img.height
-      });
-    });
-  }
-  else if(material=='white'){
-    fabric.Image.fromURL("http://127.0.0.1:8000/static/images/white.jpg", function(img) {
-      canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-        scaleX: canvas.width / img.width,
-        scaleY: canvas.height / img.height
-      });
-    });
-  }
-  else if(material == 'dreamcoat'){
-    fabric.Image.fromURL("http://127.0.0.1:8000/static/images/gray.jpg", function(img) {
-      canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-        scaleX: canvas.width / img.width,
-        scaleY: canvas.height / img.height
-      });
-    });
-  }
-
-  canvas.on("after:render", function () {
-    if (box_mesh) {
-      for (const material of box_mesh.material) {
-        if (material.map) {
-          material.map.needsUpdate = true;
+    canvas.on("after:render", function () {
+      if (box_mesh) {
+        for (const material of box_mesh.material) {
+          if (material.map) {
+            material.map.needsUpdate = true;
+          }
         }
       }
-	  }
-	});
+    });
+  }
 	return canvas;
 }
       
@@ -398,8 +401,8 @@ else{
   for(side of sides){
     canvases[side]=new fabric.Canvas("canvas-"+side);
     canvases[side].loadFromJSON(box[side+"_texture"], canvases[side].renderAll.bind(canvases[side]), function(o, object) {});
-    console.log(canvases[side]);
     canvases[side].on("after:render", function () {
+     // console.log(canvases[side]);
       if (box_mesh) {
         for (const material of box_mesh.material) {
           if (material.map) {
