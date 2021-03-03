@@ -2,8 +2,8 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import User,Role,Box,BoxPrice, Purchase
-from .serializer import RegisterSerializer, BoxSerializer, BoxPriceSerializer, PurchaseSerializer, OrderSerializer
+from .models import User,Role,Box,BoxPrice, Purchase, Order
+from .serializer import RegisterSerializer, BoxSerializer, BoxPriceSerializer, PurchaseSerializer, OrderSerializer, PurchaseReadSerializer,OrderReadSerializer
 from passlib.hash import pbkdf2_sha256
 from .utils import generate_random_username
 from .google_authentication import Google_Authentication
@@ -33,6 +33,9 @@ def checkout(request,uuid):
 
 def main2(request):
     return render(request,'jwt_auth_login_register/main2.html')
+
+def admin(request):
+    return render(request,'jwt_auth_login_register/dashboard.html')
         
 
 def googleAuthentication(request):
@@ -216,7 +219,7 @@ class GetMaterialPrice(APIView):
 
 class PurchaseAPI(APIView):
     def post(self,request, *args, **kwargs):
-        serializer = PurchaseSerializer(data=request.data)
+        serializer = PurchaseSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -250,3 +253,34 @@ class MakeOrderAPI(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GetAllUsers(APIView):
+    def get(self,request,*args, **kwargs):
+        users = User.objects.all()
+        serializer = RegisterSerializer(users,many=True)
+        return Response(serializer.data)
+
+class GetAllOrders(APIView):
+    def get(self,request,*args,**kwargs):
+        orders = Order.objects.all()
+        serializer = OrderReadSerializer(orders,many=True)
+        return Response(serializer.data)
+
+class GetAllPurchase(APIView):
+    def get(self,request,*args,**kwargs):
+        purchase = Purchase.objects.all()
+        serializer  = PurchaseReadSerializer(purchase,many = True)
+        return Response(serializer.data)
+
+class DeleteOrder(APIView):
+    def delete(self,request,*args,**kwargs):
+        uuid = request.data['uuid']
+        try:
+            order = Order.objects.get(id=uuid)
+        except Order.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        order.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+

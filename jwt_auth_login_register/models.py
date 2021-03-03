@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils import timezone
 
 class Role(models.Model):
     id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False) 
@@ -38,6 +39,11 @@ class Box(models.Model):
     material = models.CharField(max_length=50, default = "kraft")
     user = models.ForeignKey(User,on_delete=models.CASCADE,null = True)
 
+    def _get__description(self):
+        return 'Shipping Box - %s x %s x %s' % (self.width, self.height,self.depth)
+    
+    description = property(_get__description)
+
 class BoxPrice(models.Model):
     id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False)
     material = models.CharField(max_length=50)
@@ -57,6 +63,22 @@ class Order(models.Model):
     state = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     zip_code = models.PositiveIntegerField()
+    status = models.CharField(max_length=100,default = "Pending")
+    date = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def total_order(self):
+        order = Order.objects.count()
+        return order
+
+    @property
+    def pending_order(self):
+        return Order.objects.filter(status="pending").count()
+    
+    @property
+    def delivered_order(self):
+        return Order.objects.filter(status="delivered").count()
+    
 
 
 

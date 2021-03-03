@@ -25,5 +25,11 @@ urlpatterns = [
     path('purchase/',views.PurchaseAPI.as_view()),
     path('getuserdetails/',views.GetUserDetailAPI.as_view()),
     path('getpurchasedetail/',views.GetPurchaseDetailsAPI.as_view()),
-    path('makeorder/', views.MakeOrderAPI.as_view())
+    path('makeorder/', views.MakeOrderAPI.as_view()),
+    path('admin/',views.admin),
+    path('getallusers/',views.GetAllUsers.as_view()),
+    path('getallorders/',views.GetAllOrders.as_view()),
+    path('purchases/',views.GetAllPurchase.as_view()),
+    path('deleteorder/',views.DeleteOrder.as_view()),
+    path('updateorder/<str:uuid>/',views.editBox),
 ]

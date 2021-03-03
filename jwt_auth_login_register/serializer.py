@@ -32,9 +32,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class BoxSerializer(serializers.ModelSerializer):
+   
     class Meta:
         model = Box
-        fields = ('id','name','width','height','depth','front_texture','top_texture','bottom_texture','back_texture','right_texture','left_texture','preview_image','material','user')
+        fields = ('id','name','width','height','depth','front_texture','top_texture','bottom_texture','back_texture','right_texture','left_texture','preview_image','material','user','description')
 
 class BoxPriceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,6 +50,16 @@ class PurchaseSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('id','purchase','address','state','city','zip_code')
+        fields = ('id','purchase','address','state','city','zip_code','status','date','total_order','pending_order','delivered_order')
+
+class PurchaseReadSerializer(PurchaseSerializer):
+    box = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='description'
+     )
+
+class OrderReadSerializer(OrderSerializer):
+    purchase = PurchaseReadSerializer(read_only=True)
+
 
     

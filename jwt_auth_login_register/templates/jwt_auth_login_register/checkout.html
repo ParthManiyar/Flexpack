@@ -121,7 +121,8 @@
 									"address":$("#address").val(),
 									"state":$("#state").val(),
 									"city":$("#city").val(),
-									"zip_code":parseInt($("#zipcode").val())
+									"zip_code":parseInt($("#zipcode").val()),
+									"status":"pending"
 								},
 								success: function(response){
 									window.location.pathname = "/app/saveddesign/"
@@ -172,12 +173,5 @@
 			}
 		});
 	</script>
-
-	<script>
-		$(function() {
-			
-		});
-	</script>
-	
 	 
 {% endblock content %}
