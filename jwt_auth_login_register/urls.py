@@ -35,5 +35,6 @@ urlpatterns = [
     path('update_order/',views.EditOrder.as_view()),
     path('get_order/',views.GetOrder.as_view()),
     path('customer/<str:uuid>/',views.customer),
-    path('get_orders/',views.GetOrders.as_view())
+    path('get_orders/',views.GetOrders.as_view()),
+    path('delete_user/',views.DeleteUser.as_view()),
 ]

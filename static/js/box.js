@@ -310,7 +310,7 @@ function setBackgroundCanvas(side,image){
     canvas = new fabric.Canvas("canvas-"+side);
   else  
     canvas = canvases[side];
-  if(canvases[side]['backgroundColor']==""){
+ 
     if(material=='kraft'){ 
       fabric.Image.fromURL("http://127.0.0.1:8000/static/images/kraft.jpg", function(img) {
         canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
@@ -345,7 +345,7 @@ function setBackgroundCanvas(side,image){
         }
       }
     });
-  }
+  
 	return canvas;
 }
       

@@ -8,8 +8,8 @@
 		<div class="card card-body">
 			<h5 id="name">Customer: </h5>
 			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Customer</a>
+			<!--<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>-->
+			<a class="btn btn-outline-danger  btn-sm btn-block" id="delete_customer">Delete Customer</a>
 
 		</div>
 	</div>
@@ -59,6 +59,26 @@
     	uuid = uuid.split("/")[3];
     	return uuid;
  	}
+	$("#delete_customer").click(function(e){
+		$.ajax({ 
+			url: "/app/delete_user/",
+            type: "DELETE",
+            headers: {
+                "Authorization": access_token,
+            },
+            data:{
+				"csrfmiddlewaretoken" : "{{ csrf_token }}",
+                "uuid":get_uuid(),
+            },
+            success: function(response) {
+				window.location.pathname = "/app/admin/"
+
+            },
+            error: function(xhr, a, b){
+                console.log(xhr);
+            }
+        });
+	});
 	$.ajax({
 		"url":"/app/getuserdetails/",
 		"method":"POST",
@@ -97,7 +117,7 @@
 					<td><a class='btn btn-sm btn-info' href='/app/updateorder/"+order['id']+"/'>Update</a></td>\
 					<td class='order' ><a class='btn btn-sm btn-danger' href='#'>Delete</a></td>\
 					</tr>");
-					
+
 			function get_uuid(s){
 				uuid = s.split("/")[5];
                 return uuid;

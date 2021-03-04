@@ -323,7 +323,17 @@ class GetOrders(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = OrderReadSerializer(orders,many=True)
         return Response(serializer.data)
-        
+
+class DeleteUser(APIView):
+    def delete(self,request,*args,**kwargs):
+        uuid = request.data['uuid']
+        try:
+            user = User.objects.get(id=uuid)
+        except Order.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 
