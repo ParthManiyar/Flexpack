@@ -36,6 +36,12 @@ def main2(request):
 
 def admin(request):
     return render(request,'jwt_auth_login_register/dashboard.html')
+
+def updateOrder(request,uuid):
+    return render(request,'jwt_auth_login_register/order_form.html')
+
+def customer(request,uuid):
+    return render(request,'jwt_auth_login_register/customer.html')
         
 
 def googleAuthentication(request):
@@ -118,6 +124,8 @@ class LoginAPI(APIView):
         if user:
             payload={"email":user.email}
             oauth_details = Token.get_access_token_for_first_time(self,payload,3600,7)
+            oauth_details['role'] = str(user.role)
+            #print(type(str(user.role)))
             return Response(
               oauth_details,
               status=200,
@@ -281,6 +289,42 @@ class DeleteOrder(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         order.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class EditOrder(APIView):
+    def put(self,request,*args,**kwargs):
+        uuid = request.data['uuid']
+        try:
+            order = Order.objects.get(id=uuid)
+        except Order.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = OrderSerializer(data = request.data,instance=order)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GetOrder(APIView):
+    def post(self,request,*args,**kwargs):
+        uuid = request.data['uuid']
+        try:
+            order = Order.objects.get(id=uuid)
+        except Order.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = OrderSerializer(order)
+        return Response(serializer.data)
+
+class GetOrders(APIView):
+    def post(self,request,*args,**kwargs):
+        uuid = request.data['uuid']
+        try:
+            orders  = Order.objects.filter(user=uuid)
+        except Order.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = OrderReadSerializer(orders,many=True)
+        return Response(serializer.data)
+        
+
 
 
 

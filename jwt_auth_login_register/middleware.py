@@ -24,7 +24,6 @@ class LoginRequiredMiddleware:
             token = Token()
             token.validate_access_token(request.headers['Authorization'])
         except Exception as e:
-            print(e)
             return redirect('/app/login/')
         return None
         

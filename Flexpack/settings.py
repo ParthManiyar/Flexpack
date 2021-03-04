@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'jwt_auth_login_register.middleware.LoginRequiredMiddleware'
+    'jwt_auth_login_register.middleware.LoginRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'Flexpack.urls'
@@ -145,10 +145,16 @@ LOGIN_EXEMPT_URLS=(
     r'^app/verify/',
     r'^app/register/',
     r'^app/google/callback/login/',
-    r'^admin/',
     r'^app/home/',
     r'^app/boxdesign/',
     r'^app/validateToken/',
     r'^app/saveddesign/',
-    r'^app/editbox/[a-z][0-9]',
+    r'^app/editbox/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/',
+    r'^app/checkout/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/',
+    r'^app/admin/',
+    r"^admin(.*)",
+    r'^app/updateorder/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/',
+    r"^static(.*)",
+    r"^media(.*)",
+    r'^app/customer/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/'
 )

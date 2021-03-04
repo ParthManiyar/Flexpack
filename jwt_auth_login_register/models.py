@@ -1,8 +1,6 @@
 from django.db import models
 import uuid
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.utils import timezone
-
 class Role(models.Model):
     id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False) 
     name = models.CharField(max_length=50)
@@ -65,6 +63,7 @@ class Order(models.Model):
     zip_code = models.PositiveIntegerField()
     status = models.CharField(max_length=100,default = "Pending")
     date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,blank = True,null = True)
 
     @property
     def total_order(self):

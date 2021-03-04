@@ -1,5 +1,6 @@
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(60, 1, 1,10000);
+var access_token = window.localStorage.getItem("access_token");
 camera.position.set(-1300, 540, 780);
 scene.add(camera);
 

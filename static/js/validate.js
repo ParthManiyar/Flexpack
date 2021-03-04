@@ -1,6 +1,6 @@
 function validateToken()
 {
-    access_token = window.localStorage.getItem("access_token");
+    var access_token = window.localStorage.getItem("access_token");
     if(access_token==null)
         window.location.pathname = '/app/login';
     else{

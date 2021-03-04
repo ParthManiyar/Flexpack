@@ -1,0 +1,82 @@
+{% extends 'jwt_auth_login_register/main2.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="card card-body">
+			<h3>Update Order</h3>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="card card-body">
+			<label>Status:</label>
+				<select class = "form-control" id="order_status"> 
+					<option>pending</option>
+					<option>out for deliver</option>
+					<option>delivered</option>
+				</select>
+			<hr>
+			<input type="submit" class="btn btn-info" id="submit">
+		</div>
+	</div>
+</div>
+<script>
+	var access_token = window.localStorage.getItem("access_token");
+	function get_uuid(){
+    	uuid = window.location.pathname;
+    	uuid = uuid.split("/")[3];
+    	return uuid;
+ 	}
+	$("#submit").click(function(e){
+		$.ajax({
+			url:"/app/get_order/",
+			type:"POST",
+			headers: {
+				"Authorization": access_token,
+			},
+			data:{
+				"csrfmiddlewaretoken" : "{{ csrf_token }}",
+				"uuid":get_uuid(),
+			},
+			success:function(response){
+				order  = response;
+				$.ajax({
+					url:"/app/update_order/",
+					type:"PUT",
+					headers: {
+						"Authorization": access_token,
+					},
+					data:{
+						"csrfmiddlewaretoken" : "{{ csrf_token }}",
+						"uuid":get_uuid(),
+						"purchase":order.purchase,
+						"city":order.city,
+						"state":order.state,
+						"address":order.address,
+						"zip_code":order.zip_code,
+						"status":$("#order_status").val(),
+						"user":order.user
+					},
+					success:function(response){
+						window.location.pathname = '/app/admin/';
+					},
+					error:function(xhr,a,b){
+						console.log(xhr);
+					}
+				});
+				
+			},
+			error:function(xhr,a,b){
+				console.log(xhr);
+			}
+
+		})
+		
+	});
+	
+</script>
+{% endblock %}

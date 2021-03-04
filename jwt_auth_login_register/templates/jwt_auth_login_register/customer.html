@@ -1,31 +1,43 @@
-{%  extends 'jwt_auth_login_register/main2.html' %}
-{% load static %}
+{% extends 'jwt_auth_login_register/main2.html' %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{%static 'css/main.css'%}">
 
-{%  include 'jwt_auth_login_register/status.html' %}
+<br>
 
 <div class="row">
-	<div class="col-md-5">
-		<h5 id="totat_customer"></h5>
-		<hr>
+	<div class="col-md">
 		<div class="card card-body">
-			<!--<a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>-->
-			<table class="table table-sm" id = "table">
-				<tr>
-					<th></th>
-					<th>Customer Name</th>
-					<th>E-mail</th>
-				</tr>
-			</table>
+			<h5 id="name">Customer: </h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Customer</a>
+
 		</div>
 	</div>
 
-	<div class="col-md-7">
-		<h5>ORDERS</h5>
-		<hr>
+	<div class="col-md">
 		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<hr>
+			<p id="email"></p>
+			<!--<p>Phone: </p>-->
+		</div>
+	</div>
 
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Orders</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px" id="total_order"></h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
 			<table class="table table-sm" id="order_table">
 				<tr>
 					<th>Product</th>
@@ -34,57 +46,49 @@
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
-
+				
 			</table>
 		</div>
 	</div>
-
 </div>
 
 <script>
 	var access_token = window.localStorage.getItem("access_token");
+	function get_uuid(){
+    	uuid = window.location.pathname;
+    	uuid = uuid.split("/")[3];
+    	return uuid;
+ 	}
 	$.ajax({
-		url:"/app/getallusers/",
-		type:"GET",
+		"url":"/app/getuserdetails/",
+		"method":"POST",
 		headers: {
 			"Authorization": access_token,
 		},
+		"data":{
+			uuid : get_uuid()
+		},
 		success:function(response){
-			users = response;
-			$("#totat_customer").html("CUSTOMERS:"+users.length)
-			for(user of users)
-				$("#table").append("<tr>\
-					 <td><a href='/app/customer/"+user.id+"/' class='btn btn-sm btn-info'>View</a></td>\
-					 <td>"+user.first_name+" "+user.last_name+"</td>\
-					 <td>"+user.email+"</td>\
-					 <tr>");
+			$("#email").html("Email: "+response.email);
 		},
 		error:function(xhr,a,b){
 			console.log(xhr);
 		}
 	});
 	$.ajax({
-		url:"/app/getallorders/",
-		type:"GET",
+		url:"/app/get_orders/",
+		type:"POST",
 		headers: {
 			"Authorization": access_token,
 		},
+		data:{
+			"csrfmiddlewaretoken" : "{{ csrf_token }}",
+			"uuid":get_uuid(),
+		},
 		success:function(response){
 			var orders = response;
-			if(orders.length){
-				$("#total_order").html(orders[0]['total_order']);
-				$("#order_delivered").html(orders[0]['delivered_order']);
-				$("#pending_order").html(orders[0]['pending_order']);
-			}
-			else{
-				$("#total_order").html(0);
-				$("#order_delivered").html(0);
-				$("#pending_order").html(0);
-			}
-			function get_uuid(s){
-				uuid = s.split("/")[5];
-                return uuid;
-            }
+			//console.log(response);
+			$("#total_order").html(orders.length);
 			for(order of orders)
 				$("#order_table").append("<tr> \
 					<td>"+order['purchase']['box']+"</td>\
@@ -93,6 +97,11 @@
 					<td><a class='btn btn-sm btn-info' href='/app/updateorder/"+order['id']+"/'>Update</a></td>\
 					<td class='order' ><a class='btn btn-sm btn-danger' href='#'>Delete</a></td>\
 					</tr>");
+					
+			function get_uuid(s){
+				uuid = s.split("/")[5];
+                return uuid;
+            }
 
 			var closebtns = document.getElementsByClassName("order");
             for (var i = 0; i < closebtns.length; i++) {
@@ -120,12 +129,8 @@
                     });
                 });           
             }
-		},
-		error:function(xhr,a,b){
-			console.log(xhr);
 		}
 	});
-
 </script>
 
-{% endblock %}
+{% endblock content %}

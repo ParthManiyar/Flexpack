@@ -11,11 +11,14 @@ var face = {
   'bottom':[-54, -1532, 125],
   'top':[-250, 1498, 241],
 }
-
 function updatePrice(w,h,d,q){
+  var access_token = window.localStorage.getItem("access_token");
   $.ajax({
     url: "/app/getmaterailprice/",
     type: "POST",
+    "headers": {
+      "Authorization": access_token,
+    },
     data:{
       "csrfmiddlewaretoken" : "{{ csrf_token }}",
       "material":material
@@ -267,7 +270,6 @@ function changeCanvasSize(side){
     canvases[side].setHeight($("#size-x").val()/3);
     canvases[side].setWidth($("#size-z").val()/3);
   }
-  //console.log(canvases[side]);
   if(canvases[side].backgroundImage!=null){
     setBackgroundCanvas(side,material);
   }
@@ -382,9 +384,13 @@ else{
     return uuid;
   }
   var box;
+  var access_token = window.localStorage.getItem("access_token");
   $.ajax({
     url: "/app/getbox/",
     type: "POST",
+    "headers": {
+      "Authorization": access_token,
+    },
     data:{
       "csrfmiddlewaretoken" : "{{ csrf_token }}",
       "uuid":get_uuid()
@@ -402,7 +408,6 @@ else{
     canvases[side]=new fabric.Canvas("canvas-"+side);
     canvases[side].loadFromJSON(box[side+"_texture"], canvases[side].renderAll.bind(canvases[side]), function(o, object) {});
     canvases[side].on("after:render", function () {
-     // console.log(canvases[side]);
       if (box_mesh) {
         for (const material of box_mesh.material) {
           if (material.map) {

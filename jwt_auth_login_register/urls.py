@@ -31,5 +31,9 @@ urlpatterns = [
     path('getallorders/',views.GetAllOrders.as_view()),
     path('purchases/',views.GetAllPurchase.as_view()),
     path('deleteorder/',views.DeleteOrder.as_view()),
-    path('updateorder/<str:uuid>/',views.editBox),
+    path('updateorder/<str:uuid>/',views.updateOrder),
+    path('update_order/',views.EditOrder.as_view()),
+    path('get_order/',views.GetOrder.as_view()),
+    path('customer/<str:uuid>/',views.customer),
+    path('get_orders/',views.GetOrders.as_view())
 ]

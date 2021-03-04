@@ -9,7 +9,7 @@ from passlib.hash import pbkdf2_sha256
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username','password','first_name', 'last_name','email','role','provider')
+        fields = ('id','username','password','first_name', 'last_name','email','role','provider')
         extra_kwargs = {
             'password':{'write_only': True,
                         'required':False,
@@ -35,7 +35,21 @@ class BoxSerializer(serializers.ModelSerializer):
    
     class Meta:
         model = Box
-        fields = ('id','name','width','height','depth','front_texture','top_texture','bottom_texture','back_texture','right_texture','left_texture','preview_image','material','user','description')
+        fields = ('id',
+            'name',
+            'width',
+            'height',
+            'depth',
+            'front_texture',
+            'top_texture',
+            'bottom_texture',
+            'back_texture',
+            'right_texture',
+            'left_texture',
+            'preview_image',
+            'material',
+            'user',
+            'description')
 
 class BoxPriceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,7 +64,18 @@ class PurchaseSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('id','purchase','address','state','city','zip_code','status','date','total_order','pending_order','delivered_order')
+        fields = ('id',
+            'purchase',
+            'address',
+            'state',
+            'city',
+            'zip_code',
+            'status',
+            'date',
+            'user',
+            'total_order',
+            'pending_order',
+            'delivered_order')
 
 class PurchaseReadSerializer(PurchaseSerializer):
     box = serializers.SlugRelatedField(
@@ -60,6 +85,7 @@ class PurchaseReadSerializer(PurchaseSerializer):
 
 class OrderReadSerializer(OrderSerializer):
     purchase = PurchaseReadSerializer(read_only=True)
+
 
 
     
