@@ -62,7 +62,7 @@ class Order(models.Model):
     city = models.CharField(max_length=100)
     zip_code = models.PositiveIntegerField()
     status = models.CharField(max_length=100,default = "Pending")
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank = True,null = True)
 
     @property
