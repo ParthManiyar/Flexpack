@@ -59,6 +59,7 @@
 				<tr>
 					<th>Product</th>
 					<th>Date Orderd</th>
+					<th>Address</th>
 					<th>Status</th>
 					<th>Update</th>
 					<th>Remove</th>
@@ -124,12 +125,12 @@
 		},
 		success:function(response){
 			var orders = response;
-			//console.log(response);
 			$("#total_order").html(orders.length);
 			for(order of orders)
 				$("#order_table").append("<tr> \
 					<td>"+order['purchase']['box']+"</td>\
 					<td>"+order['date']+"</td>\
+					<td>"+order['address']+", "+order['city']+", "+order['state']+"- "+order['zip_code']+"</td>\
 					<td>"+order['status']+"</td>\
 					<td><a class='btn btn-sm btn-info' href='/app/updateorder/"+order['id']+"/'>Update</a></td>\
 					<td class='order' ><a class='btn btn-sm btn-danger' href='#'>Delete</a></td>\
