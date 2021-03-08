@@ -318,7 +318,7 @@ class GetOrders(APIView):
     def post(self,request,*args,**kwargs):
         uuid = request.data['uuid']
         try:
-            orders  = Order.objects.filter(user=uuid)
+            orders = Order.objects.filter(user=uuid)
         except Order.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = OrderReadSerializer(orders,many=True)
@@ -335,6 +335,11 @@ class DeleteUser(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-
+class AdminValidation(APIView):
+    def get(self,request,*args,**kwargs):
+        access_token = request.META['HTTP_AUTHORIZATION']
+        token = Token()
+        role = token.get_user_from_token(access_token).role
+        if(str(role)=="admin"):
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)

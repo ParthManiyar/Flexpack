@@ -5,6 +5,24 @@
 
 {%  include 'jwt_auth_login_register/status.html' %}
 
+<script>
+	var access_token = window.localStorage.getItem("access_token");
+	$.ajax({
+		url:"/app/check_role/",
+		type:"GET",
+		headers: {
+			"Authorization": access_token,
+		},
+		success:function(response){
+
+		},
+		error:function(xhr,a,b){
+			window.location.pathname = '/app/saveddesign/';
+		}
+
+	});
+</script>
+
 <div class="row">
 	<div class="col-md-5">
 		<h5 id="totat_customer"></h5>

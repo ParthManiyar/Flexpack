@@ -2,6 +2,23 @@
 {% block content %}
 
 <br>
+<script>
+	var access_token = window.localStorage.getItem("access_token");
+	$.ajax({
+		url:"/app/check_role/",
+		type:"GET",
+		headers: {
+			"Authorization": access_token,
+		},
+		success:function(response){
+
+		},
+		error:function(xhr,a,b){
+			window.location.pathname = '/app/saveddesign/';
+		}
+
+	});
+</script>
 
 <div class="row">
 	<div class="col-md">
