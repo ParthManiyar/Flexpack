@@ -6,7 +6,7 @@ from passlib.hash import pbkdf2_sha256
 
 
 # Register serializer
-class RegisterSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id','username','password','first_name', 'last_name','email','role','provider')
