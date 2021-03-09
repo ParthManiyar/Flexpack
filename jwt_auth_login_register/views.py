@@ -42,8 +42,11 @@ def updateOrder(request,uuid):
 
 def customer(request,uuid):
     return render(request,'jwt_auth_login_register/customer.html')
-        
 
+def logout(request):
+    return render(request,'jwt_auth_login_register/logout.html')
+
+        
 def googleAuthentication(request):
     auth_code = request.GET.get('code')
     google = Google_Authentication()
@@ -88,7 +91,7 @@ class CreateUserAPIView(APIView):
         serializer.save()
         return Response(serializer.data, status=201)
 
-Register = CreateUserAPIView.as_view();
+Register = CreateUserAPIView.as_view()
 
 
 class LoginAPI(APIView):

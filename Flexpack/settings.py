@@ -156,5 +156,6 @@ LOGIN_EXEMPT_URLS=(
     r'^app/updateorder/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/',
     r"^static(.*)",
     r"^media(.*)",
-    r'^app/customer/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/'
+    r'^app/customer/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/',
+    r'^app/logout/'
 )
