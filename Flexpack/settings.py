@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
-
+import django.middleware.csrf.CsrfViewMiddleware
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -142,7 +142,7 @@ REDIRECT_URL = config("REDIRECT_URL")
 LOGIN_EXEMPT_URLS=(
     r'^app/login/',
     r'^app/signup/',
-    r'^app/logoutUser'
+    r'^app/logoutUser',
     r'^app/verify/',
     r'^app/register/',
     r'^app/contact/',

@@ -6,9 +6,9 @@
       class="container-fluid"
       style="background-color: white; min-height: 100vh"
     >
-      <div class="container pt-5">
+      <!--<div class="">-->
         <div class="row pt-5">
-          <div class="col-3">
+          <div class="col-3 col-xl-3">
             <div class="row rounded shadow-lg bg-light">
               <div class="col-4 mx-2 mt-3 mb-3">
                 <div class="row border-end border-1">
@@ -389,9 +389,7 @@
             </canvas>
         </div>
           
-          <!-- 
-              EDIT - THE BOX VIEW STARTING FROM HERE
-           -->
+          
            <div style="position:absolute; top:200px; left:490px; z-index:3 ">
             <select class="form-control"  style="width:30vw" id="textures"> 
               <option>Top</option>
@@ -402,11 +400,10 @@
               <option>Bottom</option>
             </select>
            </div> 
-           <div id="canvas-container" style="border:1px solid;position:absolute; top:250px; left:500px; z-index:3 #000000; height: 30vw; width : 30vw;" class="canvas-contianer transparent-background"></div>
-           <!-- 
-              EDIT - ADD YOUR CONTROLS STARTING FROM HERE
-           -->
-          <div class="col-3 bg-light rounded shadow-lg" style="position:absolute; top:200px; left:1000px; z-index:3">
+           <div id="canvas-container" style="border:1px solid;position:absolute; top:250px; left:500px; z-index:3 #000000; height: 30vw; width : 30vw;" class="col-xl-6 canvas-contianer transparent-background"></div>
+           
+
+          <div class="col-3 col-xl-3 bg-light rounded shadow-lg" style="position:absolute; top:200px; left:1000px; z-index:3">
             <p>Box width:
               <input 
                 style="width:30%; display:inline;" 
@@ -458,8 +455,8 @@
               <span id="subtotal"></span>
             </p>
             <button  id="checkout">Checkout</button>
+        <!--</div>-->
         </div>
-      </div>
     </div>
     <script src="https://threejs.org/build/three.js"></script>
     <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>

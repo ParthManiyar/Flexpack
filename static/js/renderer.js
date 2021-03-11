@@ -45,19 +45,6 @@ function getTexture(type)
 	return outsideCanv;
 }
 
-/*function getTexture(type)
-{	
-	const _canvDom = $("#canvas-"+type)[0];
-	console.log($("#canvas-"+type) );
-    const outsideCanv = new THREE.CanvasTexture(_canvDom);
-	outsideCanv.minFilter = THREE.LinearFilter;
-    outsideCanv.wrapS = THREE.ClampToEdgeWrapping;
-    outsideCanv.wrapT = THREE.ClampToEdgeWrapping;
-	resources.push(outsideCanv);
-	return outsideCanv;
-}*/
-
-
 function getMaterial(type)
 {
 	const outsideMat = new THREE.MeshStandardMaterial({
