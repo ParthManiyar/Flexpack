@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
     "python.pythonPath": "d:\\env_Flexpack\\Scripts\\python.exe"
+=======
+    "python.pythonPath": "/home/parthmaniyar/env_flexpack/bin/python"
+>>>>>>> b1a90789c0f68c7345d0b1aed66e0563ac9ab99c
 }

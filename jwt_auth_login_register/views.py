@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import User,Role,Box,BoxPrice, Purchase, Order
-from .serializer import RegisterSerializer, BoxSerializer, BoxPriceSerializer, PurchaseSerializer, OrderSerializer, PurchaseReadSerializer,OrderReadSerializer
+from .serializer import UserSerializer, BoxSerializer, BoxPriceSerializer, PurchaseSerializer, OrderSerializer, PurchaseReadSerializer,OrderReadSerializer
 from passlib.hash import pbkdf2_sha256
 from .utils import generate_random_username
 from .google_authentication import Google_Authentication
@@ -52,8 +52,11 @@ def updateOrder(request,uuid):
 
 def customer(request,uuid):
     return render(request,'jwt_auth_login_register/customer.html')
-        
 
+def logout(request):
+    return render(request,'jwt_auth_login_register/logout.html')
+
+        
 def googleAuthentication(request):
     auth_code = request.GET.get('code')
     google = Google_Authentication()
@@ -72,7 +75,7 @@ def googleAuthentication(request):
         user['role'] = Role.objects.get(name = "end_user").id
         user['password']=None
         user['username']=response['email'].split('@')[0]+"_"+generate_random_username()
-        serializer = RegisterSerializer(data=user)
+        serializer = UserSerializer(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
@@ -93,12 +96,12 @@ class CreateUserAPIView(APIView):
         user['role'] = Role.objects.get(name = "end_user").id
         user['provider']=""
         user._mutable = False
-        serializer = RegisterSerializer(data=user)
+        serializer = UserSerializer(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=201)
 
-Register = CreateUserAPIView.as_view();
+Register = CreateUserAPIView.as_view()
 
 
 class LoginAPI(APIView):
@@ -253,7 +256,7 @@ class GetUserDetailAPI(APIView):
         except User.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = RegisterSerializer(user)
+        serializer = UserSerializer(user)
         return Response(serializer.data)
 
 class GetPurchaseDetailsAPI(APIView):
@@ -277,7 +280,7 @@ class MakeOrderAPI(APIView):
 class GetAllUsers(APIView):
     def get(self,request,*args, **kwargs):
         users = User.objects.all()
-        serializer = RegisterSerializer(users,many=True)
+        serializer = UserSerializer(users,many=True)
         return Response(serializer.data)
 
 class GetAllOrders(APIView):
@@ -330,7 +333,7 @@ class GetOrders(APIView):
     def post(self,request,*args,**kwargs):
         uuid = request.data['uuid']
         try:
-            orders  = Order.objects.filter(user=uuid)
+            orders = Order.objects.filter(user=uuid)
         except Order.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = OrderReadSerializer(orders,many=True)
@@ -347,6 +350,11 @@ class DeleteUser(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-
+class AdminValidation(APIView):
+    def get(self,request,*args,**kwargs):
+        access_token = request.META['HTTP_AUTHORIZATION']
+        token = Token()
+        role = token.get_user_from_token(access_token).role
+        if(str(role)=="admin"):
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
