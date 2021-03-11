@@ -10,11 +10,21 @@ from .google_authentication import Google_Authentication
 from .token import Token
 from rest_framework import status
 
+def home(request):
+    return render(request,'jwt_auth_login_register/home.html')
+
 def login(request):
     return render(request,'jwt_auth_login_register/index.html')
 
+
+
 def signup(request):
     return render(request,'jwt_auth_login_register/register.html')
+
+def contact(request):
+    return render(request,'jwt_auth_login_register/contact.html')
+def about(request):
+    return render(request,'jwt_auth_login_register/about.html')
 
 def boxDesign(request):
     return render(request,'jwt_auth_login_register/boxDesign.html')
@@ -143,8 +153,10 @@ class ValidateTokenAPI(APIView):
     def post(self, request, *args, **kwargs):
         val  = Token()
         if "access_token" not in request.data  :
+            print("Valid")
             return Response({'Error': "Please provide acccess_token"}, status=400)
         access_token = request.data['access_token']
+        print(access_token)
         response = {}
         status = 200
         content_type="application/json"

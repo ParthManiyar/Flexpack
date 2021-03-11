@@ -1,3 +1,4 @@
+
 .close {
     cursor: pointer;
     position: absolute;
@@ -16,3 +17,20 @@
     width: 200px;
 }
 
+
+.p{
+    font-weight: 300;
+    color: #111;
+
+}
+/*.banner{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background: url(../img/bg-img/background.jpg)center/cover no-repeat;
+    
+}*/

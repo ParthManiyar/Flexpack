@@ -73,10 +73,16 @@
         </script>
 
     </head>
+    <style>
+        .logo{
+            height: 100px;
+            width: 150px;
+        }
+    </style>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"><img src ="{% static 'images/logo.png' %}"></img></a>
+              <a class="navbar-brand" href="#"><img class=" logo"src ="{% static 'images/logo.jpg' %}"></img></a>
               <button
                 class="navbar-toggler"
                 type="button"
@@ -88,14 +94,16 @@
               >
               <span class="navbar-toggler-icon"></span>
               </button>
+
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="me-auto"></div>
                 <div class="d-flex">
                   <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
                   <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
+                  <a href="/app/home/" ><button type="button" class="btn m-2 btn-light">Home</button></a>
                   <a href="/app/boxdesign/" ><button type="button" class="btn m-2 btn-light">Design a box</button></a>
-                  <a href='/app/login/'><button type="button" class="btn m-2 btn-light">Login</button></a>
-                  <a href='/app/signup/'><button type="button" class="btn m-2 btn-secondary">Sign up</button></a>
+                  <a href='#'><button type="button" class="btn m-2 btn-light">Logout</button></a>
+
                 </div>
               </div>
             </div>

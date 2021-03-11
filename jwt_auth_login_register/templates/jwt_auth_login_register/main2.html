@@ -11,12 +11,12 @@
 	border-radius: 4px;
 	padding: 10px;
 }
-  .profile-pic{
-        max-width:200px;
-        max-heigth:200px;
-        margin:0 auto;
-        border-radius:50%;
-    }
+.logo{
+  max-width: min-content;
+  margin: 0px auto;
+  height: 50px;
+  width: 250px;
+}
     .submit{
        margin-radius:100px;
     }
@@ -185,7 +185,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src ="{% static 'images/logo.png' %}"></img></a>
+        <a class="navbar-brand" href="#"><img class="logo" src ="{% static 'images/logo.png' %}"></img></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -202,9 +202,11 @@
           <div class="d-flex">
             <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
             <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
+            <a href="/app/home/" ><button type="button" class="btn m-2 btn-light">Home</button></a>
+
             <a href='/app/saveddesign/'><button type="button" class="btn m-2 btn-light">Saved Design</button></a>
-            <a href='/app/login/'><button type="button" class="btn m-2 btn-light">Login</button></a>
-            <a href='/app/signup/'><button type="button" class="btn m-2 btn-secondary">Sign up</button></a>
+            <a href='#'><button type="button" class="btn m-2 btn-light">Logout</button></a>
+            
           </div>
         </div>
       </div>

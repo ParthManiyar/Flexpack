@@ -142,8 +142,12 @@ REDIRECT_URL = config("REDIRECT_URL")
 LOGIN_EXEMPT_URLS=(
     r'^app/login/',
     r'^app/signup/',
+    r'^app/logoutUser'
     r'^app/verify/',
     r'^app/register/',
+    r'^app/contact/',
+    r'^app/services/',
+    r'^app/about/',
     r'^app/google/callback/login/',
     r'^app/home/',
     r'^app/boxdesign/',

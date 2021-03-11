@@ -39,7 +39,7 @@
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 				
 					<span class="login100-form-title p-b-49">
-						<img src ="{% static 'images/logo.png' %}"></img>
+						<img style="width: 250px; height: 180px;" src ="{% static 'images/logo.jpg' %}"></img>
 					</span>
 					<div id="message" align="center" style="color:red"></div>
 					<br>
@@ -129,10 +129,12 @@
 			  success: function(response) {
 				   window.localStorage.setItem("access_token", response['access_token']);
 				   window.localStorage.setItem("refresh_token", response['refersh_token']);
-				   if(response['role']=='admin')
-				   		window.location.pathname = '/app/admin/';
-				   else 
-				   		window.location.pathname='/app/saveddesign/'
+				   //console.log(window.localStorage.getItem("access_token"))
+				  // if(response['role']=='admin')
+				   		//window.location.pathname = '/app/admin/';
+				   //else 
+				   		//window.location.pathname='/app/saveddesign/'
+				   console.log(response)
 			  },
 			  error: function(xhr, a, b)
 			  {

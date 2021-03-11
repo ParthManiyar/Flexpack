@@ -4,8 +4,12 @@ from . import views
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-    path('login/', views.login),
+    path('home/',views.home),
+    path('login/', views.login,name='login'),
+   
     path('signup/', views.signup),
+    path('about/', views.about),
+    path('contact/', views.contact),
     path('boxdesign/',views.boxDesign),
     path('verify/',views.LoginAPI.as_view()),
     path('google/callback/login/',views.googleAuthentication),

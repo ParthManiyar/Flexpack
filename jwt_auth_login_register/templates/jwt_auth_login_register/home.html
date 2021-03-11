@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Flexpack</title>
+
+    <link href="{%static 'vendor/bootstrap/css/bootstrap.min1.css'%}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{%static 'assets/css/fontawesome.css'%}">
+    <link rel="stylesheet" href="{%static 'assets/css/templatemo-host-cloud.css'%}">
+    <link rel="stylesheet" href="{%static 'assets/css/owl.css'%}">
+
+  </head>
+<style>
+  body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+
+
+.header {
+  text-align: center;
+  padding: 0px;
+}
+
+.row {
+  display: -ms-flexbox; /* IE 10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE 10 */
+  flex-wrap: wrap;
+  padding: 1px;
+}
+
+.column {
+  -ms-flex: 50%; /* IE 10 */
+  flex: 0px;
+  padding: 5px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+}
+
+
+.flip-card {
+  background-color: transparent;
+  width: 250px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #fff;
+  color: blue;
+  transform: rotateY(180deg);
+}
+
+p
+{
+    font-size: 1em;
+    color :  white;
+}
+
+</style>
+  <body>
+
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+  
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="#"><h2>FlexPack<em>.</em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/app/home/">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/app/about/">About Us</a>
+              </li>
+            
+              <li class="nav-item">
+                <a class="nav-link" href="/app/contact/">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/app/boxdesign/">Design a box</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/app/saveddesign/">Saved Design</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/app/services/">Services</a>
+              </li>
+            </ul>
+          </div>
+          <div class="functional-buttons">
+            <ul>
+              <li><a href="#">Log out</a></li>
+             
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="banner">
+      <div class="container" >
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <div class="header-text caption">
+              <h1>Create custom boxes and packaging </h1>
+             
+              	<p> Custom packaging can turn your brand into the total package with full customization, instant quoting, and fats turnarounds.</p>
+                <br>
+                <div class="functional-buttons">
+                  <ul>
+                    <li><a href="/app/boxdesign/">Customize your Box</a></li>
+                   
+                  </ul>
+                </div>
+                  <ul>
+                    <li></li>
+                  </ul>
+                </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    
+   
+   
+    <div class="services-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-heading">
+              
+              <h2 style="text-align: center;">Choose Your Custom box style</h2>
+            </div>
+          </div>
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="{% static '/images/product_box.jpg'%}" alt="Avatar" style="width:300px;height:300px;">
+              </div>
+              <div class="flip-card-back">
+                <h1>Product Box</h1> 
+                
+                <p style="color:black; font-style: oblique;">Command attention on retail shelves with our product boxes made from SBS paperboard. Perfect for beauty packaging, supplements, and chocolate.</p>
+                <br>
+                <a href="#" style="color: blue;">Meet our product box</a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="{%static '/images/mailer_box.jpg'%}" alt="Avatar" style="width:300px;height:300px;">
+              </div>
+              <div class="flip-card-back">
+                <h1>Mailer Box</h1> 
+                
+                <p style="color:black; font-style: oblique;">A durable and stylish corrugated cardboard mailer box that's great for shipping. Perfect for subscription boxes, gift boxes, and e-commerce packaging.</p>
+                <br>
+                <a href="#" style="color: blue;">Meet our product box</a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="{%static '/images/shipping_box.png'%}" alt="Avatar" style="width:300px;height:300px;">
+              </div>
+              <div class="flip-card-back">
+                <h1>Shipping Box</h1> 
+               
+                <p style="color: black; font-style: oblique;">Our custom corrugated cardboard shipping boxes are strong and seriously durable. Perfect for shipping large or heavy items but also an excellent choice to protect fragile items.</p>
+                <br>
+                <a href="#" style="color: blue;">Meet our product box</a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="{% static '/images/kraft1.jpg'%}" alt="Avatar" style="width:300px;height:300px;">
+              </div>
+              <div class="flip-card-back">
+                <h1>Econoflex Box </h1> 
+                
+                <p style="color: black; font-style: oblique;">Our Econoflex shipping boxes are made from 100% recycled and recyclable Kraft with print quality that rivals flexo. They're sturdy enough for bulky items and a no-brainer for your budget.</p>
+                <br>
+                <a href="#" style="color: blue;">Meet our product box</a>
+              </div>
+            </div>
+          </div>
+          </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonials-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-heading">
+              <h2>Get Inspired</h2>
+              <p style="color:midnightblue; font-style: oblique; font-size: 15px;">
+                Whether you’re displaying products in store or delivering a customer order, the custom box it’s sealed in can strengthen a customer’s impression.
+                <br>Custom-printed boxes aren’t just about customer satisfaction, although they certainly help on that front. They’re also about advertising, showing the world your product and getting your brand out there. Before your customer ever sees your product, they’ll see the box that it’s contained in. 
+                <div class="row"> 
+                <div class="column">
+                  <img src="{%static 'images/mailingbox.jpg'%}" style="width:60%; height: 50%;">
+                  <img src="{%static 'images/box1.jpg'%}" style="width:90%">
+                 
+                </div>
+                <div class="column">
+                  <img src="{%static 'images/box2.jpg'%}" style="width:100%">
+                  <img src="{%static 'images/box6.png'%}" style="width:80%;">
+                  
+                  </div>  
+                <div class="column">
+                  
+                  <img src="{%static 'images/box4.png'%}" style="width:80%">
+                  <img src="{%static 'images/box3.jpg'%}" style="width:90%">
+                 
+                </div>
+                
+              </div>
+              
+            </div>
+          </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="features-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-heading">
+              <span>Best Quality for you</span>
+              <h2> Features</h2>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="feature-item">
+              <div class="icon">
+                <img src="{% static 'images/custom_size.png'%}" alt="">
+              </div>
+              <h4>Custom Size</h4>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="feature-item">
+              <div class="icon">
+                <img src="{% static 'images/quantities.png'%}" alt="">
+              </div>
+              <h4>Quantities starting at 1+</h4>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="feature-item">
+              <div class="icon">
+                <img src="{% static 'images/full_color_print.png'%}" alt="">
+              </div>
+              <h4>Full-color Print</h4>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="feature-item">
+              <div class="icon">
+                <img src="{% static 'images/3d.png'%}" alt="">
+              </div>
+              <h4>Easy-to-use 3D design</h4>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="feature-item">
+              <div class="icon">
+                <img src="{% static 'images/recycle.png'%}" alt="">
+              </div>
+              <h4>Sustainable sourced. Recyclable</h4>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="feature-item">
+              <div class="icon">
+                <img src="{% static 'images/free_artwork_inspection.png'%}" alt="">
+              </div>
+              <h4>Free Artwork Inspection</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="testimonials-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-heading">
+              <span>Testimonials</span>
+              <h2>What they say about us</h2>
+            </div>
+          </div>
+          <div class="col-md-10 offset-md-1">
+            <div class="owl-testimonials owl-carousel">
+              <div class="testimonial-item">
+                <div class="icon">
+                  <i class="fa fa-quote-right"></i>
+                </div>
+                <p>"Ut elementum a elit sed tristique. Pellentesque sed semper erat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean quam erat, rutrum ut malesuada."</p>
+                <h4>William Smith</h4>
+                <span>New Co-Founder</span>
+              </div>
+              <div class="testimonial-item">
+                <div class="icon">
+                  <i class="fa fa-quote-right"></i>
+                </div>
+                <p>"Quisque lacinia sed velit et maximus. Quisque dictum, lacus a malesuada finibus, arcu magna luctus risus, eu accumsan risus elit vitae lacus."</p>
+                <h4>Vinny Smart</h4>
+                <span>Digital Marketer</span>
+              </div>
+              <div class="testimonial-item">
+                <div class="icon">
+                  <i class="fa fa-quote-right"></i>
+                </div>
+                <p>"Vestibulum mauris ipsum, tempor tincidunt justo sit amet, bibendum tincidunt dui. Aenean molestie, odio quis viverra ultricies, leo tellus lacinia neque, sit amet maximus tortor nunc aliquet felis."</p>
+                <h4>Trevor Liam</h4>
+                <span>Technology Chef</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-item">
+              <div class="footer-heading">
+                <h2>About Us</h2>
+              </div>
+              <p>Flexpack</p>
+            </div>
+          </div>
+          
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-item">
+              <div class="footer-heading">
+                <h2>Design a box</h2>
+              </div>
+              <ul class="footer-list">
+                
+              </ul>
+            </div>
+          </div>
+          
+          
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-item">
+              <div class="footer-heading">
+                <h2>Useful Links</h2>
+              </div>
+              <ul class="footer-list">
+               
+                <li><a href="#">Customer Support</a></li>
+               
+              </ul>
+            </div>
+          </div>
+          
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-item">
+              <div class="footer-heading">
+                <h2>More Information</h2>
+              </div>
+              <ul class="footer-list">
+                <li>Phone: <a href="#">010-020-0560</a></li>
+                <li>Email: <a href="#">mail@company.com</a></li>
+                <li>Support: <a href="#">support@company.com</a></li>
+                <li>Website: <a href="#">www.company.com</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="sub-footer">
+              <p>Copyright &copy; 2020 Flexpack</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+   
+    <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap1.bundle.min.js'%}"></script>
+
+    <!-- Additional Scripts -->
+    <script src="{% static 'assets/js/custom.js'%}"></script>
+    <script src="{% static 'assets/js/owl.js'%}"></script>
+    <script src="{% static 'assets/js/accordions.js'%}"></script>
+
+
+    <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; 
+      function clearField(t){                   
+      if(! cleared[t.id]){                      
+          cleared[t.id] = 1;  
+          t.value='';        
+          t.style.color='#fff';
+          }
+      }
+
+    </script>
+  <script>var elements = document.getElementsByClassName("column");
+
+    // Declare a loop variable
+    var i;
+    
+    // Four images side by side
+    function four() {
+      for (i = 0; i < elements.length; i++) {
+        elements[i].style.msFlex = "25%";  // IE10
+        elements[i].style.flex = "25%";
+      }
+    }
+    
+    // Add active class to the current button (highlight it)
+    var header = document.getElementById("myHeader");
+    var btns = header.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function() {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+      });
+    }</script>
+  </body>
+</html>
