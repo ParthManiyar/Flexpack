@@ -16,8 +16,6 @@ def home(request):
 def login(request):
     return render(request,'jwt_auth_login_register/index.html')
 
-
-
 def signup(request):
     return render(request,'jwt_auth_login_register/register.html')
 

@@ -78,7 +78,7 @@ a.gradient-button:hover {
 }
 
 .page-heading {
-	background-image: url(../images/about_pic.jpg);
+	background-image: url('/static/images/bg2.jpg');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -362,95 +362,7 @@ header {
 	font-weight: 700;
 	color: #fff;
 }
-.banner #search-section fieldset {
-	display: inline-block;
-}
-.banner #search-section {
-	position: relative;
-}
-.banner #search-section input.searchText {
-	float: left;
-	width: 570px;
-	min-width: 280px;
-	height: 49px;
-	background-color: transparent;
-	border: 1px solid #fff;
-	padding: 0px 15px;
-	color: #fff;
-	outline: none;
-	font-size: 14px;
-	letter-spacing: 0.5px;
-	margin-bottom: 30px;
-}
-.banner #search-section input.main-button {
-	position: absolute;
-	top: 0;
-	right: 0;
-	outline: none;
-	cursor: pointer;
-	display: inline-block;
-	height: 50px;
-	line-height: 50px;
-	padding: 0px 20px;
-	border: none;
-	margin-left: 10px;
-	background-color: #00bcd4;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 15px;
-	font-weight: 500;
-	letter-spacing: 0.5px;
-	transition: all 0.5s;
-	margin-bottom: 30px;
-}
-.banner #search-section button:hover {
-	background-color: #00a4b9;
-}
-#search-section ul {
-	padding: 0;
-	margin: 0;
-	text-align: center;
-	display: inline-block;
-}
-#search-section ul li {
-	display: inline-block;
-	margin-right: 30px;
-}
-#search-section ul li:last-child {
-	margin-right: 0px;
-}
-#search-section input[type=checkbox] {
-	width: 18px;
-	min-width: 18px;
-	height: 18px;
-	background-color: transparent;
-	border: 1px solid #fff;
-	outline: none;
-	cursor: pointer;
-}
-#search-section span {
-	color: #fff;
-	font-size: 15px;
-	font-weight: 700;
-	margin-left: 8px;
-}
-#search-section em {
-	font-style: normal;
-	font-weight: 400;
-	font-size: 16px;
-	color: #fff;
-}
-#search-section ::-webkit-input-placeholder { /* Edge */
-  color: #fff;
-}
 
-#search-section :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #fff;
-}
-
-#search-section ::placeholder {
-  color: #fff;
-}
 
 
 
@@ -730,7 +642,7 @@ header {
 
 /* Footer Style */
 footer {
-	background-image: url(../images/shipping_box.png);
+	background-image: url('/static/images/bg-01.jpg'); 
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
@@ -782,6 +694,28 @@ footer .sub-footer {
 footer .sub-footer a {
 	color: #FFF;
 }
+.home{
+		padding: 140px 0px;
+		background-color: lightblue;
+	}
+	.home .left-image {
+		margin-right: 30px;
+	}
+	.home .right-content {
+		margin-left: 30px;
+	}
+	.home .left-image img {
+		max-width: 100%;
+		overflow: hidden;
+	}
+	.home .section-heading h2 {
+		color: #1e1e1e;
+	}
+	.home .section-heading {
+		margin-bottom: 40px;
+		border-bottom: 3px solid #eee;
+		padding-bottom: 40px;
+	}
 
 /* About Us Page Style */
 .about-us {
@@ -938,10 +872,10 @@ footer .sub-footer a {
   resize: none;
   padding: 20px;
 }
-.contact-form ::-webkit-input-placeholder { /* Edge */
+.contact-form ::-webkit-input-placeholder { 
   color: #6a6a6a;
 }
-.contact-form :-ms-input-placeholder { /* Internet Explorer 10-11 */
+.contact-form :-ms-input-placeholder { 
   color: #6a6a6a;
 }
 .contact-form ::placeholder {
