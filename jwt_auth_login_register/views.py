@@ -11,7 +11,7 @@ from .token import Token
 from rest_framework import status
 
 def home(request):
-    return render(request,'jwt_auth_login_register/home.html')
+    return render(request,'jwt_auth_login_register/home.html',{"message":"hi"})
 
 def login(request):
     return render(request,'jwt_auth_login_register/index.html')

@@ -129,12 +129,10 @@
 			  success: function(response) {
 				   window.localStorage.setItem("access_token", response['access_token']);
 				   window.localStorage.setItem("refresh_token", response['refersh_token']);
-				   //console.log(window.localStorage.getItem("access_token"))
-				  // if(response['role']=='admin')
-				   		//window.location.pathname = '/app/admin/';
-				   //else 
-				   		//window.location.pathname='/app/saveddesign/'
-				   console.log(response)
+				   if(response['role']=='admin')
+				   	window.location.pathname = '/app/admin/';
+				   else 
+				   	window.location.pathname='/app/saveddesign/'
 			  },
 			  error: function(xhr, a, b)
 			  {

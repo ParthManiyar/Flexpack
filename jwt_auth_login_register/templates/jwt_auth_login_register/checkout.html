@@ -6,7 +6,8 @@
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
 				<form id="form">
-					<div id="user-info">
+					<div id="message"></div>
+					<div id="user-info" >
 						<div class="form-field">
 							<input required class="form-control" type="text" id="name" placeholder="Name..">
 						</div>
@@ -31,12 +32,13 @@
 						<div class="form-field">
 							<input class="form-control" type="text" id="zipcode" placeholder="Zip code..">
 						</div>
-
+						<br>
+						<button id="form-button" class="btn btn-success btn-block" type="button">Continue</button>
 					</div>
 
 					<hr>
-					<div class="box-element" id="payment-info">
-						<small>Paypal Options</small>
+					<div class="box-element hidden" id="payment-info">
+						<small>Payment Options</small>
 						<div id="paypal-button-container"></div>
 					</div>
 				</form>
@@ -69,6 +71,22 @@
 	<script src="https://www.paypal.com/sdk/js?client-id=ATL1komYLnyraGKOWfgE_0yx4EW9NWUyGBo0Nji1aI-UCEAPXtf06JDfCftuMbmE0FdyokPkR1FDBO2r&currency=INR&disable-funding=card"></script>
 	
 	<script>
+		$("#form-button").click(function(e){
+			if($("#name").val().trim()=="" || $("#email").val().trim()=="" || $("#address").val().trim()=="" || $("#city").val().trim()=="" || $("#state").val().trim()=="" || $("#zipcode").val().trim()==""){
+				$("#message").html("all the field are required");
+			}
+			else{
+				$("#message").html("");
+				document.getElementById('form-button').classList.add("hidden");
+	    		document.getElementById('payment-info').classList.remove("hidden");
+				document.getElementById('name').readOnly = true;
+				document.getElementById('email').readOnly = true;
+				document.getElementById('address').readOnly = true;
+				document.getElementById('city').readOnly = true;
+				document.getElementById('state').readOnly = true;
+				document.getElementById('zipcode').readOnly = true;
+			}
+		});
 		var access_token = window.localStorage.getItem("access_token");
 		function get_uuid(){
     		uuid = window.location.pathname;
@@ -117,14 +135,13 @@
 							success:function(response){
 								$("#name").val(response.username);
 								$("#email").val(response.email);
-								// Render the PayPal button into #paypal-button-container
 								paypal.Buttons({
 									style:{
 										color:'blue',
 										shape:'rect',
 									},
-									// Set up the transaction
 									createOrder: function(data, actions) {
+										console.log(data);
 										return actions.order.create({
 											purchase_units: [{
 												amount: {
@@ -134,10 +151,8 @@
 										});
 									},
 
-									// Finalize the transaction
 									onApprove: function(data, actions) {
 										return actions.order.capture().then(function(details) {
-											// Show a success message to the buyer
 											alert('Transaction completed');
 											$.ajax({
 												url:"/app/makeorder/",
