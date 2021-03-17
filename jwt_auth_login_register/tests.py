@@ -1,5 +1,4 @@
 from django.test import TestCase
-
 # Create your tests here.
 from passlib.hash import pbkdf2_sha256
 from random import choice
@@ -22,9 +21,10 @@ def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, d
     except User.DoesNotExist:
         return username;
 
-print(generate_random_username(chars = "parthmaniyar90"))
+#print(generate_random_username(chars = "parthmaniyar90"))
 
 #tok  = Token()
 #payload={"email":"parthmaniyar90@gmail.com"}
 #token = tok.get_access_token_for_first_time(payload,1,1)
 #print(token)
+

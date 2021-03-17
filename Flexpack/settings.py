@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+<<<<<<< HEAD
 
+=======
+>>>>>>> ddd8e152145697bb54134164bb0d12a5ed3b179b
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'jwt_auth_login_register',
+    'djcelery',
+    'djcelery_email'
 ]
 
 MIDDLEWARE = [
@@ -138,6 +143,13 @@ STATICFILES_DIRS = [
 GOOGLE_CLIENT_ID = config("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = config("GOOGLE_CLIENT_SECRET")
 REDIRECT_URL = config("REDIRECT_URL")
+CELERY_BROKER_URL = config("CELERY_BROKER_URL")
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_PORT = config("EMAIL_PORT")
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = config("EMAIL_USE_TLS") 
+EMAIL_BACKEND = config("EMAIL_BACKEND")
 
 LOGIN_EXEMPT_URLS=(
     r'^app/login/',
@@ -157,6 +169,7 @@ LOGIN_EXEMPT_URLS=(
     r'^app/editbox/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/',
     r'^app/checkout/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/',
     r'^app/admin/',
+    r'^app/mail/',
     r"^admin(.*)",
     r'^app/updateorder/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/',
     r"^static(.*)",
