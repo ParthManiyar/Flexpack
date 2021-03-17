@@ -1,36 +1,5 @@
-/* [Master Stylesheet] */
-
-/* ------------- Index of Stylesheet -------------
-:: 1.0 Import Web Fonts
-:: 2.0 Import All CSS
-:: 3.0 Common/Base CSS
-:: 4.0 Wrapper CSS
-:: 5.0 Header Area CSS
-:: 6.0 Side Menu Area CSS
-:: 7.0 Top Discount CSS
-:: 8.0 Welcome Area CSS
-:: 9.0 Quickview Modal Area CSS
-:: 10.0 Top Catagory Area CSS
-:: 11.0 New Arrivals Area Start
-:: 12.0 Offer Area CSS
-:: 13.0 Testimonials CSS
-:: 14.0 Footer Area CSS
-:: 15.0 Breadcumb Area CSS
-:: 16.0 Product Sidebar Area CSS
-:: 17.0 Product Details Area CSS
-:: 18.0 Cart Page CSS
-:: 19.0 Checkout Area CSS
------------------------------------------------- */
-
-/* --------------------
-:: 1.0 Import Web Fonts
--------------------- */
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
-
-/* ------------------
-:: 2.0 Import All CSS
------------------- */
 
 @import '../css/bootstrap.min.css';
 @import '../css/owl.carousel.css';
@@ -40,9 +9,6 @@
 @import '../css/animate.css';
 @import '../css/jquery-ui.min.css';
 
-/* -------------------
-:: 3.0 Common/Base CSS
-------------------- */
 
 * {
     margin: 0;

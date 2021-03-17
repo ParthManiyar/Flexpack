@@ -10,6 +10,7 @@ urlpatterns = [
     path('about/', views.about),
     path('contact/', views.contact),
     path('boxdesign/',views.boxDesign),
+    path('box_test/',views.box_test),
     path('verify/',views.LoginAPI.as_view()),
     path('google/callback/login/',views.googleAuthentication),
     path('validateToken/',views.ValidateTokenAPI.as_view()),

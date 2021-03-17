@@ -12,7 +12,8 @@ from rest_framework import status
 
 def home(request):
     return render(request,'jwt_auth_login_register/home.html',{"message":"hi"})
-
+def box_test(request):
+    return render(request,'jwt_auth_login_register/box_test.html')
 def login(request):
     return render(request,'jwt_auth_login_register/index.html')
 

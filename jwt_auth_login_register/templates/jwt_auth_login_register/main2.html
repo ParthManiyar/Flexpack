@@ -2,9 +2,59 @@
 {% load static %}
 <html lang="en">
   <head>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{%static 'js/validate.js' %}"></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Flexpack-Design a Box</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{%static 'vendor/bootstrap/css/bootstrap.min1.css'%}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{%static 'assets/css/fontawesome.css'%}">
+    <link rel="stylesheet" href="{%static 'assets/css/templatemo-host-cloud.css'%}">
+    <link rel="stylesheet" href="{%static 'assets/css/owl.css'%}">
+</head>
     <style>
+      .page-heading {
+	background-image: url("/static/images/bg1.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size:cover;
+	text-align: center;
+	padding: 230px 0px 180px 0px;
+}
+
+.page-heading h1 {
+	color:black;
+	font-size: 44px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	margin-bottom: 20px;
+}
+.page-heading p {
+	color: #fff;
+	letter-spacing: 0.5px;
+}
+.page-heading p a {
+	color: #fff;
+	font-size: 15px;
+}
+.page-heading p a {
+	margin-right: 5px;
+}
+.page-heading p span {
+	color: #fff;
+	opacity: 0.75;
+	margin-left: 5px;
+}
             .box-element{
 	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
 	background-color: #fff;
@@ -163,61 +213,171 @@
       }
     </style>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="{%static 'images/icons/favicon.ico'%}"/>
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+      <div class="jumper">
+          <div></div>
+          <div></div>
+          <div></div>
+      </div>
+  </div>  
+  <!-- ***** Preloader End ***** -->
 
-    <!-- Bootstrap CSS -->
-    <script src= "https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js"></script>
-
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-      crossorigin="anonymous"
-    />
-    <title>FlexPack</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
+  <header class="">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
         <a class="navbar-brand" href="#"><h2>FlexPack<em>.</em></h2></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-        <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div class="me-auto"></div>
-          <div class="d-flex">
-            <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
-            <!--<button type="button" class="btn m-2 btn-light">Change</button>-->
-            <a href="/app/home/" ><button type="button" class="btn m-2 btn-light">Home</button></a>
-
-            <a href='/app/saveddesign/'><button type="button" class="btn m-2 btn-light">Saved Design</button></a>
-            <a href='/app/logout/'><button type="button" class="btn m-2 btn-light">Logout</button></a>
-          </div>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/app/home/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/app/about/">About Us</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/app/contact/">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/app/boxdesign/">Design a box</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/app/saveddesign/">Saved Design</a>
+            </li>
+            
+          </ul>
+        </div>
+        <div class="functional-buttons">
+          <ul>
+            <li><a href="/app/logout/">Log out</a></li>
+           
+          </ul>
         </div>
       </div>
     </nav>
+  </header>
+
+
+  <!-- Page Content -->
+  <!-- Heading Starts Here -->
+  <div class="page-heading header-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Design a Box</h1>
+          <p><a href="/app/home/">Home</a> / <span>Design a Box</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Heading Ends Here -->
+
             {% block content %}
 
 
             {% endblock content %}
-            <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-            crossorigin="anonymous"
-          ></script>
          
+         <br>
+         
+         <br>
+         <br><br>
+         <br>
+         <br><br>
+         <br>
+         <br><br>
+         <br>
+         <br><br>
+         <br><br>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-item">
+              <div class="footer-heading">
+                <h2>About Us</h2>
+              </div>
+             	<p> Custom packaging can turn your brand into the total package with full customization, instant quoting, and fats turnarounds.</p>
+            
+            </div>
+          </div>
+          
+         
+          
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-item">
+              <div class="footer-heading">
+                <h2>Useful Links</h2>
+              </div>
+              <ul class="footer-list">
+                <li><a href="/app/home/">Home</a></li>
+
+                <li><a href="/app/contact/">Customer Support</a></li>
+                <li><a href="/app/login/">Login</a></li>
+                <li><a href="/app/about/">About us</a></li>
+                <li><a href="/app/saveddesign/">Saved Design</a></li>
+                <li><a href="/app/boxdesign/">Design a box</a></li>
+
+
+
+
+              </ul>
+            </div>
+          </div>
+          
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="footer-item">
+              <div class="footer-heading">
+                <h2>More Information</h2>
+              </div>
+              <ul class="footer-list">
+                <li>Phone: <a href="#">079 4007 0170</a></li>
+                <li>Email: <a href="#">flexpack@gmail.com</a></li>
+                <li>Support: <a href="#">support@flexpack.com</a></li>
+                <li>Website: <a href="#">www.flexpack.com</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="sub-footer">
+              <p>Copyright &copy; 2021 Flexpack</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+     <!-- Bootstrap core JavaScript -->
+     <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+     <script src="{% static 'vendor/bootstrap/js/bootstrap1.bundle.min.js'%}"></script>
+     <script
+     src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+     crossorigin="anonymous"
+   ></script>
+ 
+     <!-- Additional Scripts -->
+     <script src="{% static 'assets/js/custom.js'%}"></script>
+     <script src="{% static 'assets/js/owl.js'%}"></script>
+     <script src="{% static 'assets/js/accordions.js'%}"></script>
+   
+
+    <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; 
+      function clearField(t){                   
+      if(! cleared[t.id]){                      
+          cleared[t.id] = 1;  
+          t.value='';         
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
         </body>
       </html>
       

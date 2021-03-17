@@ -357,40 +357,47 @@
           <div id='c-front' style="display: none;">
             <canvas id="canvas-front"
                 width="300"
+                top="700px"
+                              
                 height="200" style="border: 2px solid green;"> 
             </canvas>
           </div>
           <div id='c-left' style="display: none;">
-            <canvas id="canvas-left" style="border: 2px solid green;"> 
+            <canvas id="canvas-left"
+            top="700px" style="border: 2px solid green;"> 
             </canvas> 
           </div>
           <div id='c-bottom' style="display: none;">
             <canvas id="canvas-bottom"
+            top="700px"
                 width="300"
                 height="200" style="border: 2px solid green;"> 
             </canvas>
           </div>
           <div id='c-right' style="display: none;">
             <canvas id="canvas-right"
+            top="700px"
                 width="300"
                 height="200" style="border: 2px solid green;"> 
             </canvas>
           </div>
-          <div id='c-top' style="display: block;">
+          <div id='c-top' style="display: block; top: 700px;"> 
             <canvas id="canvas-top"
-                width="300"
-                height="200" style="border: 2px solid green;"> 
+               
+            width="300"
+                height="200" style="border: 2px solid green; top: 700px;"> 
             </canvas>
           </div>
           <div id='c-back' style="display: none;">
             <canvas id="canvas-back"
+                top="650px"            
                 width="300"
                 height="200" style="border: 2px solid green;"> 
             </canvas>
         </div>
           
           
-           <div style="position:absolute; top:200px; left:490px; z-index:3 ">
+           <div style="position:absolute; top:590px; left:490px; z-index:3 ">
             <select class="form-control"  style="width:30vw" id="textures"> 
               <option>Top</option>
               <option>Left</option>
@@ -399,11 +406,12 @@
               <option>Back</option>
               <option>Bottom</option>
             </select>
+            </select>
            </div> 
-           <div id="canvas-container" style="border:1px solid;position:absolute; top:250px; left:500px; z-index:3 #000000; height: 30vw; width : 30vw;" class="col-xl-6 canvas-contianer transparent-background"></div>
+           <div id="canvas-container" style="border:1px solid;position:absolute; top:650px; left:500px; z-index:3 #000000; height: 30vw; width : 30vw;" class="col-xl-6 canvas-contianer transparent-background"></div>
            
 
-          <div class="col-3 col-xl-3 bg-light rounded shadow-lg" style="position:absolute; top:200px; left:1000px; z-index:3">
+          <div class="col-3 col-xl-3 bg-light rounded shadow-lg" style="position:absolute; top:590px; left:1000px; z-index:3">
             <p>Box width:
               <input 
                 style="width:30%; display:inline;" 
