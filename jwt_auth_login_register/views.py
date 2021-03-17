@@ -9,6 +9,7 @@ from .utils import generate_random_username
 from .google_authentication import Google_Authentication
 from .token import Token
 from rest_framework import status
+from .mailer import Mailer
 
 def home(request):
     return render(request,'jwt_auth_login_register/home.html',{"message":"hi"})
@@ -21,6 +22,7 @@ def signup(request):
 
 def contact(request):
     return render(request,'jwt_auth_login_register/contact.html')
+
 def about(request):
     return render(request,'jwt_auth_login_register/about.html')
 
@@ -53,6 +55,7 @@ def customer(request,uuid):
 
 def logout(request):
     return render(request,'jwt_auth_login_register/logout.html')
+
 
         
 def googleAuthentication(request):
@@ -136,7 +139,6 @@ class LoginAPI(APIView):
             payload={"email":user.email}
             oauth_details = Token.get_access_token_for_first_time(self,payload,3600,7)
             oauth_details['role'] = str(user.role)
-            #print(type(str(user.role)))
             return Response(
               oauth_details,
               status=200,
@@ -356,3 +358,12 @@ class AdminValidation(APIView):
         if(str(role)=="admin"):
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+class SendMail(APIView):
+    def post(self,request,*args,**kwargs):
+        mail = Mailer()
+        mail.send_messages(subject=request.data['subject'],
+                   template='jwt_auth_login_register/email.html',
+                   context={"name":request.data['name'],"message":request.data['message'],"email":request.data['email']},
+                   to_emails=["parthmaniyar90@gmail.com"])
+        return Response(status=status.HTTP_200_OK)
