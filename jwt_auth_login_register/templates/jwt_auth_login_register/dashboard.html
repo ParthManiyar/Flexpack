@@ -1,28 +1,73 @@
-{%  extends 'jwt_auth_login_register/main2.html' %}
+
+<!DOCTYPE html>
 {% load static %}
-{% block content %}
-<link rel="stylesheet" type="text/css" href="{%static 'css/main.css'%}">
+<html lang="en">
+  <head>
+	  
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{%static 'js/validate.js' %}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static '/css/main.css'%}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Flexpack-Admin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{%static 'vendor/bootstrap/css/bootstrap.min1.css'%}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{%static 'assets/css/fontawesome.css'%}">
+    <link rel="stylesheet" href="{%static 'assets/css/templatemo-host-cloud.css'%}">
+    <link rel="stylesheet" href="{%static 'assets/css/owl.css'%}">
+
+<style>
+.body{
+	background-color: #ebeff5;
+}
+
+
+.total-orders{
+	background-color: #4cb4c7;
+}
+
+
+.orders-delivered{
+	background-color: #7abecc;
+}
+
+.orders-pending{
+	background-color: #7CD1C0;
+}
+
+</style>
+	</head>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#"><h1>FlexPack<em>.</em></h1></a>
+		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		   <span class="navbar-toggler-icon"></span>
+		 </button>
+		 <div class="collapse navbar-collapse" id="navbarNav">
+		   <ul class="navbar-nav">
+			 <li class="nav-item active">
+			   <a class="nav-link" href="/app/admin/">Dashboard</a>
+			 </li>
+			 
+		   </ul>
+		 </div>
+		  
+		   <span><a class="hello-msg" href="/app/logout/">Logout</a> </span>
+	   </nav>
+	   <div class="container-fluid">
+
 
 {%  include 'jwt_auth_login_register/status.html' %}
-
-<script>
-	var access_token = window.localStorage.getItem("access_token");
-	$.ajax({
-		url:"/app/check_role/",
-		type:"GET",
-		headers: {
-			"Authorization": access_token,
-		},
-		success:function(response){
-
-		},
-		error:function(xhr,a,b){
-			window.location.pathname = '/app/saveddesign/';
-		}
-
-	});
-</script>
-
+  
 <div class="row">
 	<div class="col-md-5">
 		<h5 id="totat_customer"></h5>
@@ -58,6 +103,7 @@
 		</div>
 	</div>
 
+</div>
 </div>
 
 <script>
@@ -147,5 +193,99 @@
 	});
 
 </script>
+<br><br>
 
-{% endblock %}
+
+<footer>
+  <div class="container">
+	<div class="row">
+	  <div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="footer-item">
+		  <div class="footer-heading">
+			<h2>About Us</h2>
+		  </div>
+			 <p> Custom packaging can turn your brand into the total package with full customization, instant quoting, and fats turnarounds.</p>
+		
+		</div>
+	  </div>
+	  
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="footer-item">
+		  <div class="footer-heading">
+			<h2>Useful Links</h2>
+		  </div>
+		  <ul class="footer-list">
+			<li><a href="/app/home/">Home</a></li>
+
+		  </ul>
+		</div>
+	  </div>
+	 
+	  <div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="footer-item">
+		  <div class="footer-heading">
+			<h2>More Information</h2>
+		  </div>
+		  <ul class="footer-list">
+			<li>Phone: <a href="#">079 4007 0170</a></li>
+			<li>Email: <a href="#">flexpack@gmail.com</a></li>
+			<li>Support: <a href="#">support@flexpack.com</a></li>
+			<li>Website: <a href="#">www.flexpack.com</a></li>
+		  </ul>
+		</div>
+	  </div>
+	  <div class="col-md-12">
+		<div class="sub-footer">
+		  <p>Copyright &copy; 2021 Flexpack</p>
+		</div>
+	  </div>
+	</div>
+  </div>
+</footer>
+
+ <!-- Bootstrap core JavaScript -->
+ <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+ <script src="{% static 'vendor/bootstrap/js/bootstrap1.bundle.min.js'%}"></script>
+ <script
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+ crossorigin="anonymous"
+></script>
+
+ <!-- Additional Scripts -->
+ <script src="{% static 'assets/js/custom.js'%}"></script>
+ <script src="{% static 'assets/js/owl.js'%}"></script>
+ <script src="{% static 'assets/js/accordions.js'%}"></script>
+
+
+<script language = "text/Javascript"> 
+  cleared[0] = cleared[1] = cleared[2] = 0; 
+  function clearField(t){                   
+  if(! cleared[t.id]){                      
+	  cleared[t.id] = 1;  
+	  t.value='';         
+	  t.style.color='#fff';
+	  }
+  }
+</script>
+<script>
+	var access_token = window.localStorage.getItem("access_token");
+	$.ajax({
+		url:"/app/check_role/",
+		type:"GET",
+		headers: {
+			"Authorization": access_token,
+		},
+		success:function(response){
+
+		},
+		error:function(xhr,a,b){
+			window.location.pathname = '/app/saveddesign/';
+		}
+
+	});
+</script>
+
+	</body>
+  </html>
+  
