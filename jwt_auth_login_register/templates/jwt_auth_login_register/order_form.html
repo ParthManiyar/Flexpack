@@ -61,6 +61,7 @@
 			},
 			success:function(response){
 				order  = response;
+				$("#order_status").val(order.status),
 				$.ajax({
 					url:"/app/update_order/",
 					type:"PUT",
