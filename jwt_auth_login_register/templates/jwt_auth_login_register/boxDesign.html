@@ -6,7 +6,7 @@
       class="container-fluid"
       style="background-color: white; min-height: 100vh"
     >
-      <!--<div class="">-->
+      <div class="container">
         <div class="row pt-5">
           <div class="col-3 col-xl-3">
             <div class="row rounded shadow-lg bg-light">
@@ -353,48 +353,44 @@
                 </div>
               </div>
             </div>
+            <div id='c-top' style="display: block;" > 
+              <canvas id="canvas-top" width="300" height="200" style="border: 2px solid green;"> 
+              </canvas>
+            </div>
+            <div id='c-front' style="display: none;">
+              <canvas id="canvas-front"
+                  width="300"
+                  height="200" style="border: 2px solid green;"> 
+              </canvas>
+            </div>
+            <div id='c-left' style="display: none;">
+              <canvas id="canvas-left"
+              style="border: 2px solid green;"> 
+              </canvas> 
+            </div>
+            <div id='c-bottom' style="display: none;">
+              <canvas id="canvas-bottom"
+              
+                  width="300"
+                  height="200" style="border: 2px solid green;"> 
+              </canvas>
+            </div>
+            <div id='c-right' style="display: none;">
+              <canvas id="canvas-right"
+            
+                  width="300"
+                  height="200" style="border: 2px solid green;"> 
+              </canvas>
+            </div>
+            <div id='c-back' style="display: none;">
+              <canvas id="canvas-back"
+                             
+                  width="300"
+                  height="200" style="border: 2px solid green;"> 
+              </canvas>
           </div>
-          <div id='c-front' style="display: none;">
-            <canvas id="canvas-front"
-                width="300"
-                top="700px"
-                              
-                height="200" style="border: 2px solid green;"> 
-            </canvas>
           </div>
-          <div id='c-left' style="display: none;">
-            <canvas id="canvas-left"
-            top="700px" style="border: 2px solid green;"> 
-            </canvas> 
-          </div>
-          <div id='c-bottom' style="display: none;">
-            <canvas id="canvas-bottom"
-            top="700px"
-                width="300"
-                height="200" style="border: 2px solid green;"> 
-            </canvas>
-          </div>
-          <div id='c-right' style="display: none;">
-            <canvas id="canvas-right"
-            top="700px"
-                width="300"
-                height="200" style="border: 2px solid green;"> 
-            </canvas>
-          </div>
-          <div id='c-top' style="display: block; top: 700px;"> 
-            <canvas id="canvas-top"
-               
-            width="300"
-                height="200" style="border: 2px solid green; top: 700px;"> 
-            </canvas>
-          </div>
-          <div id='c-back' style="display: none;">
-            <canvas id="canvas-back"
-                top="650px"            
-                width="300"
-                height="200" style="border: 2px solid green;"> 
-            </canvas>
-        </div>
+          
           
           
            <div style="position:absolute; top:590px; left:490px; z-index:3 ">
@@ -423,6 +419,7 @@
                 max="900" 
                 step="10" >
             </p>
+            <br>
             <p>Box height:
                 <input 
                   style="width:30%; display:inline;" 
@@ -434,6 +431,7 @@
                   max="900" 
                   step="10" >
             </p>
+            <br>
             <p>Box depth:
                 <input 
                   style="width:30%; display:inline;" 
@@ -445,27 +443,34 @@
                   max="900" 
                   step="10" >
             </p>
+            <br>
             <p>Box Name:
                 <input style="width:30%; display:inline;" id="name" type="text" value="default" class="form-control">
             </p>
+            <br>
             <p>
               <div id="message"></div>
               <button  id="update_size">Update Size</button> 
               <button  id="save">Save</button>
             </p>
+            <br>
             <p>Quantity:
               <input style="width:30%; display:inline;" id="quantity" type="number" value="250" class="form-control" >
             </p>
+            <br>
             <p>Unit Price:
               <span id="unit_price"></span>
             </p>
+            <br>
             <p>Subtotal:
               <span id="subtotal"></span>
             </p>
+            <br>
             <button  id="checkout">Checkout</button>
-        <!--</div>-->
+        </div>
         </div>
     </div>
+    <script src="{%static 'js/validate2.js' %}"></script>
     <script src="https://threejs.org/build/three.js"></script>
     <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
     <script src="{%static 'js/renderer.js' %}"></script>

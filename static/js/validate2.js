@@ -2,7 +2,8 @@ function validateToken()
 {
     var access_token = window.localStorage.getItem("access_token");
     if(access_token==null){
-        window.location.pathname = '/app/login';
+        $("#logout").css("display", "none");
+        $("#saved_design").css("display", "none");
     }
     else{
         $.ajax({
@@ -13,13 +14,15 @@ function validateToken()
                 "access_token":access_token,
             },
             success: function(response) {
-                
+                $("#login").css("display", "none");
+                $("#signup").css("display", "none");
             },
             error: function(xhr, a, b)
             {
-                window.location.pathname = '/app/login';
+                $("#logout").css("display", "none");
+                $("#saved_design").css("display", "none");
             }
         });
     }       
 }
-window.onpaint = validateToken();
+window.onload = validateToken();

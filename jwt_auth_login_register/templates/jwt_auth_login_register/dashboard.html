@@ -17,9 +17,8 @@
 
 		},
 		error:function(xhr,a,b){
-			window.location.pathname = '/app/saveddesign/';
+			window.location.pathname = '/app/home/';
 		}
-
 	});
 </script>
 
@@ -57,7 +56,6 @@
 			</table>
 		</div>
 	</div>
-
 </div>
 
 <script>
@@ -79,7 +77,12 @@
 					 <tr>");
 		},
 		error:function(xhr,a,b){
-			console.log(xhr);
+			if(xhr.status==401){
+				window.location.pathname = '/app/login/';
+			}
+			else{
+				console.log(xhr);
+			}
 		}
 	});
 	$.ajax({
@@ -135,7 +138,12 @@
 							$("#total_order").html(total_order);
                         },
                         error: function(xhr, a, b){
-                            console.log(xhr);
+							if(xhr.status==401){
+								window.location.pathname = '/app/login/';
+							}
+							else{
+								console.log(xhr);
+							}
                         }
                     });
                 });           
