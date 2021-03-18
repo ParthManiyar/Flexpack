@@ -148,6 +148,7 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS")
 EMAIL_BACKEND = config("EMAIL_BACKEND")
 
 LOGIN_EXEMPT_URLS=(
+    r'^',
     r'^app/login/',
     r'^app/signup/',
     r'^app/logoutUser',
@@ -171,5 +172,6 @@ LOGIN_EXEMPT_URLS=(
     r"^static(.*)",
     r"^media(.*)",
     r'^app/customer/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/',
-    r'^app/logout/'
+    r'^app/logout/',
+    r'^app/getmaterailprice/'
 )

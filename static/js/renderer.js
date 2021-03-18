@@ -140,7 +140,12 @@ function saveModelToDatabase(){
 			},
 			error: function(xhr, a, b)
 			{
-				console.log(xhr);
+				if(xhr.status==401){
+					window.location.pathname = '/app/login/';
+				}
+				else{
+					console.log(xhr);
+				}
 			}
 		});
 	});
@@ -205,13 +210,25 @@ function checkoutTOSave(){
 					},
 					error: function(xhr, a, b)
 					{
-						console.log(xhr);
+						if(xhr.status==401){
+							window.location.pathname = '/app/login/';
+						}
+						else{
+							console.log(xhr);
+						}
 					}
 				})
 			},
 			error: function(xhr, a, b)
 			{
-				console.log(xhr);
+				console.log(a);
+				console.log(b);
+				if(xhr.status==401){
+					window.location.pathname = '/app/login/';
+				}
+				else{
+					console.log(xhr);
+				}
 			}
 		});
 	});
@@ -276,13 +293,23 @@ function checkoutTOEdit(){
 					},
 					error: function(xhr, a, b)
 					{
-						console.log(xhr);
+						if(xhr.status==401){
+							window.location.pathname = '/app/login/';
+						}
+						else{
+							console.log(xhr);
+						}
 					}
 				})	
 			},
 			error: function(xhr, a, b)
 			{
-				console.log(xhr);
+				if(xhr.status==401){
+					window.location.pathname = '/app/login/';
+				}
+				else{
+					console.log(xhr);
+				}
 			}
 		});
 	});

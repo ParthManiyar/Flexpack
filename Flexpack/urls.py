@@ -19,9 +19,10 @@ from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 from Flexpack import settings
 from django.conf.urls.static import static
+from django.shortcuts import redirect
 
 urlpatterns = [
-    path('', lambda request: redirect('app/login/', permanent=False)),
+    path('', lambda request: redirect('app/home/', permanent=False)),
     path('admin/', admin.site.urls),
     path('app/', include('jwt_auth_login_register.urls')),
     

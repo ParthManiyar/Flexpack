@@ -1,7 +1,7 @@
 from django.conf import settings
 from .token import Token
-from django.shortcuts import redirect
 import re
+from django.http import HttpResponse
 
 EXEMPT_URLS = []
 if hasattr(settings, 'LOGIN_EXEMPT_URLS'):
@@ -24,7 +24,7 @@ class LoginRequiredMiddleware:
             token = Token()
             token.validate_access_token(request.headers['Authorization'])
         except Exception as e:
-            return redirect('/app/login/')
+            return HttpResponse('Unauthorized', status=401)
         return None
         
 

@@ -132,16 +132,25 @@ p
               <li class="nav-item">
                 <a class="nav-link" href="/app/boxdesign/">Design a box</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" id="saved_design">
                 <a class="nav-link" href="/app/saveddesign/">Saved Design</a>
               </li>
               
             </ul>
           </div>
-          <div class="functional-buttons">
+          <div class="functional-buttons" id="login">
+            <ul>
+              <li><a href="/app/login/">Log In</a></li>
+            </ul>
+          </div>
+          <div class="functional-buttons" id="signup">
+            <ul>
+              <li><a href="/app/signup/">Sign Up</a></li>
+            </ul>
+          </div>
+          <div class="functional-buttons" id="logout">
             <ul>
               <li><a href="/app/logout/">Log out</a></li>
-             
             </ul>
           </div>
         </div>
@@ -433,7 +442,8 @@ p
         elements[i].style.flex = "25%";
       }
     }
-   
-    </script>
+  </script>
+  <script src="{%static 'js/validate2.js' %}"></script>
+
   </body>
 </html>

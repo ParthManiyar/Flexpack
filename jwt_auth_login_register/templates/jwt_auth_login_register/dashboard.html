@@ -18,6 +18,7 @@
 
     <title>Flexpack-Admin</title>
 
+<<<<<<< HEAD
     <!-- Bootstrap core CSS -->
     <link href="{%static 'vendor/bootstrap/css/bootstrap.min1.css'%}" rel="stylesheet">
 
@@ -40,6 +41,14 @@
 .orders-delivered{
 	background-color: #7abecc;
 }
+=======
+		},
+		error:function(xhr,a,b){
+			window.location.pathname = '/app/home/';
+		}
+	});
+</script>
+>>>>>>> 26daa806829ddc30bfd8b15b5f154760c85ba5e0
 
 .orders-pending{
 	background-color: #7CD1C0;
@@ -102,7 +111,6 @@
 			</table>
 		</div>
 	</div>
-
 </div>
 </div>
 
@@ -125,7 +133,12 @@
 					 <tr>");
 		},
 		error:function(xhr,a,b){
-			console.log(xhr);
+			if(xhr.status==401){
+				window.location.pathname = '/app/login/';
+			}
+			else{
+				console.log(xhr);
+			}
 		}
 	});
 	$.ajax({
@@ -181,7 +194,12 @@
 							$("#total_order").html(total_order);
                         },
                         error: function(xhr, a, b){
-                            console.log(xhr);
+							if(xhr.status==401){
+								window.location.pathname = '/app/login/';
+							}
+							else{
+								console.log(xhr);
+							}
                         }
                     });
                 });           
