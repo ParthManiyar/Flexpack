@@ -165,10 +165,12 @@
 					</tr>");
 
 			var closebtns = document.getElementsByClassName("order");
+			
             for (var i = 0; i < closebtns.length; i++) {
                 closebtns[i].addEventListener("click", function() {
                  	this.parentElement.style.display = 'none';
-                 	uuid = get_uuid(this.parentElement.children[3].children[0].href);
+                 	var uuid = get_uuid(this.parentElement.children[4].children[0].href)
+					var status = this.parentElement.children[3].innerHTML;
                  	$.ajax({ 
 						url: "/app/deleteorder/",
                         type: "DELETE",
@@ -183,6 +185,16 @@
 							var total_order = parseInt($("#total_order").html());
 							total_order = total_order - 1;
 							$("#total_order").html(total_order);
+							if(status=="pending"){
+								var pending_order = parseInt($("#pending_order").html());
+								pending_order = pending_order - 1;
+								$("#pending_order").html(pending_order);
+							}
+							else if(status=="delivered"){
+								var order_delivered = parseInt($("#order_delivered").html());
+								order_delivered = order_delivered - 1;
+								$("#order_delivered").html(order_delivered);
+							}	
                         },
                         error: function(xhr, a, b){
 							if(xhr.status==401){
@@ -202,55 +214,6 @@
 	});
 
 </script>
-<br><br>
-
-
-<footer>
-  <div class="container">
-	<div class="row">
-	  <div class="col-md-3 col-sm-6 col-xs-12">
-		<div class="footer-item">
-		  <div class="footer-heading">
-			<h2>About Us</h2>
-		  </div>
-			 <p> Custom packaging can turn your brand into the total package with full customization, instant quoting, and fats turnarounds.</p>
-		
-		</div>
-	  </div>
-	  
-	<div class="col-md-3 col-sm-6 col-xs-12">
-		<div class="footer-item">
-		  <div class="footer-heading">
-			<h2>Useful Links</h2>
-		  </div>
-		  <ul class="footer-list">
-			<li><a href="/app/home/">Home</a></li>
-
-		  </ul>
-		</div>
-	  </div>
-	 
-	  <div class="col-md-3 col-sm-6 col-xs-12">
-		<div class="footer-item">
-		  <div class="footer-heading">
-			<h2>More Information</h2>
-		  </div>
-		  <ul class="footer-list">
-			<li>Phone: <a href="#">079 4007 0170</a></li>
-			<li>Email: <a href="#">flexpack@gmail.com</a></li>
-			<li>Support: <a href="#">support@flexpack.com</a></li>
-			<li>Website: <a href="#">www.flexpack.com</a></li>
-		  </ul>
-		</div>
-	  </div>
-	  <div class="col-md-12">
-		<div class="sub-footer">
-		  <p>Copyright &copy; 2021 Flexpack</p>
-		</div>
-	  </div>
-	</div>
-  </div>
-</footer>
 
  <!-- Bootstrap core JavaScript -->
  <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
