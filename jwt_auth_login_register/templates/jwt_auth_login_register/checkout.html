@@ -1,7 +1,202 @@
-{% extends 'jwt_auth_login_register/main2.html' %}
+<!DOCTYPE html>
 {% load static %}
-{% block content %}
+<html lang="en">
+	
+  <head>
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
+    <title>Flexpack</title>
+
+    <link href="{%static 'vendor/bootstrap/css/bootstrap.min1.css'%}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{%static 'assets/css/fontawesome.css'%}">
+    <link rel="stylesheet" href="{%static 'assets/css/templatemo-host-cloud.css'%}">
+    <link rel="stylesheet" href="{%static 'assets/css/owl.css'%}">
+
+  </head>
+  <style>
+    
+.box-element{
+box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+background-color: #fff;
+border-radius: 4px;
+padding: 10px;
+}
+.profile-pic{
+	max-width:200px;
+	max-heigth:200px;
+	margin:0 auto;
+	border-radius:50%;
+}
+.submit{
+   margin-radius:100px;
+}
+.thumbnail{
+width: 450px;
+height: 350px;
+-webkit-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+-moz-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+}
+
+.product{
+border-radius: 0 0 4px 4px;
+}
+
+.bg-dark{
+background-color: #4f868c!important;
+}
+
+#cart-icon{
+width:25px;
+display: inline-block;
+margin-left: 15px;
+}
+
+#cart-total{
+display: block;
+text-align: center;
+color:#fff;
+background-color: red;
+width: 20px;
+height: 25px;
+border-radius: 50%;
+font-size: 14px;
+}
+
+.col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
+margin-top: 10px;
+}
+
+.btn{
+border-radius: 0;
+}
+
+.row-image{
+width: 80px;
+}
+
+.form-field{
+width:250px;
+display: inline-block;
+padding: 5px;
+}
+
+.cart-row{
+display: flex;
+align-items: flex-stretch;
+padding-bottom: 10px;
+margin-bottom: 10px;
+border-bottom: 1px solid #ececec;
+
+}
+
+.quantity{
+display: inline-block;
+font-weight: 700;
+padding-right:10px;
+
+
+}
+
+.chg-quantity{
+width: 10px;
+
+cursor: pointer;
+display: block;
+margin-top: 10px;
+transition:.1s;
+}
+
+.chg-quantity:hover{
+opacity: .6;
+}
+
+
+.hidden{
+display: none!important;
+}
+</style>
+  <body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+
+  <header class="">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="#"><h2>FlexPack<em>.</em></h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/app/home/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/app/about/">About Us</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/app/contact/">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/app/boxdesign/">Design a box</a>
+            </li>
+            <li class="nav-item" id="saved_design">
+              <a class="nav-link" href="/app/saveddesign/">Saved Design</a>
+            </li>
+           
+          </ul>
+        </div>
+        <div class="functional-buttons" id="login">
+          <ul>
+            <li><a href="/app/login/">Log In</a></li>
+          </ul>
+        </div>
+        <div class="functional-buttons" id="signup">
+          <ul>
+            <li><a href="/app/signup/">Sign Up</a></li>
+          </ul>
+        </div>
+        <div class="functional-buttons" id="logout">
+          <ul>
+            <li><a href="/app/logout/">Log out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+    <!-- Page Content -->
+    <!-- Heading Starts Here -->
+    <div class="page-heading header-text">
+		<div class="container">
+		  <div class="row">
+			<div class="col-md-12">
+			  <h1>Checkout</h1>
+			  <p><a href="/app/home/">Home</a> / <span>Checkout</span></p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <!-- Heading Ends Here -->
+	  <br><br>
      <div class="row">
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
@@ -197,5 +392,86 @@
 			}
 		});
 	</script>
-	 
-{% endblock content %}
+	          
+ <!--Footer starts here-->
+ <br>
+ <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="footer-item">
+            <div class="footer-heading">
+              <h2>About Us</h2>
+            </div>
+               <p> Custom packaging can turn your brand into the total package with full customization, instant quoting, and fats turnarounds.</p>
+          
+          </div>
+        </div>
+        
+       
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="footer-item">
+            <div class="footer-heading">
+              <h2>Useful Links</h2>
+            </div>
+            <ul class="footer-list">
+              <li><a href="/app/home/">Home</a></li>
+
+              <li><a href="/app/contact/">Customer Support</a></li>
+              <li><a href="/app/login/">Login</a></li>
+              <li><a href="/app/about/">About us</a></li>
+              <li><a href="/app/saveddesign/">Saved Design</a></li>
+              <li><a href="/app/boxdesign/">Design a box</a></li>
+
+
+
+
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="footer-item">
+            <div class="footer-heading">
+              <h2>More Information</h2>
+            </div>
+            <ul class="footer-list">
+              <li>Phone: <a href="#">079 4007 0170</a></li>
+              <li>Email: <a href="#">flexpack@gmail.com</a></li>
+              <li>Support: <a href="#">support@flexpack.com</a></li>
+              <li>Website: <a href="#">www.flexpack.com</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="sub-footer">
+            <p>Copyright &copy; 2021 Flexpack</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+   <!-- Bootstrap core JavaScript -->
+   <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+   <script src="{% static 'vendor/bootstrap/js/bootstrap1.bundle.min.js'%}"></script>
+
+   <!-- Additional Scripts -->
+   <script src="{% static 'assets/js/custom.js'%}"></script>
+   <script src="{% static 'assets/js/owl.js'%}"></script>
+   <script src="{% static 'assets/js/accordions.js'%}"></script>
+   <script src="{%static 'js/validate2.js' %}"></script>
+  <script language = "text/Javascript"> 
+    cleared[0] = cleared[1] = cleared[2] = 0; 
+    function clearField(t){                  
+    if(! cleared[t.id]){                      
+        cleared[t.id] = 1;  
+        t.value='';         
+        t.style.color='#fff';
+        }
+    }
+  </script>
+
+    </body>
+</html>
