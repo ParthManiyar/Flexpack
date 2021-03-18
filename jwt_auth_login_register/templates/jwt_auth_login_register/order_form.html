@@ -42,6 +42,25 @@
 	</div>
 </div>
 <script>
+	$.ajax({
+			url:"/app/get_order/",
+			type:"POST",
+			headers: {
+				"Authorization": access_token,
+			},
+			data:{
+				"csrfmiddlewaretoken" : "{{ csrf_token }}",
+				"uuid":get_uuid(),
+			},
+			success:function(response){
+				order  = response;
+				$("#order_status").val(order.status);
+				
+			},
+			error:function(xhr,a,b){
+				console.log(xhr);
+			}
+		});
 	var access_token = window.localStorage.getItem("access_token");
 	function get_uuid(){
     	uuid = window.location.pathname;
@@ -61,7 +80,6 @@
 			},
 			success:function(response){
 				order  = response;
-				$("#order_status").val(order.status),
 				$.ajax({
 					url:"/app/update_order/",
 					type:"PUT",
