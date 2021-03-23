@@ -54,6 +54,10 @@ def updateOrder(request,uuid):
 def customer(request,uuid):
     return render(request,'jwt_auth_login_register/customer.html')
 
+def profile(request):
+    return render(request,'jwt_auth_login_register/profile.html')
+
+
 def logout(request):
     return render(request,'jwt_auth_login_register/logout.html')
 
