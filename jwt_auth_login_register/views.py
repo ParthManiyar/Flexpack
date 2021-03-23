@@ -58,7 +58,6 @@ def logout(request):
     return render(request,'jwt_auth_login_register/logout.html')
 
 
-        
 def googleAuthentication(request):
     auth_code = request.GET.get('code')
     google = Google_Authentication()
@@ -284,6 +283,8 @@ class GetAllUsers(APIView):
         serializer = UserSerializer(users,many=True)
         return Response(serializer.data)
 
+
+
 class GetAllOrders(APIView):
     def get(self,request,*args,**kwargs):
         orders = Order.objects.all()
@@ -368,3 +369,7 @@ class SendMail(APIView):
                    context={"name":request.data['name'],"message":request.data['message'],"email":request.data['email']},
                    to_emails=["parthmaniyar90@gmail.com"])
         return Response(status=status.HTTP_200_OK)
+
+class GetUserIdFromToken(APIView):
+    def get(self,request,*args,**kwargs):
+        pass
