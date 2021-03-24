@@ -159,6 +159,7 @@ LOGIN_EXEMPT_URLS=(
     r'^app/services/',
     r'^app/about/',
     r'^app/profile/',
+    r'^app/orders/',
     r'^app/google/callback/login/',
     r'^app/home/',
     r'^app/boxdesign/',
