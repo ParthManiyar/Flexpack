@@ -57,6 +57,8 @@ def customer(request,uuid):
 def profile(request):
     return render(request,'jwt_auth_login_register/profile.html')
 
+def orders(request):
+    return render(request,'jwt_auth_login_register/orders.html')
 
 def logout(request):
     return render(request,'jwt_auth_login_register/logout.html')

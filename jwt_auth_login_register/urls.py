@@ -10,6 +10,7 @@ urlpatterns = [
     path('about/', views.about),
     path('contact/', views.contact),
     path('profile/',views.profile),
+    path('orders/',views.orders),
     path('boxdesign/',views.boxDesign),
     path('box_test/',views.box_test),
     path('verify/',views.LoginAPI.as_view()),

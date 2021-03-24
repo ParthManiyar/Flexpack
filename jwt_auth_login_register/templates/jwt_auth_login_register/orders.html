@@ -9,7 +9,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
-    <title>Flexpack-Profile</title>
+    <title>Flexpack-Orders</title>
 
     <link href="{%static 'vendor/bootstrap/css/bootstrap.min1.css'%}" rel="stylesheet">
 
@@ -19,28 +19,7 @@
     
 
   </head>
-  <style>
-    .cart-row{
-display: flex;
-align-items: flex-stretch;
-padding-bottom: 10px;
-margin-bottom: 10px;
-border-bottom: 1px solid #ececec;
 
-}
-.box-element{
-box-shadow:hsl(0, 0%, 80%) 0 0 16px;
-background-color: #fff;
-border-radius: 4px;
-padding: 10px;
-}
-       .profile-pic{
-        max-width:200px;
-        max-height: 200px;
-        margin:0 auto;
-        border-radius:50%;
-    }
-  </style>
   <body>
 
     <!-- ***** Preloader Start ***** -->
@@ -115,53 +94,35 @@ padding: 10px;
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>Profile</h1>
-            <p><a href="/app/home/">Home</a> / <span>Profile</span></p>
+            <h1>Orders</h1>
+            <p><a href="/app/home/">Home</a> / <span>Orders</span></p>
           </div>
         </div>
       </div>
     </div>
     <!-- Heading Ends Here -->
-    <br>
-
-        <!----profile----->
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card card-body">
-                    <a class="hello-msg" href="/app/home/">&#8592 Back</a>
-                    <h3 style="text-align:center">Profile</h3>
-                    <hr>
-
-                    <img class="profile-pic" src="{% static 'images/default_pic.png'%}">
 
 
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-body">
-                  <h2>Profile</h2>
-                  <br>
-                    <form  method="POST" action="" enctype="multipart/form-data" >
-                       Name:
-                       <br>
-                       Phone number:
-                       <br>
-                       Email:
-                       <br>
-                       Change Profile:
-                       <br>
-                       <br>
-                        <input  class="btn btn-primary" type="submit" name="Update Information">
-                    </form>
-                </div>
-            </div>
-         
-			</div>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm" id="order_table">
+				<tr>
+					<th>Product</th>
+					<th>Date Orderd</th>
+					<th>Address</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+				
+			</table>
 		</div>
 	</div>
-        </div>
-    </div>
 </div>
+
+
          
  <!--Footer starts here-->
  <footer>
