@@ -2,7 +2,6 @@
 {% load static %}
 <html lang="en">
   <head>
-  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/png" href="{% static 'images/icons/favicon.jpg' %}"/>
@@ -16,8 +15,6 @@
     <link rel="stylesheet" href="{%static 'assets/css/fontawesome.css'%}">
     <link rel="stylesheet" href="{%static 'assets/css/templatemo-host-cloud.css'%}">
     <link rel="stylesheet" href="{%static 'assets/css/owl.css'%}">
-    
-
   </head>
 
   <body>
@@ -113,8 +110,6 @@
 					<th>Date Orderd</th>
 					<th>Address</th>
 					<th>Status</th>
-					<th>Update</th>
-					<th>Remove</th>
 				</tr>
 				
 			</table>
@@ -153,9 +148,6 @@
               <li><a href="/app/about/">About us</a></li>
               <li><a href="/app/saveddesign/">Saved Design</a></li>
               <li><a href="/app/boxdesign/">Design a box</a></li>
-  
-  
-  
   
             </ul>
           </div>
@@ -201,6 +193,26 @@
         t.style.color='#fff';
         }
     }
+  </script>
+  <script>
+    var access_token = window.localStorage.getItem("access_token");
+    $.ajax({
+      url:"/app/get_orders/",
+      type:"GET",
+      headers: {
+        "Authorization": access_token,
+      },
+      success:function(response){
+        var orders = response;
+        $("#total_order").html(orders.length);
+        for(order of orders)
+          $("#order_table").append("<tr> \
+            <td>"+order['purchase']['box']+"</td>\
+            <td>"+order['date']+"</td>\
+            <td>"+order['address']+", "+order['city']+", "+order['state']+"- "+order['zip_code']+"</td>\
+            <td>"+order['status']+"</td>");
+      }
+    });
   </script>
   <script src="{%static 'js/validate2.js' %}"></script>
   

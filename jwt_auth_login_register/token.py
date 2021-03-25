@@ -31,7 +31,10 @@ class Token:
         return access_token
 
     def validate_access_token(self,token):
-        payload  = jwt.decode(token,settings.SECRET_KEY,algorithms="HS256")
+        try:
+            payload  = jwt.decode(token,settings.SECRET_KEY,algorithms="HS256")
+        except:
+            raise Exception("Invalid Access Token")
     
         if(not User.objects.filter(email = payload['email']).exists or payload['type']!="access"):
             raise Exception("Invalid Access Token")

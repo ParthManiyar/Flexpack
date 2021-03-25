@@ -4,6 +4,8 @@ function validateToken()
     if(access_token==null){
         $("#logout").css("display", "none");
         $("#saved_design").css("display", "none");
+        $("#orders").css("display", "none");
+        $("#profile").css("display", "none");
     }
     else{
         $.ajax({
@@ -21,6 +23,8 @@ function validateToken()
             {
                 $("#logout").css("display", "none");
                 $("#saved_design").css("display", "none");
+                $("#orders").css("display", "none");
+                $("#profile").css("display", "none");
             }
         });
     }       

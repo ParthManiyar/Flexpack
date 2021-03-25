@@ -9,7 +9,7 @@ from passlib.hash import pbkdf2_sha256
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id','username','password','first_name', 'last_name','email','role','provider')
+        fields = ('id','username','password','first_name', 'last_name','email','role','provider','profile_pic')
         extra_kwargs = {
             'password':{'write_only': True,
                         'required':False,
@@ -28,7 +28,8 @@ class UserSerializer(serializers.ModelSerializer):
                                     first_name=validated_data['first_name'],  
                                     last_name=validated_data['last_name'], 
                                     role=validated_data['role'],
-                                    provider = validated_data['provider'])
+                                    provider = validated_data['provider'],
+                                    profile_pic = validated_data['profile_pic'])
         return user
 
 class BoxSerializer(serializers.ModelSerializer):

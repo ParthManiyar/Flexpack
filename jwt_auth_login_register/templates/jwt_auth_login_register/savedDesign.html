@@ -39,7 +39,7 @@
                 url: "/app/getboxes/",
                 type: "GET",
                 "headers": {
-                    "Authorization": access_token,
+                  "Authorization": access_token,
                 },
                 success: function(response) {
                     var boxes = response;
@@ -48,14 +48,13 @@
                     var closebtns = document.getElementsByClassName("close");
                     var link = document.getElementsByTagName("a");
                     var i;
-                    function get_uuid(s){
-                        console.log(s);
-                        uuid = s.split("/")[5];
-                        return uuid;
+                    function get_uuid(s){  
+                       uuid = s.split("/")[5];
+                       return uuid;
                     }
                     for (i = 0; i < closebtns.length; i++) {
                         closebtns[i].addEventListener("click", function() {
-                            this.parentElement.style.display = 'none';
+                            var btn = this;
                             uuid = get_uuid(this.parentElement.children[2].href);
                             $.ajax({
                                 url: "/app/deletebox/",
@@ -69,10 +68,16 @@
                                     "uuid":uuid,
                                 },
                                 success: function(response) {
+                                  btn.parentElement.style.display = 'none';
+                                  $("#message").html("");
                                 },
                                 error: function(xhr, a, b)
                                 {
-                                    console.log(xhr);
+                                  if(xhr.status==412){
+                                    let m = JSON.parse(xhr.responseText);
+					                          $("#message").html(m['Error']);
+                                  }
+                                  console.log(xhr);
                                 }
                             });
                         });
@@ -130,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/app/boxdesign/">Design a box</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" >
               <a class="nav-link" href="/app/saveddesign/">Saved Design</a>
             </li>
             <li class="nav-item" id="profile">
@@ -144,7 +149,6 @@
         <div class="functional-buttons">
             <ul>
               <li><a href="/app/logout/">Logout</a></li>
-             
             </ul>
           </div>
       </div>
@@ -178,6 +182,8 @@
                      you can copy a design to get started. To restock an order without changing the design, go to My Orders.</p>
                     <br>
                     </div>
+
+            <div id="message" align="center" style="color:red"></div>
             <p></p>
             <div class="container">
                 <div class="row">

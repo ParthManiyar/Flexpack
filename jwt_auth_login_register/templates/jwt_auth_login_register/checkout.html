@@ -205,9 +205,9 @@ display: none!important;
      <div class="row">
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
-				<form id="form">
-					<div id="message"></div>
-					<div id="user-info" >
+				
+				<div id="message" align="center" style="color:red"></div>
+				<div id="user-info" >
 						<div class="form-field">
 							<input required class="form-control" type="text" id="name" placeholder="Name..">
 						</div>
@@ -240,8 +240,9 @@ display: none!important;
 					<div class="box-element hidden" id="payment-info">
 						<small>Payment Options</small>
 						<div id="paypal-button-container"></div>
+						<button id="cod" >Cash on Delivery</button>
 					</div>
-				</form>
+				
 			</div>
 			<br>
 		</div>
@@ -265,7 +266,7 @@ display: none!important;
 			</div>
 		</div>
 	</div>
-	<script src="https://www.paypal.com/sdk/js?client-id=ATL1komYLnyraGKOWfgE_0yx4EW9NWUyGBo0Nji1aI-UCEAPXtf06JDfCftuMbmE0FdyokPkR1FDBO2r&currency=INR&disable-funding=card"></script>
+	<script src="https://www.paypal.com/sdk/js?client-id=ARkb2ph9XxFlhEIuDgKMWjcx5tHDavQMFEVVcO5gTpJMM1ax91S9ag1yaAaDTKfkX1not5UERBSS-rWy&currency=INR&disable-funding=card"></script>
 	
 	<script>
 		$("#form-button").click(function(e){
@@ -332,6 +333,33 @@ display: none!important;
 							success:function(response){
 								$("#name").val(response.username);
 								$("#email").val(response.email);
+								
+								$("#cod").click(function(){
+									$.ajax({
+										url:"/app/makeorder/",
+										type:"POST",
+										headers: {
+											"Authorization": access_token,
+										},
+										data:{
+											"csrfmiddlewaretoken" : "{{ csrf_token }}",
+											"purchase":get_uuid(),
+											"address":$("#address").val(),
+											"state":$("#state").val(),
+											"city":$("#city").val(),
+											"zip_code":parseInt($("#zipcode").val()),
+											"status":"pending",
+											"user":response.id
+										},
+										success: function(response){
+											alert('Transaction completed');
+											window.location.pathname = "/app/saveddesign/"
+										},
+										error:function(xhr,a,b){
+											console.log(xhr);
+										}
+									});
+								});
 								paypal.Buttons({
 									style:{
 										color:'blue',
@@ -393,6 +421,7 @@ display: none!important;
 				console.log(xhr);
 			}
 		});
+		
 	</script>
 	          
  <!--Footer starts here-->
@@ -474,6 +503,7 @@ display: none!important;
         }
     }
   </script>
+
 
     </body>
 </html>

@@ -23,7 +23,7 @@ class LoginRequiredMiddleware:
         try:
             token = Token()
             token.validate_access_token(request.headers['Authorization'])
-        except Exception as e:
+        except:
             return HttpResponse('Unauthorized', status=401)
         return None
         

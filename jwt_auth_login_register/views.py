@@ -10,11 +10,14 @@ from .google_authentication import Google_Authentication
 from .token import Token
 from rest_framework import status
 from .mailer import Mailer
+from django.db.models import RestrictedError
 
 def home(request):
-    return render(request,'jwt_auth_login_register/home.html',{"message":"hi"})
+    return render(request,'jwt_auth_login_register/home.html')
+
 def box_test(request):
     return render(request,'jwt_auth_login_register/box_test.html')
+
 def login(request):
     return render(request,'jwt_auth_login_register/index.html')
 
@@ -165,7 +168,6 @@ class ValidateTokenAPI(APIView):
             print("Valid")
             return Response({'Error': "Please provide acccess_token"}, status=400)
         access_token = request.data['access_token']
-        print(access_token)
         response = {}
         status = 200
         content_type="application/json"
@@ -233,7 +235,14 @@ class DeleteBoxAPI(APIView):
             box = Box.objects.get(id=uuid)
         except Box.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        box.delete()
+        try:
+            box.delete()
+        except RestrictedError:
+            return Response(
+              {'Error': "Orders are attached with that box so it cannot be deleted"},
+              status=status.HTTP_412_PRECONDITION_FAILED,
+              content_type="application/json"
+            )
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class GetMaterialPrice(APIView):
@@ -288,8 +297,6 @@ class GetAllUsers(APIView):
         users = User.objects.all()
         serializer = UserSerializer(users,many=True)
         return Response(serializer.data)
-
-
 
 class GetAllOrders(APIView):
     def get(self,request,*args,**kwargs):
@@ -346,6 +353,17 @@ class GetOrders(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = OrderReadSerializer(orders,many=True)
         return Response(serializer.data)
+    
+    def get(self,request,*args,**kwargs):
+        access_token = request.META['HTTP_AUTHORIZATION']
+        token = Token()
+        uuid = token.get_user_from_token(access_token).id
+        try:
+            orders = Order.objects.filter(user=uuid)
+        except Order.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = OrderReadSerializer(orders,many=True)
+        return Response(serializer.data)
 
 class DeleteUser(APIView):
     def delete(self,request,*args,**kwargs):
@@ -376,6 +394,22 @@ class SendMail(APIView):
                    to_emails=["parthmaniyar90@gmail.com"])
         return Response(status=status.HTTP_200_OK)
 
-class GetUserIdFromToken(APIView):
+class GetUserDetailFromToken(APIView):
     def get(self,request,*args,**kwargs):
-        pass
+        access_token = request.META['HTTP_AUTHORIZATION']
+        token = Token()
+        user = token.get_user_from_token(access_token)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+class UpdateProfilePic(APIView):
+    def patch(self,request,*args,**kwargs):
+        access_token = request.META['HTTP_AUTHORIZATION']
+        token = Token()
+        user = token.get_user_from_token(access_token)
+        data = {"profile_pic":request.data['profile_pic']} 
+        serializer = UserSerializer(user,data=data,partial = True)
+        if(serializer.is_valid()):
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)

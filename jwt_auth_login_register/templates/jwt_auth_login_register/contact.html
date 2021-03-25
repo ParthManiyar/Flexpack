@@ -107,6 +107,7 @@
           <div class="col-md-6">
             <div class="contact-form">
               <!--<form id="contact" action="" method="post">-->
+                <div id="message_error" align="center" style="color:red"></div>
                 <div class="row">
                   <div class="col-md-12 col-sm-12">
                     <fieldset>
@@ -244,23 +245,35 @@
     <script>
       $("#form-submit").on('click',
         function(){
-          $.ajax({
-            url:"/app/mail/",
-            type: 'POST',
-            data:{
-              "email" : $("#email").val(),
-              "subject":$("#subject").val(),
-              "message":$("#message").val(),
-              "name":$("#name").val(),
-              "csrfmiddlewaretoken" : "{{ csrf_token }}",
-            },
-            success:function(response){
-              //console.log(response);
-            },
-            error:function(xhr,a,b){
-              console.log(xhr);
-            }
-          });
+          if($("#email").val().trim() == "" || $("#message").val().trim() == "" || $("#subject").val().trim() == "" || $("#name").val().trim() == ""){
+            $("#message_error").html("All the fields are mandatory");
+          }
+          else if($("#email").val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null){
+            $("#message_error").html("Please enter a valid email");
+          }
+          else{
+            $.ajax({
+              url:"/app/mail/",
+              type: 'POST',
+              data:{
+                "email" : $("#email").val(),
+                "subject":$("#subject").val(),
+                "message":$("#message").val(),
+                "name":$("#name").val(),
+                "csrfmiddlewaretoken" : "{{ csrf_token }}",
+              },
+              success:function(response){
+                $("#message_error").html("Message has been sent");
+                $("#email").val("");
+                $("#subject").val("");
+                $("#message").val("");
+                $("#name").val("");
+              },
+              error:function(xhr,a,b){
+                console.log(xhr);
+              }
+            });
+          }
         }
       );
     </script>
