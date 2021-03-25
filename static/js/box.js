@@ -91,16 +91,6 @@ document.getElementById('fit').onclick = function(){
   canvases[value].renderAll();
 };
 
-document.getElementById('cover').onclick = function(){
-  let value =  (document.getElementById("textures").value).toLowerCase(); 
-  let h = canvases[value].getHeight();
-  let w = canvases[value].getWidth();
-  (canvases[value].getActiveObject()).scaleToHeight(h);
-  (canvases[value].getActiveObject()).scaleToWidth(w);
-  (canvases[value].getActiveObject()).center();
-  canvases[value].renderAll();
-};
-      
 document.getElementById('center').onclick = function(){
   let value =  (document.getElementById("textures").value).toLowerCase(); 
   (canvases[value].getActiveObject()).center();
