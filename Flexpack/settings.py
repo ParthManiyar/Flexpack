@@ -148,11 +148,11 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS")
 EMAIL_BACKEND = config("EMAIL_BACKEND")
 
 LOGIN_EXEMPT_URLS=(
-    r'^',
+    r'\Z',
     r'^app/login/',
     r'^app/signup/',
     r'^app/logoutUser',
-    r'^app/box_test',   
+    r'^app/box_test/',   
     r'^app/verify/',
     r'^app/register/',
     r'^app/contact/',

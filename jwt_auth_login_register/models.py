@@ -16,6 +16,7 @@ class User(models.Model):
     email = models.EmailField(max_length=254,unique=True) 
     password = models.CharField( ('password') ,max_length=128,null = True)
     provider = models.CharField(max_length=50,null=True)
+    profile_pic = models.ImageField(upload_to ='uploads/',default = '../static/images/default_pic.png')
     role = models.ForeignKey(Role,on_delete=models.CASCADE, null = True)
     
     def __str__(self):
@@ -33,7 +34,7 @@ class Box(models.Model):
     back_texture = models.JSONField()
     right_texture = models.JSONField()
     left_texture = models.JSONField()
-    preview_image = models.ImageField(upload_to ='uploads/',default = 'uploads/kraft.jpg')
+    preview_image = models.ImageField(upload_to ='uploads/',default = '../static/images/kraft.jpg')
     material = models.CharField(max_length=50, default = "kraft")
     user = models.ForeignKey(User,on_delete=models.CASCADE,null = True)
 
@@ -56,7 +57,7 @@ class Purchase(models.Model):
 
 class Order(models.Model):
     id = models.UUIDField( primary_key = True, default = uuid.uuid4, editable = False)
-    purchase = models.ForeignKey(Purchase,on_delete=models.CASCADE)
+    purchase = models.ForeignKey(Purchase,on_delete=models.RESTRICT)
     address = models.CharField(max_length=500)
     state = models.CharField(max_length=100)
     city = models.CharField(max_length=100)

@@ -42,7 +42,12 @@ $("#quantity").change(function(){
 	let h = parseInt($("#size-y").val());
 	let d = parseInt($("#size-z").val());
   let q = parseInt($("#quantity").val());
-  updatePrice(w,h,d,q)
+  if(q>2000)
+    $("#message_quantity").html("For quantity greater than 2000 contact admin")
+  else{
+    $("#message_quantity").html("")
+    updatePrice(w,h,d,q)
+  }
 });
 
 function setQuantity(q){

@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'images/icons/favicon.jpg' %}"/>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+    <script src="{%static 'js/validate.js' %}"></script>
 
     <title>Flexpack-Profile</title>
 
@@ -131,31 +132,40 @@ padding: 10px;
                     <a class="hello-msg" href="/app/home/">&#8592 Back</a>
                     <h3 style="text-align:center">Profile</h3>
                     <hr>
-
-                    <img class="profile-pic" src="{% static 'images/default_pic.png'%}">
-
-
+                    <img class="profile-pic" src="" id="profile_pic">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card card-body">
                   <h2>Profile</h2>
-                  <br>
-                    <form  method="POST" action="" enctype="multipart/form-data" >
-                       Name:
-                       <br>
-                       Phone number:
-                       <br>
-                       Email:
-                       <br>
-                       Change Profile:
-                       <br>
-                       <br>
-                        <input  class="btn btn-primary" type="submit" name="Update Information">
-                    </form>
+                  <p>
+                    Username:
+                    <span id="username"></span>
+                  </p>
+                  <p>
+                    Name:
+                    <span id="name"></span>
+                  </p>
+                  <p>
+                    Email:
+                    <span id="email"></span>
+                  </p>
+                  <p>
+                    Chang Profile Pic: 
+                    <input 
+                      type="file" 
+                      class="form-control" 
+                      data-allowed-file-extensions='["bmp", "gif", "jpg", "jpeg", "png"]' 
+                      onchange="readURL(this)"
+                      id="pic">
+                  </p>
+                  <button  class="btn btn-primary" type="submit" name="Update Information" id="submit">Submit</button>
+
+                  <div id = "file_message">
+
+                  </div>
                 </div>
             </div>
-         
 			</div>
 		</div>
 	</div>
@@ -177,8 +187,6 @@ padding: 10px;
           </div>
         </div>
         
-       
-        
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="footer-item">
             <div class="footer-heading">
@@ -192,9 +200,7 @@ padding: 10px;
               <li><a href="/app/about/">About us</a></li>
               <li><a href="/app/saveddesign/">Saved Design</a></li>
               <li><a href="/app/boxdesign/">Design a box</a></li>
-  
-  
-  
+
   
             </ul>
           </div>
@@ -238,11 +244,72 @@ padding: 10px;
         cleared[t.id] = 1;  
         t.value='';         
         t.style.color='#fff';
+      }
+    }
+  </script>
+  <script>
+    var access_token = window.localStorage.getItem("access_token");
+    $.ajax({
+      url:"/app/get_user_detail_from_token/",
+      type:"GET",
+      "headers": {
+        "Authorization": access_token,
+      },
+
+      success:function(response){
+        var user = response
+        $("#name").html(user.first_name+" "+user.last_name);
+        $("#email").html(user.email);
+        $("#username").html(user.username);
+        $("#profile_pic").attr("src",user.profile_pic);
+      },
+
+      error:function(xhr,a,b){
+        console.log(xhr);
+      }
+    });
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var size  = input.files[0].size;
+        var max_size = 256000;
+        if(size>max_size){
+          $("#file_message").html("file size exceeds 250KB");
         }
+        else{
+          $("#file_message").html("");
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#profile_pic").attr("src",e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      $("#submit").click(function(){
+        var form = new FormData();
+        var file    = document.querySelector('input[type=file]').files[0];
+        form.append("profile_pic",file);
+        $.ajax({
+          url:"/app/update_profile_pic/",
+          "method": "PATCH",
+          "timeout": 0,
+          "headers": {
+            "Authorization": access_token,
+          },
+          "processData": false,
+          "mimeType": "multipart/form-data",
+          "contentType": false,
+          data:form,
+          success:function(response){
+            window.location.pathname = "/app/home/";
+          },
+          error:function(xhr,a,b){
+            console.log(xhr);
+          }
+        });
+      });
     }
   </script>
   <script src="{%static 'js/validate2.js' %}"></script>
-  
-    </body>
-  </html>
+  </body>
+</html>
 

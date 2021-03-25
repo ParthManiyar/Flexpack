@@ -45,5 +45,7 @@ urlpatterns = [
     path('delete_user/',views.DeleteUser.as_view()),
     path('check_role/',views.AdminValidation.as_view()),
     path('logout/',views.logout),
-    path('mail/',views.SendMail.as_view())
+    path('mail/',views.SendMail.as_view()),
+    path('get_user_detail_from_token/',views.GetUserDetailFromToken.as_view()),
+    path('update_profile_pic/',views.UpdateProfilePic.as_view()),
 ]
