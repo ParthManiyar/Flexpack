@@ -390,10 +390,14 @@ class AdminValidation(APIView):
 class SendMail(APIView):
     def post(self,request,*args,**kwargs):
         mail = Mailer()
-        mail.send_messages(subject=request.data['subject'],
+        mail.send_messages(subject='Thank you for contacting us',
                    template='jwt_auth_login_register/email.html',
+                   context={"name":request.data['name'],"message":request.data['message']},
+                   to_emails=[request.data['email']])
+        mail.send_messages(subject=request.data['subject'],
+                   template='jwt_auth_login_register/admin_email.html',
                    context={"name":request.data['name'],"message":request.data['message'],"email":request.data['email']},
-                   to_emails=["parthmaniyar90@gmail.com"])
+                   to_emails=['tvidhi0207@gmail.com','parthmaniyar90@gmail.com'])
         return Response(status=status.HTTP_200_OK)
 
 class GetUserDetailFromToken(APIView):

@@ -157,12 +157,11 @@ document.getElementById('text-font-size').onchange = function() {
   canvases[value].renderAll();
 };
       
-document.getElementById('text-align').onchange = function() {
-  let value =  (document.getElementById("textures").value).toLowerCase(); 
-  canvases[value].getActiveObject().set('textAlign',this.value);
-  canvases[value].renderAll();
-};
-      
+//document.getElementById('text-align').onchange = function() {
+//let value =  (document.getElementById("textures").value).toLowerCase(); 
+  //canvases[value].getActiveObject().set('textAlign',this.value);
+  //canvases[value].renderAll();
+//};      
 radios5 = document.getElementsByName("fonttype"); 
 for (var i = 0, max = radios5.length; i < max; i++) {
   radios5[i].onclick = function() {
