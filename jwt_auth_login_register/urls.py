@@ -17,6 +17,7 @@ urlpatterns = [
     path('google/callback/login/',views.googleAuthentication),
     path('validateToken/',views.ValidateTokenAPI.as_view()),
     path('saveddesign/',views.savedDesign),
+    path('box_preview/<str:uuid>/',views.box_preview),
     path('boxcreate/',csrf_exempt(views.BoxCreateAPI.as_view())),
     path('getboxes/',csrf_exempt(views.GetBoxesAPI.as_view())),
     path('getbox/',views.GetBoxAPI.as_view()),

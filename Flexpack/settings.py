@@ -149,6 +149,7 @@ EMAIL_BACKEND = config("EMAIL_BACKEND")
 
 LOGIN_EXEMPT_URLS=(
     r'\Z',
+    r'^app/box_preview/',
     r'^app/login/',
     r'^app/signup/',
     r'^app/logoutUser',

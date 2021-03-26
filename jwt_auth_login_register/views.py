@@ -66,6 +66,8 @@ def orders(request):
 def logout(request):
     return render(request,'jwt_auth_login_register/logout.html')
 
+def box_preview(request,uuid):
+    return render(request,'jwt_auth_login_register/box_preview.html')
 
 def googleAuthentication(request):
     auth_code = request.GET.get('code')

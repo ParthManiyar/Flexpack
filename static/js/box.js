@@ -378,6 +378,7 @@ else{
     uuid = uuid.split("/")[3];
     return uuid;
   }
+  $("#edit_box").html("<a href='/app/editbox/"+get_uuid()+"/'>Edit</a>");
   var box;
   var access_token = window.localStorage.getItem("access_token");
   $.ajax({

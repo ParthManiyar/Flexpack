@@ -78,14 +78,20 @@ class OrderSerializer(serializers.ModelSerializer):
             'pending_order',
             'delivered_order')
 
+class BoxPreviewSerliazer(serializers.ModelSerializer):
+     class Meta:
+        model = Box
+        fields = ('id',
+            'description')
+
 class PurchaseReadSerializer(PurchaseSerializer):
-    box = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='description'
-     )
+    box = BoxPreviewSerliazer(read_only = True)
 
 class OrderReadSerializer(OrderSerializer):
     purchase = PurchaseReadSerializer(read_only=True)
+
+
+
 
 
 

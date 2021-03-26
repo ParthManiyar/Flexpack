@@ -156,7 +156,7 @@
             }
 			for(order of orders)
 				$("#order_table").append("<tr> \
-					<td>"+order['purchase']['box']+"</td>\
+					<td> <a href='/app/box_preview/"+order['purchase']['box']['id']+"/'>"+order['purchase']['box']['description']+"</a></td>\
 					<td>"+order['date']+"</td>\
 					<td>"+order['address']+", "+order['city']+", "+order['state']+"- "+order['zip_code']+"</td>\
 					<td>"+order['status']+"</td>\
