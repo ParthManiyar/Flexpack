@@ -489,13 +489,9 @@
                     <br> 
                     <div class="contain text-center" >
                       <button type="button" class="bt btn-fit" id="fit">Fit</button>
-                      <button type="button" class="bt btn-center" id="center">Center</button>
-                     
+                      <button type="button" class="bt btn-center" id="center">Center</button> 
                    </div>
-                
-                   <div id = "file_message">
-
-                   </div>
+                   <div id = "file_message" align="center" style="color:red"></div>
                    <br>
                    <button type="button" class="bt btn-center" onClick="deleteObject()" style="align-items: center;">Remove Image</button>
                   </div>
@@ -529,9 +525,8 @@
                         <input type="color" id="text-color" size="10">
                         <br>
                         <div class="contain text-center" id="text-align">
-                          <button type="button" class="bt btn-fit" id="fit">Fit</button>
-                          <button type="button" class="bt btn-center" id="center">Center</button>
-                        
+                          <button type="button" class="bt btn-fit" id="fit_text">Fit</button>
+                          <button type="button" class="bt btn-center" id="center_text">Center</button>
                        </div>
                         <br>
                         <label for="text-stroke-color">Stroke Color:</label>
@@ -541,7 +536,7 @@
                         <input type="number" value="1" min="1" max="5" id="text-stroke-width">
                         <br>
                         <label for="text-font-size">Font Size:</label>
-                        <input type="number" min="12" max="120" step="1" id="text-font-size">
+                        <input type="number" min="12" max="120" value="25" step="1" id="text-font-size">
                         <br>
                         <label for="text-bg-color">Background Color:</label>
                         <input type="color" id="text-bg-color" size="10">
@@ -672,7 +667,7 @@
           
           
           
-           <div style="position:absolute; top:590px; left:490px; z-index:3 ">
+           <div style="position:absolute; top:590px; left:500px; z-index:3 ">
             <select class="form-control"  style="width:30vw" id="textures"> 
               <option>Left</option>
               <option>Top</option>

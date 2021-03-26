@@ -2,6 +2,7 @@ var material = "kraft";
 var decoration = false;
 var background_color = false;
 var canvases={};
+var object_cnt = 0;
 var sides = ['front','back','left','right','bottom','top'];
 var face = {
   'front':[672, 519, 1281],
@@ -10,6 +11,10 @@ var face = {
   'right':[1293, 583, -592],
   'bottom':[-54, -1532, 125],
   'top':[-250, 1498, 241],
+}
+function selectCurrentObject(value){
+  canvases[value].setActiveObject(canvases[value].item(object_cnt));
+  object_cnt++;
 }
 function updatePrice(w,h,d,q){
   var access_token = window.localStorage.getItem("access_token");
@@ -102,6 +107,22 @@ document.getElementById('center').onclick = function(){
   canvases[value].renderAll();
 };
 
+document.getElementById('fit_text').onclick = function(){
+  let value =  (document.getElementById("textures").value).toLowerCase(); 
+  let h = canvases[value].height;
+  let w = canvases[value].width;
+  (canvases[value].getActiveObject()).scaleToHeight(h);
+  (canvases[value].getActiveObject()).scaleToWidth(w);
+  (canvases[value].getActiveObject()).center();
+  canvases[value].renderAll();
+};
+
+document.getElementById('center_text').onclick = function(){
+  let value =  (document.getElementById("textures").value).toLowerCase(); 
+  (canvases[value].getActiveObject()).center();
+  canvases[value].renderAll();
+};
+
 document.getElementById('reset-background').onclick = function() {
   let value =  (document.getElementById("textures").value).toLowerCase(); 
   canvases[value].backgroundColor= 0;
@@ -109,16 +130,19 @@ document.getElementById('reset-background').onclick = function() {
 };
 
 function Addtext() {
-  var value =  ($("#textures").val()).toLowerCase(); 
-  canvases[value].add(new fabric.IText('Tap and Type', {
-    left: 50,
-    top: 100,
+  var value =  ($("#textures").val()).toLowerCase();
+  var object = {
+    left: 10,
+    top: 10,
     fontFamily: 'helvetica neue',
     fill: '#000',
     stroke: '#fff',
     strokeWidth: .1,
-    fontSize: 45
-  }));      
+    fontSize: 25
+  }
+  canvases[value].add(new fabric.IText('Tap and Type', object));
+  selectCurrentObject(value);
+
 }
       
 document.getElementById('text-color').onchange = function() {
@@ -224,6 +248,7 @@ function readURL(input,side) {
                       angle: 0,
                     }).scale(0.2);
           canvas.add(oImg).renderAll();
+          selectCurrentObject(side);
         });
       };
       reader.readAsDataURL(input.files[0]);
