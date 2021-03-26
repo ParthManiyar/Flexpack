@@ -48,7 +48,7 @@ $("#quantity").change(function(){
 	let d = parseInt($("#size-z").val());
   let q = parseInt($("#quantity").val());
   if(q>2000)
-    $("#message_quantity").html("For quantity greater than 2000 contact admin")
+    $("#message_quantity").html("For quantity greater than 2000 please contact us directly")
   else{
     $("#message_quantity").html("")
     updatePrice(w,h,d,q)
@@ -177,8 +177,13 @@ document.getElementById('font-family').onchange = function() {
 
 document.getElementById('text-font-size').onchange = function() {
   let value =  (document.getElementById("textures").value).toLowerCase();
-  canvases[value].getActiveObject().set('fontSize',this.value);
-  canvases[value].renderAll();
+  if(this.value > 40)
+    $("#text_message").html("Font size should be less than or equal to 40")
+  else{
+    $("#text_message").html("");
+    canvases[value].getActiveObject().set('fontSize',this.value);
+    canvases[value].renderAll();
+  }
 };
       
 //document.getElementById('text-align').onchange = function() {
