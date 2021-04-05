@@ -289,8 +289,31 @@ class GetPurchaseDetailsAPI(APIView):
 class MakeOrderAPI(APIView):
     def post(self,request,*args, **kwargs):
         serializer = OrderSerializer(data=request.data)
+        order = request.data
+        order._mutable = True
+        user =  User.objects.get(id=order['user'])
+        order['name'] = user.first_name
+        purchase = Purchase.objects.get(id = order['purchase'])
+        purchase = PurchaseReadSerializer(purchase)
+        order['product'] = purchase['box']['description'].value
+        order['quantity'] = purchase['quantity'].value
+        order['price'] = float(purchase['unit_price'].value) * float(purchase['quantity'].value)
+        order._mutable = False
         if serializer.is_valid():
             serializer.save()
+            mail = Mailer()
+            mail.send_messages(subject='Thank you for ordering with us',
+                   template='jwt_auth_login_register/order_receipt.html',
+                   context={"name":order['name'],
+                   "price":order['price'],
+                   "product":order['product'],
+                   "quantity":order['quantity'],
+                   "address":order['address'],
+                   "city":order['city'],
+                   "state":order['state'],
+                   "zip_code":order['zip_code']},
+                   to_emails=[user.email])
+            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -399,6 +422,7 @@ class SendMail(APIView):
                    context={"name":request.data['name'],"message":request.data['message'],"email":request.data['email']},
                    to_emails=['tvidhi0207@gmail.com','parthmaniyar90@gmail.com'])
         return Response(status=status.HTTP_200_OK)
+
 
 class GetUserDetailFromToken(APIView):
     def get(self,request,*args,**kwargs):
