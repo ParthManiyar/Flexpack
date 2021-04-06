@@ -20,16 +20,24 @@ class UserSerializer(serializers.ModelSerializer):
 
         if(validated_data['password'] is not None):
             validated_data['password'] = pbkdf2_sha256.hash(validated_data['password'])
-
-
-        user = User.objects.create(username=validated_data['username'], 
+        
+        if("profile_pic" not in validated_data):
+            user = User.objects.create(username=validated_data['username'], 
                                     email = validated_data['email'] ,  
                                     password = validated_data['password'],
                                     first_name=validated_data['first_name'],  
                                     last_name=validated_data['last_name'], 
                                     role=validated_data['role'],
-                                    provider = validated_data['provider'],
-                                    profile_pic = validated_data['profile_pic'])
+                                    provider = validated_data['provider'])
+        else:
+            user = User.objects.create(username=validated_data['username'], 
+                                    email = validated_data['email'] ,  
+                                    password = validated_data['password'],
+                                    first_name=validated_data['first_name'],  
+                                    last_name=validated_data['last_name'], 
+                                    role=validated_data['role'],
+                                    provider = validated_data['provider'])
+
         return user
 
 class BoxSerializer(serializers.ModelSerializer):
