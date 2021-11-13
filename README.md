@@ -1,6 +1,4 @@
 # Flexpack
-
-# Project Overview
 Our project Flexpack is an online shopping website for custom boxes. Flexpack is custom
 design lab with the live preview and it helps customer to design their box for their product
 accordingly. Our boxes can be customized with different functionality of color, shape,
